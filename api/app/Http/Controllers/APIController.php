@@ -11,10 +11,22 @@ class APIController extends BaseController
 {
     public function cron() {
         echo 'test';
-
-
     }
 
+    public function test() {
 
+        $domains = DB::table('category')
+            ->select('*')
+            ->get();
+
+            echo '<pre>';
+            print_r($domains);
+            echo '</pre>';
+
+        echo 'test';
+
+
+        
+    }
     
 }
