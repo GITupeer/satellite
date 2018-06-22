@@ -42,7 +42,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => '46.101.110.28',
-             'port' => '3306',
+             'port' => '8889',
              'database' => 'satellite',
              'username' => 'root',
              'password' => 'MySqlUpeerSatellite',
