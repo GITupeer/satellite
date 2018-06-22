@@ -16,6 +16,5 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/API/cron', 'APIController@cron');
 Route::get('/API/test', 'APIController@test');
