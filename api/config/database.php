@@ -41,7 +41,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '46.101.110.28',
+            'host' => '127.0.0.1',
              'port' => '3306',
              'database' => 'satellite',
              'username' => 'root',
