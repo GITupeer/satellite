@@ -118,7 +118,7 @@ class APIController extends BaseController
     public function satellite($title) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Header: *");
-        $satellite = DB::table('satellite_informations')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->where([['satellite_id','=',$title]])->get();
+        $satellite = DB::table('satellite_informations')->select('latitude', 'longitude', 'name', 'satellite_id')->where([['satellite_id','=',$title]])->get();
         $satellite = json_decode( $satellite, true);
 
 
