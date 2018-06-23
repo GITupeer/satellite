@@ -94,8 +94,11 @@ class APIController extends BaseController
     }
 
     public function test() {
-
-
+        $satellite2 = DB::table('satellite_log')->select('*')->where([['satellite_id','=','39133']])->get();
+        $satellite2 = json_decode( $satellite2, true);
+        echo '<pre>';
+        print_r($satellite2);
+        echo '</pre>';
         
     }
     
