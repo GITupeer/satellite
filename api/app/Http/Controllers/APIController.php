@@ -124,8 +124,15 @@ class APIController extends BaseController
 
       
         
-        $arr['status'] = 'OK';
-        $arr['data'] = $satellite;
+        
+        if (!empty($satellite[0])){
+            $arr['status'] = 'OK';
+            $arr['data'] = $satellite[0];
+        } else {
+            $arr['status'] = 'EMPTY';
+            $arr['data'] = '';
+        }
+
 
         return $arr;
 
