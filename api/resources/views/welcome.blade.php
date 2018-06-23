@@ -277,7 +277,7 @@
 
 							
 
-					$.get('http://lim.bz/upeer/satellite/api.php').done(function(data){
+					$.get('http://46.101.110.28/get_position').done(function(data){
 					var json = JSON.parse(data);
 					
 					scope.satelliteConuter = json.counter;
