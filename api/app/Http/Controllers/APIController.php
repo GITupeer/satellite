@@ -18,7 +18,7 @@ class APIController extends BaseController
 
         $category = DB::table('category')->select('*')->get();
         $category =json_encode($category, true);
-        forach($category as $row){
+        foreach($category as $row){
             $arrayCategory[$row['category_name']] = $row;
         }
 
