@@ -64,7 +64,7 @@ class APIController extends BaseController
         */
 
         foreach($array['above'] as $sattelite) {
-            $deleteOldPosition = DB::table('satellite')->where('sattelite_id', '=', $sattelite['satid'])->delete();  
+            $deleteOldPosition = DB::table('satellite')->where('satellite_id', '=', $sattelite['satid'])->delete();  
             $satelliteDB = DB::table('satellite')->insert(
                 [
                 'launchDate' => $sattelite['launchDate'],
