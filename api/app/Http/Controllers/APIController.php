@@ -128,15 +128,15 @@ class APIController extends BaseController
 
     public function get_position(){
         header("Access-Control-Allow-Origin: *");
-        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name')->get();
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->get();
         $satellite = json_decode( $satellite, true);
         $query = '';
         $count=0; 
         foreach ($satellite as $row){
             if (empty($query)) {
-                $query = '["'.$row['satellite_name'].'", '.$row['latitude'].', '.$row['longitude'].']';
+                $query = '["'.$row['satellite_name'].' |*| '.$row['satellite_id'].'", '.$row['latitude'].', '.$row['longitude'].']';
             } else {
-                $query .= ', ["'.$row['satellite_name'].'", '.$row['latitude'].', '.$row['longitude'].']';
+                $query .= ', ["'.$row['satellite_name'].' |*| '.$row['satellite_id'].'", '.$row['latitude'].', '.$row['longitude'].']';
             }
             $count++;
         }
