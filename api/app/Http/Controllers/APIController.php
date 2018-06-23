@@ -115,7 +115,7 @@ class APIController extends BaseController
     }
 
 
-    public function satellite(Request $request) {
+    public function satellite($title) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Header: *");
 
