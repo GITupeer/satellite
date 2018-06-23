@@ -31,7 +31,8 @@ class APIController extends BaseController
                     ]
                 )
                 ->update(['tle' => $tle]);
-                echo $tle;
+
+                echo 'http://www.n2yo.com/sat/gettle.php?s='.$satellite2[0]['satellite_id'].'<Br>';
 echo $tle; exit;
 
 
