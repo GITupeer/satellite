@@ -63,11 +63,23 @@ class APIController extends BaseController
                         $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';  
                         $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
                         ->update([
-                            ['Apogee' => $arr['Apogee']], 
-                            ['Perigee' => $arr['Perigee']],
-                            ['RCS' => $arr['RCS']],
-                            ['Inclination' => $arr['Inclination']],
-                            ['Semi_major_axis' => $arr['Semi_major_axis']]
+                            'Apogee' => $arr['Apogee']
+                        ]);
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                        ->update([
+                            'Perigee' => $arr['Perigee']
+                        ]);
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                        ->update([
+                            'RCS' => $arr['RCS']
+                        ]);
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                        ->update([
+                            'Inclination' => $arr['Inclination']
+                        ]);
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                        ->update([
+                            'Semi_major_axis' => $arr['Semi_major_axis']
                         ]);
                     }
                 }
