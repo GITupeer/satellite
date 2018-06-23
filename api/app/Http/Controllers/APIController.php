@@ -13,11 +13,12 @@ class APIController extends BaseController
 
     public function cron_satellite_info() {
         $satellite = DB::table('satellite')->select('*')->limit(500)->get();
-
+        $satellite = json_decode( $satellite, true);
 
         foreach($satellite as $oneSatellite){
-            $satellite = DB::table('satellite')->select('*')->where([['satellite_id','=',$$oneSatellite['satellite_id']]])->get();
-            if (!empty($satellite[0])){
+            $satellite2 = DB::table('satellite')->select('*')->where([['satellite_id','=',$$oneSatellite['satellite_id']]])->get();
+            $satellite2 = json_decode( $satellite2, true);
+            if (!empty($satellite2[0])){
 
             } else {
                 $multiOfficeAccountCreate = DB::table('satellite_information')->insert(
