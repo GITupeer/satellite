@@ -24,7 +24,7 @@ class APIController extends BaseController
                 $tle = file_get_contents('https://www.n2yo.com/sat/gettle.php?s='.$oneSatellite['satellite_id']);
                 
 
-                $newstatus = DB::table('satellie_informations')->where
+                $newstatus = DB::table('satellite_informations')->where
                 (
                     [
                         ['satellite_id','=',$satellite2[0]['satellite_id']]
@@ -47,7 +47,7 @@ echo $tle; exit;
                 // rcs
                 // ORBIT - https://www.n2yo.com/sat/widget-tracking.php?s=25544
 
-                $multiOfficeAccountCreate = DB::table('satellie_informations')->insert(
+                $multiOfficeAccountCreate = DB::table('satellite_informations')->insert(
                     [
                     'latitude' => $oneSatellite['latitude'],
                     'longitude' => $oneSatellite['longitude'],
