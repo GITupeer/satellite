@@ -278,7 +278,7 @@
 							
 
 					$.get('http://46.101.110.28/get_position').done(function(data){
-					var json = JSON.parse(data);
+					var json = data;
 					
 					scope.satelliteConuter = json.counter;
 
@@ -324,6 +324,19 @@
 									document.getElementById("leftMenu").style.transform = "translateX(-105%)";
 								}
 
+							
+
+								let data = {
+									title: this.title
+								}
+
+								this.$http.post('http://46.101.110.28/satellite', data, {
+									headers: {
+										'Content-Type': 'application/json'
+									}
+								}).then(res => {
+									console.log('TEST');
+								});
 
 								
 								
