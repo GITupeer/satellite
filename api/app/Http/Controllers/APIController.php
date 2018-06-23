@@ -121,7 +121,7 @@ class APIController extends BaseController
           
           echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K") . " Kilometers<br>";
 
-            $km = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K") . " Kilometers<br>";
+            $km = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K");
 
           $czas = strtotime($satellite2[0]['timestamp']) - strtotime($satellite2[1]['timestamp']);
           $speed = $km/$czas;
