@@ -19,3 +19,4 @@ Route::get('/', function () {
 Route::get('/API/cron', 'APIController@cron');
 Route::get('/API/cron_satellite_info', 'APIController@cron_satellite_info');
 Route::get('/API/test', 'APIController@test');
+Route::get('/get_position', 'APIController@get_position');

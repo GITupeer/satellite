@@ -87,18 +87,6 @@ class APIController extends BaseController
 
 
             } else {
-                //$Peroid =     1440/{czas obiegu ziemi};
-                // tle =>       API
-                // speed =>
-                // Perigee -> https://www.n2yo.com/sat/widget-tracking.php?s=25544
-                // Apogee -> https://www.n2yo.com/sat/widget-tracking.php?s=25544
-                // elevation => API
-                // category    => API
-                // category_id  => ODCZYT Z BAZY GDY API ZWOCI ID nazwa
-                // azimuth =>   API
-                // rcs
-                // ORBIT - https://www.n2yo.com/sat/widget-tracking.php?s=25544
-
                 $multiOfficeAccountCreate = DB::table('satellite_informations')->insert(
                     [
                     'latitude' => $oneSatellite['latitude'],
@@ -123,6 +111,33 @@ class APIController extends BaseController
 
 
 
+
+    }
+
+
+    public function get_position(){
+
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name')->get();
+        $satellite = json_decode( $satellite, true);
+        $query = '';
+        $count=0; 
+        foreach ($satellite as $row){
+            if (empty($query)) {
+                $query = '["'.$row['satellite_name'].'", '.$row['latitude'].', '.$row['longitude'].']';
+            } else {
+                $query .= ', ["'.$row['satellite_name'].'", '.$row['latitude'].', '.$row['longitude'].']';
+            }
+            $count++;
+        }
+
+     
+        
+            $arr['data'] = $query;
+            $arr['status'] = 'OK';
+            $arr['counter'] = $count;
+            $arr['information'] = "se of this API requires the author's consent.";
+            
+            echo json_encode($arr, true);
 
     }
 
