@@ -17,7 +17,7 @@ class APIController extends BaseController
 
         foreach($satellite as $oneSatellite){
             $satellite = DB::table('satellite')->select('*')->where([['satellite_id','=',$$oneSatellite['satellite_id']]])->get();
-            if (!empty($satellite[0)){
+            if (!empty($satellite[0])){
 
             } else {
                 $multiOfficeAccountCreate = DB::table('satellite_information')->insert(
