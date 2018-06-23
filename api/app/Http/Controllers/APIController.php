@@ -21,7 +21,7 @@ class APIController extends BaseController
 
             if (!empty($satellite2[0])){
 
-                $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$oneSatellite['satellite_id']);
+                $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$oneSatellite[0]['satellite_id']);
                 
 
                 $newstatus = DB::table('satellite_informations')->where
