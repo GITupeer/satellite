@@ -325,8 +325,9 @@
 								}
 
 							
-
-								$.get('http://46.101.110.28/satellite/1').done(function(data){ 
+								var str = this.title;
+								var res = str.split(" |*| ");
+								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
 									console.log(data);
 								});
 						
