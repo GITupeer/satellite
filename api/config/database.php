@@ -33,25 +33,19 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-        ],
-
+      
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '127.0.0.1',
+            'host' => 'localhost',
              'port' => '3306',
              'database' => 'satellite',
              'username' => 'root',
              'password' => 'MySqlUpeerSatellite',
-             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-             'collation' => 'utf8mb4_unicode_ci',
-             'prefix' => '',
-             'strict' => false,
-             'engine' => null,
+             'charset'   => 'utf8',
+             'collation' => 'utf8_unicode_ci',
+             'prefix'    => '',
+             'strict'    => false,
+             'engine'    => null,
          ],
 
         
