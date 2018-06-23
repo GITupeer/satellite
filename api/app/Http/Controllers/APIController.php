@@ -18,7 +18,7 @@ class APIController extends BaseController
         foreach($satellite as $oneSatellite){
             $satellite2 = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$oneSatellite['satellite_id']]])->get();
             $satellite2 = json_decode( $satellite2, true);
-            print_r($satellite2[0]);
+
             if (!empty($satellite2[0])){
 
             } else {
