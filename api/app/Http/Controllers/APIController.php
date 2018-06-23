@@ -12,7 +12,7 @@ class APIController extends BaseController
 
 
     public function cron_satellite_info() {
-        $satellite = DB::table('satellite')->select('*')->limit(500)->get();
+        $satellite = DB::table('satellite')->select('*')->get();
         $satellite = json_decode( $satellite, true);
 
         foreach($satellite as $oneSatellite){
