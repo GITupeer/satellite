@@ -122,6 +122,8 @@ class APIController extends BaseController
           echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "N") . " Nautical Miles<br>";
 
 
+          $czas = strtotime($satellite2[2]['timestamp']) - strtotime($satellite2[0]['timestamp']);
+echo  '<br>'.$czas;
 
         
     }
