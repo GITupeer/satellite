@@ -331,8 +331,8 @@
 								{
 									title: this.title
 								},
-								function(data, status){
-									alert("Data: " + data + "\nStatus: " + status);
+								function(data){
+									alert("Data: " + data);
 								});
 															
 								
