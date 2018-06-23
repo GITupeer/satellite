@@ -38,13 +38,6 @@ class APIController extends BaseController
                 'satellite_category_id' => 0,
                 ]
             );
-
-
-            mysql_query("INSERT INTO `upeer_sat`.`satellite` 
-            (`id`, `launchDate`, `intDesignator`, `latitude`, `longitude`, `satalt`, `satellite_name`, `sattelite_category`, `sattelite_id`, `satellite_category_id`) 
-            VALUES 
-            (NULL, '".$sattelite['launchDate']."', '".$sattelite['intDesignator']."', '".$sattelite['satlat']."', '".$sattelite['satlng']."', '".$sattelite['satalt']."', 
-            '".$sattelite['satname']."', '".$array['category']."', '".$sattelite['satid']."', '".$arrayCategory[$array['category']]['category_id']."');");
         }
             
 
