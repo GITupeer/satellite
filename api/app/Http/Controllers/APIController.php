@@ -33,7 +33,7 @@ class APIController extends BaseController
                 'longitude' => $sattelite['satlng'],
                 'satalt' => $sattelite['satalt'],
                 'satellite_name' => $sattelite['satname'],
-                'sattelite_category' => $array['category'],
+                'sattelite_category' => 'ANY',
                 'sattelite_id' => $sattelite['satid'],
                 'satellite_category_id' => 0,
                 ]
