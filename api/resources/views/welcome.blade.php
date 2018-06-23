@@ -140,6 +140,11 @@
 
 			},
 			mounted: function(){
+
+
+
+
+
 				var scope = this;
 				map = new google.maps.Map(document.getElementById('map'), {
 							zoom: 2,
