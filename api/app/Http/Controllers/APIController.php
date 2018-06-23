@@ -94,11 +94,35 @@ class APIController extends BaseController
     }
 
     public function test() {
-        $satellite2 = DB::table('satellite_log')->select('*')->where([['satellite_id','=','39133']])->get();
+        $satellite2 = DB::table('satellite_log')->select('*')->where([['satellite_id','=','39133']])->limit(2)->get();
         $satellite2 = json_decode( $satellite2, true);
-        echo '<pre>';
-        print_r($satellite2);
-        echo '</pre>';
+
+
+
+        function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $unit = strtoupper($unit);
+          
+            if ($unit == "K") {
+              return ($miles * 1.609344);
+            } else if ($unit == "N") {
+                return ($miles * 0.8684);
+              } else {
+                  return $miles;
+                }
+          }
+          
+          echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "M") . " Miles<br>";
+          echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K") . " Kilometers<br>";
+          echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "N") . " Nautical Miles<br>";
+
+
+
         
     }
     
