@@ -132,6 +132,7 @@ class APIController extends BaseController
             $arr['status'] = 'EMPTY';
             $arr['data'] = '';
         }
+        $arr['information'] = "Use of this API requires the author's consent.";
 
 
         return $arr;
@@ -159,7 +160,7 @@ class APIController extends BaseController
             $arr['data'] = $query;
             $arr['status'] = 'OK';
             $arr['counter'] = $count;
-            $arr['information'] = "se of this API requires the author's consent.";
+            $arr['information'] = "Use of this API requires the author's consent.";
             
            return $arr;
 
