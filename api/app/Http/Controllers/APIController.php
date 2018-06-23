@@ -65,7 +65,7 @@ class APIController extends BaseController
 
         foreach($array['above'] as $sattelite) {
             $deleteOldPosition = DB::table('satellite')->where('sattelite_id', '=', $sattelite['satid'])->delete();  
-            $multiOfficeAccountCreate = DB::table('satellite')->insert(
+            $satelliteDB = DB::table('satellite')->insert(
                 [
                 'launchDate' => $sattelite['launchDate'],
                 'intDesignator' => $sattelite['intDesignator'],
@@ -78,6 +78,16 @@ class APIController extends BaseController
                 'satellite_category_id' => 0,
                 ]
             );
+
+
+            $satelliteLogDB = DB::table('satellite_log')->insert(
+                [
+                'latitude' => $sattelite['satlat'],
+                'longitude' => $sattelite['satlng'],
+                'satellite_id' => $sattelite['satid']
+                ]
+            );
+
         }
             
 
