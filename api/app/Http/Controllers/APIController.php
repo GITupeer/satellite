@@ -16,12 +16,12 @@ class APIController extends BaseController
 
 
 
-        $category = DB::table('category')->select('*')->get();
+        /*$category = DB::table('category')->select('*')->get();
         $category =json_encode($category, true);
         foreach($category as $row){
             $arrayCategory[$row['category_name']] = $row;
         }
-
+        */
 
         foreach($array['above'] as $sattelite) {
             $deleteOldPosition = DB::table('satellite')->where('sattelite_id', '=', $sattelite['satid'])->delete();  
