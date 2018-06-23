@@ -21,18 +21,52 @@ class APIController extends BaseController
 
             if (!empty($satellite2[0])){
 
-                $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$satellite2[0]['satellite_id']);
-                
 
-                $newstatus = DB::table('satellite_informations')->where
-                (
-                    [
-                        ['satellite_id','=',$satellite2[0]['satellite_id']]
-                    ]
-                )
-                ->update(['tle' => $tle]);
-
-                echo 'http://www.n2yo.com/sat/gettle.php?s='.$satellite2[0]['satellite_id'].'<Br>';
+                if ($satellite2[0]['tle'] == ''){
+                    $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$satellite2[0]['satellite_id']);
+                    $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                     ->update(['tle' => $tle]);
+                }
+                if ($satellite2[0]['Apogee'] == ''){
+                    $ch = curl_init('http://www.n2yo.com/satellite/?s='.$satellite2[0]['satellite_id']); //inicjacja curla
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    $jakasZmienna2 = curl_exec($ch);
+                    curl_close($ch); 
+                    $jakasZmienna = iconv("iso-8859-2", "utf-8", $jakasZmienna2);
+                    $one = array("<", ">");
+                    $two   = array("&lt;", "&gt;");
+                    $newphrase = str_replace($one, $two, $jakasZmienna);
+            
+            
+                    $Apogee = explode('Apogee',$newphrase); 
+                    $Apogee2 = explode(' ',$Apogee[1]); 
+                    $arr['Apogee'] = $Apogee2[1].' km';
+            
+                    $Perigee = explode('Perigee',$newphrase); 
+                    $Perigee2 = explode(' ',$Perigee[1]); 
+                    $arr['Perigee'] = $Perigee2[1].' km';
+            
+                    $RCS = explode('RCS',$newphrase); 
+                    $RCS2 = explode(' ',$RCS[1]); 
+                    $arr['RCS'] = $RCS2[1];  
+                    
+                    
+                    $Inclination = explode('Inclination',$newphrase); 
+                    $Inclination2 = explode(' ',$Inclination[1]); 
+                    $arr['Inclination'] = $Inclination2[1].' °';  
+                    
+                    $Semi_major_axis = explode('Semi major axis',$newphrase); 
+                    $Semi_major_axis2 = explode(' ',$Semi_major_axis[1]); 
+                    $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';  
+                    $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                     ->update([
+                         ['Apogee' => $arr['Apogee']], 
+                         ['Perigee' => $arr['Perigee']]
+                         ['RCS' => $arr['RCS']]
+                         ['Inclination' => $arr['Inclination']]
+                         ['Semi_major_axis' => $arr['Semi_major_axis']]
+                    ]); exit;
+                }
 
 
 
@@ -121,43 +155,43 @@ class APIController extends BaseController
     }
 
     public function test() {
-        $satellite2 = DB::table('satellite_log')->select('*')->where([['satellite_id','=','25544']])->orderBy('id', 'desc')->limit(2)->get();
-        $satellite2 = json_decode( $satellite2, true);
+       $ch = curl_init('http://www.n2yo.com/satellite/?s=41764'); //inicjacja curla
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+       $jakasZmienna2 = curl_exec($ch);
+       curl_close($ch); 
+       $jakasZmienna = iconv("iso-8859-2", "utf-8", $jakasZmienna2);
+       $one = array("<", ">");
+       $two   = array("&lt;", "&gt;");
+       $newphrase = str_replace($one, $two, $jakasZmienna);
+
+
+        $Apogee = explode('Apogee',$newphrase); 
+        $Apogee2 = explode(' ',$Apogee[1]); 
+        $arr['Apogee'] = $Apogee2[1].' km';
+
+        $Perigee = explode('Perigee',$newphrase); 
+        $Perigee2 = explode(' ',$Perigee[1]); 
+        $arr['Perigee'] = $Perigee2[1].' km';
+
+        $RCS = explode('RCS',$newphrase); 
+        $RCS2 = explode(' ',$RCS[1]); 
+        $arr['RCS'] = $RCS2[1];  
+        
+        
+        $Inclination = explode('Inclination',$newphrase); 
+        $Inclination2 = explode(' ',$Inclination[1]); 
+        $arr['Inclination'] = $Inclination2[1].' °';  
+        
+        $Semi_major_axis = explode('Semi major axis',$newphrase); 
+        $Semi_major_axis2 = explode(' ',$Semi_major_axis[1]); 
+        $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';         
+
+
+
         echo '<pre>';
-        print_r($satellite2);
+        print_r($arr);
         echo '</pre>';
 
-
-        function distance($lat1, $lon1, $lat2, $lon2, $unit) {
-
-            $theta = $lon1 - $lon2;
-            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-            $dist = acos($dist);
-            $dist = rad2deg($dist);
-            $miles = $dist * 60 * 1.1515;
-            $unit = strtoupper($unit);
-          
-            if ($unit == "K") {
-              return ($miles * 1.609344);
-            } else if ($unit == "N") {
-                return ($miles * 0.8684);
-              } else {
-                  return $miles;
-                }
-          }
-          
-          echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K") . " Kilometers<br>";
-          ECHO distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "M"). " Miles<br>";
-            $km = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K");
-            $mil = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "M");
-
-          $czas = strtotime($satellite2[0]['timestamp']) - strtotime($satellite2[1]['timestamp']);
-          $speed = $km/$czas;
-          $speed2 = $mil/$czas;
-echo  '<br>Spped km/s:'.$speed;
-echo  '<br>Spped mil/s:'.$speed2;
-
-        
     }
     
 }
