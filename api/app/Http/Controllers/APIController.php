@@ -120,12 +120,15 @@ class APIController extends BaseController
           }
           
           echo distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K") . " Kilometers<br>";
-
+          ECHO distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "M"). " Miles<br>";
             $km = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "K");
+            $mil = distance($satellite2[0]['latitude'], $satellite2[0]['longitude'], $satellite2[1]['latitude'], $satellite2[1]['longitude'], "M");
 
           $czas = strtotime($satellite2[0]['timestamp']) - strtotime($satellite2[1]['timestamp']);
           $speed = $km/$czas;
-echo  '<br>'.$speed;
+          $speed2 = $mil/$czas;
+echo  '<br>Spped km/s:'.$speed;
+echo  '<br>Spped mil/s:'.$speed2;
 
         
     }
