@@ -137,7 +137,7 @@ class APIController extends BaseController
             $arr['counter'] = $count;
             $arr['information'] = "se of this API requires the author's consent.";
             
-            echo json_encode($arr, true);
+           return $arr;
 
     }
 
