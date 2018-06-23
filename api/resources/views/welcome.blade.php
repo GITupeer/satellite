@@ -326,19 +326,15 @@
 
 							
 
-								let data = {
+
+							$.post("http://46.101.110.28/satellite",
+								{
 									title: this.title
-								}
-
-								this.$http.post('http://46.101.110.28/satellite', data, {
-									headers: {
-										'Content-Type': 'application/json'
-									}
-								}).then(res => {
-									console.log('TEST');
+								},
+								function(data, status){
+									alert("Data: " + data + "\nStatus: " + status);
 								});
-
-								
+															
 								
 								/*var flightPlanCoordinates = [
 								{lat: 37.772, lng: -122.214},
