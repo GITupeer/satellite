@@ -39,33 +39,37 @@ class APIController extends BaseController
             
             
                     $Apogee = explode('Apogee',$newphrase); 
-                    $Apogee2 = explode(' ',$Apogee[1]); 
-                    $arr['Apogee'] = $Apogee2[1].' km';
-            
-                    $Perigee = explode('Perigee',$newphrase); 
-                    $Perigee2 = explode(' ',$Perigee[1]); 
-                    $arr['Perigee'] = $Perigee2[1].' km';
-            
-                    $RCS = explode('RCS',$newphrase); 
-                    $RCS2 = explode(' ',$RCS[1]); 
-                    $arr['RCS'] = $RCS2[1];  
-                    
-                    
-                    $Inclination = explode('Inclination',$newphrase); 
-                    $Inclination2 = explode(' ',$Inclination[1]); 
-                    $arr['Inclination'] = $Inclination2[1].' °';  
-                    
-                    $Semi_major_axis = explode('Semi major axis',$newphrase); 
-                    $Semi_major_axis2 = explode(' ',$Semi_major_axis[1]); 
-                    $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';  
-                    $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
-                     ->update([
-                         ['Apogee' => $arr['Apogee']], 
-                         ['Perigee' => $arr['Perigee']],
-                         ['RCS' => $arr['RCS']],
-                         ['Inclination' => $arr['Inclination']],
-                         ['Semi_major_axis' => $arr['Semi_major_axis']]
-                    ]); exit;
+
+
+                    if (!empty($Apogee[1])){ 
+                        $Apogee2 = explode(' ',$Apogee[1]); 
+                        $arr['Apogee'] = $Apogee2[1].' km';
+                
+                        $Perigee = explode('Perigee',$newphrase); 
+                        $Perigee2 = explode(' ',$Perigee[1]); 
+                        $arr['Perigee'] = $Perigee2[1].' km';
+                
+                        $RCS = explode('RCS',$newphrase); 
+                        $RCS2 = explode(' ',$RCS[1]); 
+                        $arr['RCS'] = $RCS2[1];  
+                        
+                        
+                        $Inclination = explode('Inclination',$newphrase); 
+                        $Inclination2 = explode(' ',$Inclination[1]); 
+                        $arr['Inclination'] = $Inclination2[1].' °';  
+                        
+                        $Semi_major_axis = explode('Semi major axis',$newphrase); 
+                        $Semi_major_axis2 = explode(' ',$Semi_major_axis[1]); 
+                        $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';  
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
+                        ->update([
+                            ['Apogee' => $arr['Apogee']], 
+                            ['Perigee' => $arr['Perigee']],
+                            ['RCS' => $arr['RCS']],
+                            ['Inclination' => $arr['Inclination']],
+                            ['Semi_major_axis' => $arr['Semi_major_axis']]
+                        ]);
+                    }
                 }
 
 
