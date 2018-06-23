@@ -21,8 +21,33 @@ class APIController extends BaseController
 
             if (!empty($satellite2[0])){
 
+                $tle = file_get_contents('https://www.n2yo.com/sat/gettle.php?s='.$oneSatellite['satellite_id']);
+                
+
+                $newstatus = DB::table('satellie_informations')->where
+                (
+                    [
+                        ['satellite_id','=',$satellite2[0]['satellite_id']]
+                    ]
+                )
+                ->update(['tle' => $tle]);
+echo $tle; exit;
+
+
             } else {
-                $multiOfficeAccountCreate = DB::table('satellite_informations')->insert(
+                //$Peroid =     1440/{czas obiegu ziemi};
+                // tle =>       API
+                // speed =>
+                // Perigee -> https://www.n2yo.com/sat/widget-tracking.php?s=25544
+                // Apogee -> https://www.n2yo.com/sat/widget-tracking.php?s=25544
+                // elevation => API
+                // category    => API
+                // category_id  => ODCZYT Z BAZY GDY API ZWOCI ID nazwa
+                // azimuth =>   API
+                // rcs
+                // ORBIT - https://www.n2yo.com/sat/widget-tracking.php?s=25544
+
+                $multiOfficeAccountCreate = DB::table('satellie_informations')->insert(
                     [
                     'latitude' => $oneSatellite['latitude'],
                     'longitude' => $oneSatellite['longitude'],

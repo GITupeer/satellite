@@ -142,6 +142,26 @@
 			mounted: function(){
 
 
+				
+			function getSpeed(x1, dx, dy, h)
+			{
+					// calculate speed, as it is not computed correctly on the server
+					var dlat=dx*Math.PI/180;
+					var dlon=dy*Math.PI/180;
+					var lat1=x1*Math.PI/180;
+					var lat2=(x1+dx)*Math.PI/180;
+					var a = Math.sin(dlat/2) * Math.sin(dlat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dlon/2) * Math.sin(dlon/2); 
+					var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+					var speed = (h + 6378.135) * c;
+					speed = Math.sqrt(398600.8 / (h + 6378.135));
+					return speed;
+			}
+
+
+
+
+
+
 
 
 
