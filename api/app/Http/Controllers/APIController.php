@@ -61,9 +61,9 @@ class APIController extends BaseController
                     $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite2[0]['satellite_id']]])
                      ->update([
                          ['Apogee' => $arr['Apogee']], 
-                         ['Perigee' => $arr['Perigee']]
-                         ['RCS' => $arr['RCS']]
-                         ['Inclination' => $arr['Inclination']]
+                         ['Perigee' => $arr['Perigee']],
+                         ['RCS' => $arr['RCS']],
+                         ['Inclination' => $arr['Inclination']],
                          ['Semi_major_axis' => $arr['Semi_major_axis']]
                     ]); exit;
                 }
