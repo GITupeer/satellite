@@ -36,7 +36,7 @@ class APIController extends BaseController
                     'category' => '',
                     'name' => $oneSatellite['satellite_name'],
                     'category_id' => '',
-                    'satellite_id' => '',
+                    'satellite_id' => $oneSatellite['satellite_id'],
                     ]
                 );
             }
@@ -73,7 +73,7 @@ class APIController extends BaseController
                 'satalt' => $sattelite['satalt'],
                 'satellite_name' => $sattelite['satname'],
                 'sattelite_category' => 'ANY',
-                'sattelite_id' => $sattelite['satid'],
+                'satellite_id' => $sattelite['satid'],
                 'satellite_category_id' => 0,
                 ]
             );
