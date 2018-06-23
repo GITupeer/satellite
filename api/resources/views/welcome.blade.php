@@ -326,14 +326,10 @@
 
 							
 
-
-							$.post("http://46.101.110.28/satellite",
-								{
-									title: this.title
-								},
-								function(data){
-									alert("Data: " + data);
+								$.get('http://46.101.110.28/satellite/1').done(function(data){ 
+									console.log(data);
 								});
+						
 															
 								
 								/*var flightPlanCoordinates = [
