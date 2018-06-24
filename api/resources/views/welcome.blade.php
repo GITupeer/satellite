@@ -558,23 +558,37 @@
 					var array = JSON.parse("[" + dataGeo + "]");
 					var beaches = array;
 					var image = {
-					url: 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Maps-Satellite-icon.png',
+					url: 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Maps-Satellite-Sending-Signal-icon.png',
 					size: new google.maps.Size(24, 24),
 					origin: new google.maps.Point(0, 0),
 					anchor: new google.maps.Point(0, 32)
 					};
+
+					var image_ISS = {
+					url: 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png',
+					size: new google.maps.Size(24, 24),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(0, 32)
+					};
+
 					var shape = {
 						coords: [1, 1, 1, 20, 18, 20, 18, 1],
 						type: 'poly'
 					};
 					var infowindow = new google.maps.InfoWindow();
 					var Markers = {};
+					var imageChoose;
 					for (var i = 0; i < beaches.length; i++) {
 						var beach = beaches[i];
+						if (beach[0] == 'SPACE STATION |*| 25544') {
+							imageChoose = image_ISS;
+						} else {
+							imageChoose = image;
+						}
 						marker = new google.maps.Marker({
 							position: {lat: beach[1], lng: beach[2]},
 							map : map,
-							icon: image,
+							icon: imageChoose,
 							shape: shape,
 							title: beach[0],
 							zIndex: beach[3]
