@@ -34,12 +34,120 @@
     margin-top: 77px;
     margin-left: -10px;
     transform: translateX(-105%);
-    transition: transform 0.7s;
+    transition: transform 0.5s;
     /* right: 0; */
-    color: white
-    padding-top:  30px
-    font-size: 11px
+    color: white;
+    padding-top:  30px;
+    font-size: 11px;
     /* background: linear-gradient(141deg, #02183a 0%, #042559 51%, #07347a 75%); */
-    margin-top: 48px
+    margin-top: 48px;
     box-shadow: 0 14px 8px 0 rgba(0,0,0,0.2), 0 16px 50px 0 rgba(0,0,0,0.19);
+  }
+
+
+  .table_icon {
+    width: 30px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+    background-color: #E0E0E0; 
+    text-align: center;  
+  }
+
+  .table_name {
+    width: 49%; 
+    background-color: #E0E0E0; 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 11px; 
+    font-weight: bold; 
+    text-align: left;
+  }
+
+  .table_value {
+    width: 49%; 
+    background-color: #E0E0E0; 
+    padding: 5px; 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 11px;
+    text-align: center;
+  }
+
+
+
+
+  .table_main_info {
+    width: 93%; 
+    color: #333; 
+    margin-left: 15px;
+    margin-bottom: 10px;
+
+  }
+
+  .table_main_header {
+    width: 49%; 
+    background-color: #2e5ca5;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; 
+    padding-top: 1px; 
+    padding-bottom: 0px; 
+    font-weight: bold; 
+    text-align: center;
+    color: white;
+    padding-left: 7px;
+  }
+
+  .table_main_colName {
+    width: 49%; 
+    background-color: #E0E0E0; 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 11px; 
+    font-weight: bold;
+    text-align: left;
+    padding-left: 9px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .table_main_colValue {
+    width: 49%; 
+    background-color: #E0E0E0; 
+    padding: 5px; 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 11px; 
+    text-align: center;
+  }
+
+  .font20 {
+    font-size: 20px;
+  }
+
+
+
+  .info_Name {
+    color: #6d6d6d;
+    font-size: 10px;
+  }
+
+  .info_Value {
+    font-family: 'Montserrat', sans-serif;
+    color: #393939;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+
+
+  .info_SatelliteName {
+    background-color: #222121;
+    margin: -1px;
+    padding: 15px; 
+    padding-left: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFD740;
+    font-size: 15px;
+  }
+
+  .info_SatelliteCategory {
+    font-size: 10px; 
+    margin-top: 2px; 
+    color: white;
   }

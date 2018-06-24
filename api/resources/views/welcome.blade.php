@@ -5,6 +5,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Satellite Radar</title>
@@ -23,7 +24,7 @@
 					</td>
 					<td>
 						<div style="">Satellite Radar</div>
-						<div style="font-size:  10px;">Check position satellite in real time</div>
+						<div style="font-size:  10px;">Check position satellite in Real-Time</div>
 					</td>
 					<td style="padding-left: 25px;">
 						<input type="text" name="search" placeholder="Search setallite..." style="border-radius: 4px;padding: 7px;font-size: 10px;width: 200px;">
@@ -49,69 +50,212 @@
 				   
 				 
 	<div class="leftMenu" id="leftMenu">
-		<div style="    width: 241px;    margin-top: -21px;    background-image: url(https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprod%2Fweb%2Fbin%2Ffe7fba9c-0298-11e8-a2b0-4e5c7848ab02.jpg?crop=5905%2C3321%2C148%2C576&amp;resize=685);height: 132px;    background-size: contain;    padding-top:  10px;    padding-left:  10px;    font-family: 'Roboto', sans-serif;font-size: 9px;">
+		<div style="width: 241px;    margin-top: -21px;    background-image: url(https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprod%2Fweb%2Fbin%2Ffe7fba9c-0298-11e8-a2b0-4e5c7848ab02.jpg?crop=5905%2C3321%2C148%2C576&amp;resize=685);height: 132px;    background-size: contain;    padding-top:  10px;    padding-left:  10px;    font-family: 'Roboto', sans-serif;font-size: 9px;">
 			@thetimes.co.uk 
 		</div>
-		<div style="background-color: #222121;margin: -1px;padding: 15px; padding-left: 20px;font-family: 'Roboto', sans-serif;color: #FFD740;font-size: 15px;">
-			Space Station
-			<div style="font-size: 10px; margin-top: 2px; color: white;"> ISS SATELLITES </div>
+		<div class="info_SatelliteName">
+			@{{satelliteInformations.name}}
+			<div class="info_SatelliteCategory"> 
+				<span v-if="satelliteInformations.category">@{{satelliteInformations.category}}</span><span v-else> n/o </span>
+			</div>
 		</div>
 		<div style="margin-top: 8px; width: 100%; text-align: center;">
-			<table border="0" style="width: 97%; margin: 4px; color: #333;">
+
+
+
+
+			<table border="0" class="table_main_info">
 				<tr>
-					<td  colspan="2" style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 12px; padding-top: 2px; padding-bottom: 2px; font-weight: bold; text-align: center;">
-						<center><table border="0"><tr><td><i class="material-icons"> info </i></td><td>Global Informations</td></tr></table></center>
+					<td  colspan="2" class="table_main_header">
+						<table border="0"><tr><td><i class="material-icons" style="font-size: 21px;"> info </i></td><td>Global Informations</td></tr></table>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Launch Date
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.launch_date">@{{satelliteInformations.launch_date}}</span><span v-else> n/o </span>
+						</div>
+					</td>
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Day on orbit
+						</div>
+						<div class="info_Value">
+						<span v-if="satelliteInformations.launch_date_day">@{{satelliteInformations.launch_date_day}}</span><span v-else> n/o </span>
+						</div>
+					</td>
+				</tr>
+
+
+			</table>
+
+
+
+
+			<table border="0" class="table_main_info">
+				<tr>
+					<td  colspan="2" class="table_main_header">
+						<table border="0"><tr><td><i class="material-icons" style="font-size: 21px;"> gps_fixed </i></td><td>Satellite Position</td></tr></table>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: bold; text-align: center;">
-						LUNCH DATE
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Latitude
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.latitude">@{{satelliteInformations.latitude}}</span><span v-else> n/o </span>
+						</div>
 					</td>
-					<td style="width: 49%; background-color: #E0E0E0; padding: 5px; font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: bold; text-align: center;">
-						DAY ON ORBIT
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Longitude
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.longitude">@{{satelliteInformations.longitude}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
-					<tr>
-					<td style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 10px;  text-align: center;">
-						20 July 2017
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Altitude
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.altitude">@{{satelliteInformations.altitude}}</span><span v-else> n/o </span>
+						</div>
 					</td>
-					<td style="width: 49%; background-color: #E0E0E0; padding: 5px; font-family: 'Roboto', sans-serif; font-size: 10px; text-align: center;">
-						375 days
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Satellite Speed
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.speed">@{{satelliteInformations.speed}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
 			</table>
 
-			<table border="0" style="width: 97%; margin: 4px; color: #333; margin-top: 10px;">
+
+
+			<table border="0" class="table_main_info">
 				<tr>
-					<td  colspan="2" style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 12px; padding-top: 2px; padding-bottom: 2px; font-weight: bold; text-align: center;">
-						<center><table border="0"><tr><td><i class="material-icons"> gps_fixed </i></td><td>Satellite position</td></tr></table></center>
+					<td  colspan="2" class="table_main_header">
+						<table border="0"><tr><td><i class="material-icons" style="font-size: 21px;"> not_listed_location </i></td><td>Satellite Informations</td></tr></table>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Satellite area
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.RCS">@{{satelliteInformations.RCS}} <span v-if="satelliteInformations.RCS != 'Unknown'">m<sup>2</sup></span></span><span v-else> n/o </span>
+						</div>
+					</td>
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Inclination
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.Inclination">@{{satelliteInformations.Inclination}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: bold; text-align: center;">
-						Longitude
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Apogee
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.Apogee">@{{satelliteInformations.Apogee}}</span><span v-else> n/o </span>
+						</div>
 					</td>
-					<td style="width: 49%; background-color: #E0E0E0; padding: 5px; font-family: 'Roboto', sans-serif; font-size: 11px; text-align: center;">
-						40,2123
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Perigee
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.Perigee">@{{satelliteInformations.Perigee}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: bold; text-align: center;">
-						Latitude
+					<td class="table_main_colName">
+						<div class="info_Name">
+							Semi major axis
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.Semi_major_axis">@{{satelliteInformations.Semi_major_axis}}</span><span v-else> n/o </span>
+						</div>
 					</td>
-					<td style="width: 49%; background-color: #E0E0E0; padding: 5px; font-family: 'Roboto', sans-serif; font-size: 11px; text-align: center;">
-						-23,2342
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Azimuth
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.azimuth">@{{satelliteInformations.azimuth}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
-					<tr>
-					<td style="width: 49%; background-color: #E0E0E0; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: bold; text-align: center;">
-						Altitude
+
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Elevation
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.elevation">@{{satelliteInformations.elevation}}</span><span v-else> n/o </span>
+						</div>
 					</td>
-					<td style="width: 49%; background-color: #E0E0E0; padding: 5px; font-family: 'Roboto', sans-serif; font-size: 11px; text-align: center;">
-						26542,02 km
+					<td class="table_main_colName">
+						<div class="info_Name">
+							NORAD ID
+						</div>
+						<div class="info_Value">
+						<span v-if="satelliteInformations.satellite_id">@{{satelliteInformations.satellite_id}}</span><span v-else> n/o </span>
+						</div>
 					</td>
 				</tr>
-			</table>
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Int'l Code
+						</div>
+						<div class="info_Value">
+							n/o (add)
+						</div>
+					</td>
+					<td class="table_main_colName">
+						<div class="info_Name">
+							
+						</div>
+						<div class="info_Value">
+
+						</div>
+					</td>
+				</tr>
+
+			</table>	
+
+
+			<div style="border-color: transparent;
+    background-color: #0ca6ff;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#24afff),to(#0b95e6));
+    background-image: linear-gradient(180deg,#24afff,#0b95e6);
+    color: #fff;
+    background-image: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: progress;"></div>		
+
+
 		</div>
 	</div>
 </div>
@@ -125,11 +269,30 @@
 		var app = new Vue({
 			el: '#app',
 			data: {
-			satelliteConuter: 0,
-			marker: [],
-			map: [],
-			actualMarker: [],
-			map: ''
+				satelliteConuter: 0,
+				marker: [],
+				map: [],
+				actualMarker: [],
+				map: '',
+				satelliteInformations: {
+					launch_date: '',
+					Apogee: '',
+					Inclination: '',
+					Perigee: '',
+					RCS: '',
+					Semi_major_axis: '',
+					altitude: '',
+					azimuth: '',
+					category: 'ISS Station',
+					elevation: '',
+					latitude: '',
+					launch_date_day: '',
+					longitude: '',
+					name: '',
+					satellite_id: '',
+					speed: '',
+					launch_date_day: ''
+				}
 			}, 
 			methods: {
 			
@@ -313,7 +476,8 @@
 							zIndex: beach[3]
 						});
 						actualMarker = beach[0];
-						
+					
+
 						
 							google.maps.event.addListener(marker, "click", function (event) {
 								var styleVal = document.getElementById("leftMenu").style.transform
@@ -322,13 +486,19 @@
 									document.getElementById("leftMenu").style.transform = "translateX(0)";	
 								} else {
 									document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+									setTimeout(function(){ 
+									 	document.getElementById("leftMenu").style.transform = "translateX(0)";
+									}, 700);
+										
 								}
 
 							
 								var str = this.title;
 								var res = str.split(" |*| ");
 								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
-									console.log(data);
+									console.log(data.data.launch_date);
+									scope.satelliteInformations = data.data;
+									console.log(scope.satelliteInformations);
 								});
 						
 															
