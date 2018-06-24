@@ -12,7 +12,40 @@
   </head>
   <body> 
   
-
+  <style>
+        
+       
+         /*style the box*/  
+         .gm-style .gm-style-iw {
+            display: block !important;
+         }    
+     
+         /*style the p tag*/
+         .gm-style .gm-style-iw #google-popup p{
+         }
+         
+     
+        /*style the arrow*/
+        .gm-style div div div div div div div div {
+            color: #212121;
+            font-size: 11px;
+			font-weight: bold;
+		
+        }
+        
+        /*style the link*/
+        .gm-style div div div div div div div div a {
+			opacity: 0.7;
+			width: 20px;
+			height: 20px;
+        }
+		.gm-style div div div div div div img {
+			display: none;
+			width: 0px;
+   	 		height: 0px;
+        }
+              
+      </style>
 <div id="app">
 
 	<div class="topMenu" id="topMenu">
@@ -23,7 +56,7 @@
 						<img src="https://image.ibb.co/jq7P4o/Maps_Satellites_icon.png" style="width: 41px; height: 41px;">
 					</td>
 					<td>
-						<div style="">Satellite Radar</div>
+						<div style="">Satellite Radar | Sky-Space.cloud</div>
 						<div style="font-size:  10px;">Check position satellite in Real-Time</div>
 					</td>
 					<td style="padding-left: 25px;">
@@ -32,25 +65,103 @@
 				</tr>
 			</tbody>
 		</table>
-		<div style="position: fixed; z-index: 1; right: 0; margin-top: -45px; color: #eaebed; margin-right: 17px; font-size: 21px;">
-			<div style="text-align: right;">
-				<span style="font-size: 9px;">UTC
-				</span>
-				<?php
-				echo date("H:i", strtotime ("+307 minute"));
-				?>
+
+
+
+		<div class="menu_header_links">
+		<div class="menu_button">
+				<table border="0">
+					<tr>
+						<td>
+							<i class="material-icons" style="font-size: 15px;">fiber_new</i> 	
+						</td>
+						<td>
+							New Satellites
+						</td>
+					</tr>
+				</table>
 			</div>
-			<div style="font-size: 12px; text-align: right;">
-				Satellite: <span style="font-weight: bold;">@{{satelliteConuter}}</span>
+
+			<div class="menu_button">
+				<table border="0">
+					<tr>
+						<td>
+							<i class="material-icons" style="font-size: 15px;">list_alt</i> 	
+						</td>
+						<td>
+							Categories
+						</td>
+					</tr>
+				</table>
 			</div>
-		</div>	
+
+			<div class="menu_button">
+				<table border="0">
+					<tr>
+						<td>
+							<i class="material-icons" style="font-size: 15px;">person_add</i> 	
+						</td>
+						<td>
+							Sign Up
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="menu_button">
+				<table border="0">
+					<tr>
+						<td>
+							<i class="material-icons" style="font-size: 15px;">lock</i> 	
+						</td>
+						<td>
+							Login
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!--<div style="position: fixed; z-index: 1; right: 0; margin-top: -48px; color: #eaebed; margin-right: 17px; font-size: 21px;">
+			<div style="display: inline-block;">
+				<div style="text-align: right;">
+					<span style="font-size: 9px;">UTC
+					</span>
+					<?php
+					echo date("H:i", strtotime ("+307 minute"));
+					?>
+				</div>
+				<div style="font-size: 12px; text-align: right;">
+					Satellite: <span style="font-weight: bold;">@{{satelliteConuter}}</span>
+				</div>
+			</div>
+
+		</div>	-->
 	</div>		
+
+
+
+
+		<div class="leftMenu_static" id="leftMenu2">
+			<table border="0" style="margin-left: -10px; width: 106%;">
+				<tr>
+					<td  colspan="2" class="table_main_header_static">
+						<table border="0"><tr><td><i class="material-icons" style="font-size: 21px;"> info </i></td><td>Global Informations</td></tr></table>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 				
 				   
 				 
 	<div class="leftMenu" id="leftMenu">
-		<div style="width: 241px;    margin-top: -21px;    background-image: url(https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprod%2Fweb%2Fbin%2Ffe7fba9c-0298-11e8-a2b0-4e5c7848ab02.jpg?crop=5905%2C3321%2C148%2C576&amp;resize=685);height: 132px;    background-size: contain;    padding-top:  10px;    padding-left:  10px;    font-family: 'Roboto', sans-serif;font-size: 9px;">
+
+		<div class="close_button" @click="close()">
+			<i class="material-icons" style="font-size: 14px;color: #212121;"> close </i>
+		</div>
+
+
+		<div style="    transition: box-shadow 1s, -webkit-box-shadow 1s; width: 241px;    margin-top: -21px;    background-image: url(https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprod%2Fweb%2Fbin%2Ffe7fba9c-0298-11e8-a2b0-4e5c7848ab02.jpg?crop=5905%2C3321%2C148%2C576&amp;resize=685);height: 132px;    background-size: contain;    padding-top:  10px;    padding-left:  10px;    font-family: 'Roboto', sans-serif;font-size: 9px;">
 			@thetimes.co.uk 
 		</div>
 		<div class="info_SatelliteName">
@@ -295,7 +406,9 @@
 				}
 			}, 
 			methods: {
-			
+				close: function() {
+					document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+				}
 				
 			},
 			computed: {
@@ -303,9 +416,6 @@
 
 			},
 			mounted: function(){
-
-
-				
 			function getSpeed(x1, dx, dy, h)
 			{
 					// calculate speed, as it is not computed correctly on the server
@@ -319,11 +429,6 @@
 					speed = Math.sqrt(398600.8 / (h + 6378.135));
 					return speed;
 			}
-
-
-
-
-
 
 
 
@@ -446,9 +551,6 @@
 					scope.satelliteConuter = json.counter;
 
 
-			console.log('dsfds',scope.satelliteConuter);
-
-
 
 
 					var dataGeo = json.data;
@@ -456,7 +558,7 @@
 					var array = JSON.parse("[" + dataGeo + "]");
 					var beaches = array;
 					var image = {
-					url: 'https://image.ibb.co/i9c5uo/sat24x24.png',
+					url: 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Maps-Satellite-icon.png',
 					size: new google.maps.Size(24, 24),
 					origin: new google.maps.Point(0, 0),
 					anchor: new google.maps.Point(0, 32)
@@ -465,6 +567,8 @@
 						coords: [1, 1, 1, 20, 18, 20, 18, 1],
 						type: 'poly'
 					};
+					var infowindow = new google.maps.InfoWindow();
+					var Markers = {};
 					for (var i = 0; i < beaches.length; i++) {
 						var beach = beaches[i];
 						marker = new google.maps.Marker({
@@ -476,12 +580,27 @@
 							zIndex: beach[3]
 						});
 						actualMarker = beach[0];
-					
 
+						google.maps.event.addListener(marker, 'mouseover', (function(marker, i, event) {
+							return function() {
+								var str = this.title;
+								var res = str.split(" |*| ");
+								infowindow.setContent(res[0]);
+								infowindow.setOptions({maxWidth: 200});
+								infowindow.open(map, marker);
+							}
+						}) (marker, i));
+						google.maps.event.addListener(marker, 'mouseout', (function(marker, i, event) {
+							return function() {
+								infowindow.close();
+							}
+						}) (marker, i));
+						Markers[i] = marker;
+							
 						
+
 							google.maps.event.addListener(marker, "click", function (event) {
 								var styleVal = document.getElementById("leftMenu").style.transform
-								console.log(styleVal);
 								if (styleVal == 'translateX(-105%)' || styleVal == ''){
 									document.getElementById("leftMenu").style.transform = "translateX(0)";	
 								} else {
@@ -496,9 +615,7 @@
 								var str = this.title;
 								var res = str.split(" |*| ");
 								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
-									console.log(data.data.launch_date);
 									scope.satelliteInformations = data.data;
-									console.log(scope.satelliteInformations);
 								});
 						
 															
@@ -527,6 +644,18 @@
 							});
 						
 						}	
+
+
+
+						function locate(marker_id) {
+							var myMarker = Markers[marker_id];
+							var markerPosition = myMarker.getPosition();
+							map.setCenter(markerPosition);
+							google.maps.event.trigger(myMarker, 'click');
+						}
+
+
+
 
 					});
 				
