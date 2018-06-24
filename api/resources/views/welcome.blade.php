@@ -6,6 +6,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Satellite Radar</title>
@@ -145,10 +147,20 @@
 			<table border="0" style="margin-left: -10px; width: 106%;">
 				<tr>
 					<td  colspan="2" class="table_main_header_static">
-						<table border="0"><tr><td><i class="material-icons" style="font-size: 21px;"> info </i></td><td>Global Informations</td></tr></table>
+					<div v-if="loader == false" class="loader"> 
+				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+				<div>Checking your position...</div>
+			</div>
+
 					</td>
 				</tr>
 			</table>
+
+
+
+
+
+
 		</div>
 
 				
@@ -403,7 +415,9 @@
 					satellite_id: '',
 					speed: '',
 					launch_date_day: ''
-				}
+				},
+				loader: false,
+				user_position: ''
 			}, 
 			methods: {
 				close: function() {
@@ -416,28 +430,19 @@
 
 			},
 			mounted: function(){
-			function getSpeed(x1, dx, dy, h)
-			{
-					// calculate speed, as it is not computed correctly on the server
-					var dlat=dx*Math.PI/180;
-					var dlon=dy*Math.PI/180;
-					var lat1=x1*Math.PI/180;
-					var lat2=(x1+dx)*Math.PI/180;
-					var a = Math.sin(dlat/2) * Math.sin(dlat/2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dlon/2) * Math.sin(dlon/2); 
-					var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-					var speed = (h + 6378.135) * c;
-					speed = Math.sqrt(398600.8 / (h + 6378.135));
-					return speed;
-			}
-
-
-
-
 				var scope = this;
-				map = new google.maps.Map(document.getElementById('map'), {
-							zoom: 2,
-							center: {lat: -33.9, lng: 151.2},
-							styles: [
+
+
+				$.get('http://satellite.local/userposition').done(function(data){
+					scope.user_position = data;
+				
+					console.log(scope.user_position);
+					map = new google.maps.Map(document.getElementById('map'), {
+						zoom: 10,
+						mapTypeControl: false,
+						disableDefaultUI: true,
+						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
+						styles: [
 						{
 							"featureType": "landscape",
 							"stylers": [
@@ -543,16 +548,10 @@
 					]  
 						});
 
-							
-
 					$.get('http://46.101.110.28/get_position').done(function(data){
 					var json = data;
 					
 					scope.satelliteConuter = json.counter;
-
-
-
-
 					var dataGeo = json.data;
 					console.log();
 					var array = JSON.parse("[" + dataGeo + "]");
@@ -613,66 +612,60 @@
 							
 						
 
-							google.maps.event.addListener(marker, "click", function (event) {
-								var styleVal = document.getElementById("leftMenu").style.transform
-								if (styleVal == 'translateX(-105%)' || styleVal == ''){
-									document.getElementById("leftMenu").style.transform = "translateX(0)";	
-								} else {
-									document.getElementById("leftMenu").style.transform = "translateX(-105%)";
-									setTimeout(function(){ 
-									 	document.getElementById("leftMenu").style.transform = "translateX(0)";
-									}, 700);
-										
-								}
+						google.maps.event.addListener(marker, "click", function (event) {
+							var styleVal = document.getElementById("leftMenu").style.transform
+							if (styleVal == 'translateX(-105%)' || styleVal == ''){
+								document.getElementById("leftMenu").style.transform = "translateX(0)";	
+							} else {
+								document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+								setTimeout(function(){ 
+									document.getElementById("leftMenu").style.transform = "translateX(0)";
+								}, 700);
+									
+							}
 
-							
-								var str = this.title;
-								var res = str.split(" |*| ");
-								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
-									scope.satelliteInformations = data.data;
-								});
 						
-															
-								
-								/*var flightPlanCoordinates = [
-								{lat: 37.772, lng: -122.214},
-								{lat: 21.291, lng: -157.821},
-								{lat: -18.142, lng: 178.431},
-								{lat: -27.467, lng: 153.027}
-								];
-								var flightPath = new google.maps.Polyline({
-								path: flightPlanCoordinates,
-								geodesic: true,
-								strokeColor: '#FF0000',
-								strokeOpacity: 1.0,
-								strokeWeight: 2
-								});
-								
-								
-								flightPath.setMap(map); 
-								
-								console.log('DSFDSFDS', this.title);
-								*/
-								
-								
+							var str = this.title;
+							var res = str.split(" |*| ");
+							$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
+								scope.satelliteInformations = data.data;
 							});
+					
+														
+							
+							/*var flightPlanCoordinates = [
+							{lat: 37.772, lng: -122.214},
+							{lat: 21.291, lng: -157.821},
+							{lat: -18.142, lng: 178.431},
+							{lat: -27.467, lng: 153.027}
+							];
+							var flightPath = new google.maps.Polyline({
+							path: flightPlanCoordinates,
+							geodesic: true,
+							strokeColor: '#FF0000',
+							strokeOpacity: 1.0,
+							strokeWeight: 2
+							});
+							
+							
+							flightPath.setMap(map); 
+							
+							console.log('DSFDSFDS', this.title);
+							*/
+							
+							
+						});
 						
-						}	
-
-
-
-						function locate(marker_id) {
-							var myMarker = Markers[marker_id];
-							var markerPosition = myMarker.getPosition();
-							map.setCenter(markerPosition);
-							google.maps.event.trigger(myMarker, 'click');
-						}
-
-
-
+					}	
+					function locate(marker_id) {
+						var myMarker = Markers[marker_id];
+						var markerPosition = myMarker.getPosition();
+						map.setCenter(markerPosition);
+						google.maps.event.trigger(myMarker, 'click');
+					}
 
 					});
-				
+				});
 			}
 		})
 							

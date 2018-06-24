@@ -146,7 +146,7 @@ class APIController extends BaseController
 
     public function get_position(){
         header("Access-Control-Allow-Origin: *");
-        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->limit(2500)->get();
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->get();
         $satellite = json_decode( $satellite, true);
         $query = '';
         $count=0; 
@@ -253,5 +253,26 @@ class APIController extends BaseController
         echo '</pre>';
 
     }
+
+
+
+    public function userposition() {
+        $url = 'http://ip-api.com/json';
+
+        $json =  file_get_contents($url);
+        $array = json_decode($json, true);
+
+        $arrayToReturn['latitude'] = $array['lat'];
+        $arrayToReturn['longitude'] = $array['lon'];
+        $arrayToReturn['city'] = $array['city'];
+        $arrayToReturn['ip'] = $array['query'];
+        $arrayToReturn['timezone'] = $array['timezone'];
+
+        sleep(1);
+        return($arrayToReturn);
+
+    }
+
+
     
 }

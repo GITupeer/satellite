@@ -96,6 +96,10 @@
 
   .close_button {
     position: fixed;
+    height: 17px;
+    width: 17px;
+    text-align: center;
+    line-height: 24px;
     color: white;
     right: 7px;
     margin-top: -5px;
@@ -225,4 +229,15 @@
     right: 15px;
     margin-top: -58px;
     position: fixed;
+  }
+
+
+  .loader {
+    font-family: 'Montserrat', sans-serif;
+    width: 96%;
+    text-align: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
