@@ -433,7 +433,7 @@
 				var scope = this;
 
 
-				$.get('http://satellite.local/userposition').done(function(data){
+				$.get('http://sky-space.cloud/userposition').done(function(data){
 					scope.user_position = data;
 				
 					console.log(scope.user_position);
@@ -548,7 +548,7 @@
 					]  
 						});
 
-					$.get('http://46.101.110.28/get_position').done(function(data){
+					$.get('http://sky-space.cloud/get_position').done(function(data){
 					var json = data;
 					
 					scope.satelliteConuter = json.counter;
