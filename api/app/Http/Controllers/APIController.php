@@ -133,10 +133,13 @@ class APIController extends BaseController
             if (empty($satellite[0]['Peroid'])){
                 $tle = $satellite[0]['tle'];
                 $tle = json_decode($tle, true);
+                
+                $explodeTLE2 = explode(' ', $tle[1]);
+
 
 
                 echo '<pre>';
-                print_r($tle);
+                print_r($explodeTLE2);
                 echo '</pre>';
 
             }
