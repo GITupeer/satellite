@@ -318,10 +318,10 @@
 				<tr>
 					<td class="table_main_colName">
 						<div class="info_Name">
-						Int'l Code
+							Int'l Code
 						</div>
 						<div class="info_Value">
-							n/o (add)
+							<span v-if="satelliteInformations.$Intl_Code">@{{satelliteInformations.$Intl_Code}}</span><span v-else> n/o </span>
 						</div>
 					</td>
 					<td class="table_main_colName">
@@ -329,7 +329,7 @@
 							Peroid
 						</div>
 						<div class="info_Value">
-						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.Peroid}}</span><span v-else> n/o </span>
+						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.$Intl_Code}} minutes</span><span v-else> n/o </span>
 						</div>
 					</td>
 				</tr>

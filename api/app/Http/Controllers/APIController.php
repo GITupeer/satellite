@@ -157,9 +157,9 @@ class APIController extends BaseController
                     $yearFull = '20'.$year;
                 }
                 $nextString = substr($INTLCODE_TLE, 2,10);
-
-                echo $yearFull.'='.$nextString; exit; 
-
+                $Intl_Code = $yearFull.'-'.$nextString;
+                $newstatus = DB::table('satellite_informations')->where([['id','=',$satellite[0]['id']]])->update(['Intl_Code' => $satellite[0]['Intl_Code']]);
+                $satellite[0]['Intl_Code'] = $Intl_Code;
             }
 
 
