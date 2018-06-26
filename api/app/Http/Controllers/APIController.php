@@ -136,10 +136,11 @@ class APIController extends BaseController
                 
                 $explodeTLE2 = explode(' ', $tle[1]);
                 $perDay = round($explodeTLE2[7], 4);
-                $satellite[0]['perDay'] = $perDay;
-                $satellite[0]['Peroid'] = 1440/$perDay;
+                $satellite[0]['perDay'] = round($explodeTLE2[7], 2);
+                $satellite[0]['Peroid'] = round(1440/$perDay, 2);
 
-        
+                $newstatus = DB::table('satellite_informations')->where([['id','=',$satellite[0]['id']]])->update(['Peroid' => $satellite[0]['Peroid']]);
+                $newstatus = DB::table('satellite_informations')->where([['id','=',$satellite[0]['id']]])->update(['perDay' => $satellite[0]['perDay']]);
 
             }
 
