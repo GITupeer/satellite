@@ -141,6 +141,16 @@ class APIController extends BaseController
 
                 $newstatus = DB::table('satellite_informations')->where([['id','=',$satellite[0]['id']]])->update(['Peroid' => $satellite[0]['Peroid']]);
                 $newstatus = DB::table('satellite_informations')->where([['id','=',$satellite[0]['id']]])->update(['perDay' => $satellite[0]['perDay']]);
+            }
+
+
+            if (empty($satellite[0]['Intl_Code']) AND !empty($satellite[0]['tle'])){
+                $tle = $satellite[0]['tle'];
+                $tle = json_decode($tle, true);
+                
+                $explodeTLE1 = explode(' ', $tle[0]);
+                $INTLCODE_TLE = $explodeTLE1[2];
+                echo  substr($INTLCODE_TLE, 0,2);
 
             }
 
