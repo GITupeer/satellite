@@ -135,12 +135,11 @@ class APIController extends BaseController
                 $tle = json_decode($tle, true);
                 
                 $explodeTLE2 = explode(' ', $tle[1]);
-                echo round($explodeTLE2[7], 2);
+                $perDay = round($explodeTLE2[7], 4);
+                $satellite[0]['perDay'] = $perDay;
+                $satellite[0]['Peroid'] = 1440/$perDay;
 
-
-                echo '<pre>';
-                print_r($explodeTLE2);
-                echo '</pre>';
+        
 
             }
 
