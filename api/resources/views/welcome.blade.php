@@ -7,6 +7,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -14,40 +15,6 @@
   </head>
   <body> 
   
-  <style>
-        
-       
-         /*style the box*/  
-         .gm-style .gm-style-iw {
-            display: block !important;
-         }    
-     
-         /*style the p tag*/
-         .gm-style .gm-style-iw #google-popup p{
-         }
-         
-     
-        /*style the arrow*/
-        .gm-style div div div div div div div div {
-            color: #212121;
-            font-size: 11px;
-			font-weight: bold;
-		
-        }
-        
-        /*style the link*/
-        .gm-style div div div div div div div div a {
-			opacity: 0.7;
-			width: 20px;
-			height: 20px;
-        }
-		.gm-style div div div div div div img {
-			display: none;
-			width: 0px;
-   	 		height: 0px;
-        }
-              
-      </style>
 <div id="app">
 
 	<div class="topMenu" id="topMenu">
@@ -58,7 +25,7 @@
 						<img src="https://image.ibb.co/jq7P4o/Maps_Satellites_icon.png" style="width: 41px; height: 41px;">
 					</td>
 					<td>
-						<div style="">Satellite Radar | Sky-Space.cloud</div>
+						<div style="margin-bottom: -5px;">Satellite Radar | <span style="color: #FFD740;">Sky-Space</span></div>
 						<div style="font-size:  10px;">Check position satellite in Real-Time</div>
 					</td>
 					<td style="padding-left: 25px;">
@@ -122,48 +89,69 @@
 				</table>
 			</div>
 		</div>
-		
-		<!--<div style="position: fixed; z-index: 1; right: 0; margin-top: -48px; color: #eaebed; margin-right: 17px; font-size: 21px;">
-			<div style="display: inline-block;">
-				<div style="text-align: right;">
-					<span style="font-size: 9px;">UTC
-					</span>
-					<?php
-					echo date("H:i", strtotime ("+307 minute"));
-					?>
-				</div>
-				<div style="font-size: 12px; text-align: right;">
-					Satellite: <span style="font-weight: bold;">@{{satelliteConuter}}</span>
-				</div>
-			</div>
-
-		</div>	-->
 	</div>		
 
 
+	<div id="loader_box">
+		<div class="loader_box" v-if="user_loader == false || satellite_loader == false"></div>
+		<table border="0" class="loader_box_table" v-if="user_loader == false || satellite_loader == false">
+			<tr>
+				<td  colspan="2" class="table_main_header_static">
+					<div v-if="user_loader == false || satellite_loader == false" class="loader"> 
+						<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+						<div v-if="user_loader == false">Checking your position..</div>
+						<div v-if="user_loader == true && satellite_loader == false">Generating position of satellites..</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 
 
-		<div class="leftMenu_static" id="leftMenu2">
-			<table border="0" style="margin-left: -10px; width: 106%;">
-				<tr>
-					<td  colspan="2" class="table_main_header_static">
-					<div v-if="loader == false" class="loader"> 
-				<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-				<div>Checking your position...</div>
-			</div>
 
-					</td>
-				</tr>
-			</table>
-
-
-
-
+	<div class="map_setting" id="map_setting">
+		<div style="margin: 20px;">
+			
+			<img style="width: 120px;" src="https://vignette.wikia.nocookie.net/logopedia/images/b/b9/Get-it-on-Google-Play.png/revision/latest?cb=20150704202355">
 
 
 		</div>
+	</div>
 
-				
+	<div class="map_setting_top" id="map_setting_top">
+		<div style="margin: 20px;">
+			<div class="map_settings_button" style="padding-left: 13px; padding-right: 13px;">
+				<i class="fas fa-globe map_settings_icon" style="font-size: 15px; color: #FFD740;"></i>	
+				<div class="map_settings_text">Category Filter</div>
+				<i class="fas fa-angle-down map_settings_icon" style="font-size: 15px;"></i>
+			</div>
+
+
+		
+			<div class="map_settings_button">
+				<i class="fas fa-cog map_settings_icon"></i>
+			</div>
+			<div class="map_settings_button">
+				<i class="fas fa-filter map_settings_icon"></i>
+			</div>
+			<div class="map_settings_button">
+				<i class="fas fa-arrows-alt map_settings_icon" ></i>
+			</div>
+
+			<div class="map_settings_button">
+				<i class="fas fa-plus map_settings_icon"></i>
+			</div>
+			<div class="map_settings_button">
+				<i class="fas fa-minus map_settings_icon"></i>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
 				   
 				 
 	<div class="leftMenu" id="leftMenu">
@@ -320,25 +308,6 @@
 					</td>
 					<td class="table_main_colName">
 						<div class="info_Name">
-						Azimuth
-						</div>
-						<div class="info_Value">
-							<span v-if="satelliteInformations.azimuth">@{{satelliteInformations.azimuth}}</span><span v-else> n/o </span>
-						</div>
-					</td>
-				</tr>
-
-				<tr>
-					<td class="table_main_colName">
-						<div class="info_Name">
-						Elevation
-						</div>
-						<div class="info_Value">
-							<span v-if="satelliteInformations.elevation">@{{satelliteInformations.elevation}}</span><span v-else> n/o </span>
-						</div>
-					</td>
-					<td class="table_main_colName">
-						<div class="info_Name">
 							NORAD ID
 						</div>
 						<div class="info_Value">
@@ -366,6 +335,11 @@
 				</tr>
 
 			</table>	
+
+			<div style="color: #2e5ca5;font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: bold;">Track this satellite <i class="fas fa-external-link-alt"></i></div>
+			<div style="color: #2e5ca5;font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: bold;">NASA NSSDC Master Catalog <i class="fas fa-external-link-alt"></i></div>
+
+</div>
 
 
 			<div style="border-color: transparent;
@@ -416,7 +390,8 @@
 					speed: '',
 					launch_date_day: ''
 				},
-				loader: false,
+				user_loader: false,
+				satellite_loader: false,
 				user_position: ''
 			}, 
 			methods: {
@@ -435,117 +410,22 @@
 
 				$.get('http://satellite.local/userposition').done(function(data){
 					scope.user_position = data;
-				
+					scope.user_loader = true;
 					console.log(scope.user_position);
 					map = new google.maps.Map(document.getElementById('map'), {
-						zoom: 10,
+						zoom: 6,
 						mapTypeControl: false,
 						disableDefaultUI: true,
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
 						styles: [
-						{
-							"featureType": "landscape",
-							"stylers": [
 								{
-									"hue": "#FFBB00"
-								},
-								{
-									"saturation": 43.400000000000006
-								},
-								{
-									"lightness": 37.599999999999994
-								},
-								{
-									"gamma": 1
+									featureType: "road",
+									elementType: "all",
+									stylers: [
+									{ visibility: "off" }
+									]
 								}
 							]
-						},
-						{
-							"featureType": "road.highway",
-							"stylers": [
-								{
-									"hue": "#FFC200"
-								},
-								{
-									"saturation": -61.8
-								},
-								{
-									"lightness": 45.599999999999994
-								},
-								{
-									"gamma": 1
-								}
-							]
-						},
-						{
-							"featureType": "road.arterial",
-							"stylers": [
-								{
-									"hue": "#FF0300"
-								},
-								{
-									"saturation": -100
-								},
-								{
-									"lightness": 51.19999999999999
-								},
-								{
-									"gamma": 1
-								}
-							]
-						},
-						{
-							"featureType": "road.local",
-							"stylers": [
-								{
-									"hue": "#FF0300"
-								},
-								{
-									"saturation": -100
-								},
-								{
-									"lightness": 52
-								},
-								{
-									"gamma": 1
-								}
-							]
-						},
-						{
-							"featureType": "water",
-							"stylers": [
-								{
-									"hue": "#0078FF"
-								},
-								{
-									"saturation": -13.200000000000003
-								},
-								{
-									"lightness": 2.4000000000000057
-								},
-								{
-									"gamma": 1
-								}
-							]
-						},
-						{
-							"featureType": "poi",
-							"stylers": [
-								{
-									"hue": "#00FF6A"
-								},
-								{
-									"saturation": -1.0989010989011234
-								},
-								{
-									"lightness": 11.200000000000017
-								},
-								{
-									"gamma": 1
-								}
-							]
-						}
-					]  
 						});
 
 					$.get('http://46.101.110.28/get_position').done(function(data){
@@ -554,10 +434,10 @@
 					scope.satelliteConuter = json.counter;
 					var dataGeo = json.data;
 					console.log();
-					var array = JSON.parse("[" + dataGeo + "]");
+					var array = JSON.parse('[' + dataGeo + ', ["user", '+scope.user_position.latitude+', '+scope.user_position.longitude+']]');
 					var beaches = array;
 					var image = {
-					url: 'http://icons.iconarchive.com/icons/icons8/windows-8/16/Maps-Satellite-Sending-Signal-icon.png',
+					url: 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png',
 					size: new google.maps.Size(24, 24),
 					origin: new google.maps.Point(0, 0),
 					anchor: new google.maps.Point(0, 32)
@@ -565,6 +445,12 @@
 
 					var image_ISS = {
 					url: 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png',
+					size: new google.maps.Size(24, 24),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(0, 32)
+					};
+					var image_user = {
+					url: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/24/map-marker-icon.png',
 					size: new google.maps.Size(24, 24),
 					origin: new google.maps.Point(0, 0),
 					anchor: new google.maps.Point(0, 32)
@@ -577,10 +463,13 @@
 					var infowindow = new google.maps.InfoWindow();
 					var Markers = {};
 					var imageChoose;
+					//beaches.join() = ', ["user", '+scope.user_position.latitude+', '+scope.user_position.longitude+']';
 					for (var i = 0; i < beaches.length; i++) {
 						var beach = beaches[i];
 						if (beach[0] == 'SPACE STATION |*| 25544') {
 							imageChoose = image_ISS;
+						} if (beach[0] == 'user') {
+							imageChoose = image_user;
 						} else {
 							imageChoose = image;
 						}
@@ -598,9 +487,12 @@
 							return function() {
 								var str = this.title;
 								var res = str.split(" |*| ");
-								infowindow.setContent(res[0]);
-								infowindow.setOptions({maxWidth: 200});
-								infowindow.open(map, marker);
+								if (res[0] != 'user'){
+									infowindow.setContent(res[0]);
+									infowindow.setOptions({maxWidth: 200});
+									infowindow.open(map, marker);
+								}
+
 							}
 						}) (marker, i));
 						google.maps.event.addListener(marker, 'mouseout', (function(marker, i, event) {
@@ -613,56 +505,72 @@
 						
 
 						google.maps.event.addListener(marker, "click", function (event) {
-							var styleVal = document.getElementById("leftMenu").style.transform
-							if (styleVal == 'translateX(-105%)' || styleVal == ''){
-								document.getElementById("leftMenu").style.transform = "translateX(0)";	
-							} else {
-								document.getElementById("leftMenu").style.transform = "translateX(-105%)";
-								setTimeout(function(){ 
-									document.getElementById("leftMenu").style.transform = "translateX(0)";
-								}, 700);
-									
+							if (this.title != 'user'){
+								var styleVal = document.getElementById("leftMenu").style.transform
+								if (styleVal == 'translateX(-105%)' || styleVal == ''){
+									document.getElementById("leftMenu").style.transform = "translateX(0)";	
+								} else {
+									document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+									setTimeout(function(){ 
+										document.getElementById("leftMenu").style.transform = "translateX(0)";
+									}, 700);
+										
+								}
+
+							
+								var str = this.title;
+								var res = str.split(" |*| ");
+								$.get('http://46.101.110.28/satellite/').done(function(data){ 
+									scope.satelliteInformations = data.data;
+								});
+						
+															
+								
+								/*var flightPlanCoordinates = [
+								{lat: 37.772, lng: -122.214},
+								{lat: 21.291, lng: -157.821},
+								{lat: -18.142, lng: 178.431},
+								{lat: -27.467, lng: 153.027}
+								];
+								var flightPath = new google.maps.Polyline({
+								path: flightPlanCoordinates,
+								geodesic: true,
+								strokeColor: '#FF0000',
+								strokeOpacity: 1.0,
+								strokeWeight: 2
+								});
+								
+								
+								flightPath.setMap(map); 
+								
+								console.log('DSFDSFDS', this.title);
+								*/
+								
 							}
 
-						
-							var str = this.title;
-							var res = str.split(" |*| ");
-							$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
-								scope.satelliteInformations = data.data;
-							});
-					
-														
-							
-							/*var flightPlanCoordinates = [
-							{lat: 37.772, lng: -122.214},
-							{lat: 21.291, lng: -157.821},
-							{lat: -18.142, lng: 178.431},
-							{lat: -27.467, lng: 153.027}
-							];
-							var flightPath = new google.maps.Polyline({
-							path: flightPlanCoordinates,
-							geodesic: true,
-							strokeColor: '#FF0000',
-							strokeOpacity: 1.0,
-							strokeWeight: 2
-							});
-							
-							
-							flightPath.setMap(map); 
-							
-							console.log('DSFDSFDS', this.title);
-							*/
-							
+
 							
 						});
 						
-					}	
+					}
+
+					$.get('http://46.101.110.28/satellite/25544').done(function(data){ 
+						scope.satelliteInformations = data.data;
+						document.getElementById("leftMenu").style.transform = "translateX(0)";
+					});	
+
+					scope.satellite_loader = true;
+
 					function locate(marker_id) {
 						var myMarker = Markers[marker_id];
 						var markerPosition = myMarker.getPosition();
 						map.setCenter(markerPosition);
 						google.maps.event.trigger(myMarker, 'click');
 					}
+
+
+
+
 
 					});
 				});
