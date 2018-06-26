@@ -99,8 +99,8 @@
 				<td  colspan="2" class="table_main_header_static">
 					<div v-if="user_loader == false || satellite_loader == false" class="loader"> 
 						<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
-						<div v-if="user_loader == false">Checking your position..</div>
-						<div v-if="user_loader == true && satellite_loader == false">Generating position of satellites..</div>
+						<div v-if="user_loader == false">Checking your position...</div>
+						<div v-if="user_loader == true && satellite_loader == false">Generating position of satellites...</div>
 					</div>
 				</td>
 			</tr>
@@ -326,10 +326,10 @@
 					</td>
 					<td class="table_main_colName">
 						<div class="info_Name">
-							
+							Peroid
 						</div>
 						<div class="info_Value">
-
+						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.Peroid}}</span><span v-else> n/o </span>
 						</div>
 					</td>
 				</tr>
@@ -388,7 +388,8 @@
 					name: '',
 					satellite_id: '',
 					speed: '',
-					launch_date_day: ''
+					launch_date_day: '',
+					firstload: false
 				},
 				user_loader: false,
 				satellite_loader: false,
@@ -520,7 +521,7 @@
 							
 								var str = this.title;
 								var res = str.split(" |*| ");
-								$.get('http://46.101.110.28/satellite/').done(function(data){ 
+								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
 									scope.satelliteInformations = data.data;
 								});
 						

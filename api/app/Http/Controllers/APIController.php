@@ -130,6 +130,19 @@ class APIController extends BaseController
         
         
         if (!empty($satellite[0])){
+            if (empty($satellite[0]['Peroid'])){
+                $tle = $satellite[0]['tle'];
+                $tle = json_decode($tle, true);
+
+
+                echo '<pre>';
+                print_r($tle);
+                echo '</pre>';
+
+            }
+
+
+
             $arr['status'] = 'OK';
             $arr['data'] = $satellite[0];
         } else {
