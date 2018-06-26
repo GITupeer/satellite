@@ -321,7 +321,7 @@
 							Int'l Code
 						</div>
 						<div class="info_Value">
-							<span v-if="satelliteInformations.$Intl_Code">@{{satelliteInformations.$Intl_Code}}</span><span v-else> n/o </span>
+							<span v-if="satelliteInformations.Intl_Code">@{{satelliteInformations.Intl_Code}}</span><span v-else> n/o </span>
 						</div>
 					</td>
 					<td class="table_main_colName">
@@ -329,7 +329,7 @@
 							Peroid
 						</div>
 						<div class="info_Value">
-						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.$Intl_Code}} minutes</span><span v-else> n/o </span>
+						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.Peroid}} minutes</span><span v-else> n/o </span>
 						</div>
 					</td>
 				</tr>
