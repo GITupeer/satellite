@@ -130,12 +130,12 @@ class APIController extends BaseController
         
         
         if (!empty($satellite[0])){
-            if (empty($satellite[0]['Peroid'])){
+            if (empty($satellite[0]['Peroid']) AND !empty($satellite[0]['tle'])){
                 $tle = $satellite[0]['tle'];
                 $tle = json_decode($tle, true);
                 
                 $explodeTLE2 = explode(' ', $tle[1]);
-
+                echo round($explodeTLE2[7], 2);
 
 
                 echo '<pre>';
