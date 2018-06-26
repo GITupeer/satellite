@@ -150,7 +150,14 @@ class APIController extends BaseController
                 
                 $explodeTLE1 = explode(' ', $tle[0]);
                 $INTLCODE_TLE = $explodeTLE1[2];
-                echo  substr($INTLCODE_TLE, 0,2);
+                $year = substr($INTLCODE_TLE, 0,2);
+                if ($year > '30' AND $year <= 99){
+                    $yearFull = '19'.$year;
+                } else {
+                    $yearFull = '20'.$year;
+                }
+
+                echo $yearFull; exit; 
 
             }
 
