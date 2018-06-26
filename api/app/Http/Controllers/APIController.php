@@ -156,7 +156,7 @@ class APIController extends BaseController
                 } else {
                     $yearFull = '20'.$year;
                 }
-                $nextString = substr($INTLCODE_TLE, 3,10);
+                $nextString = substr($INTLCODE_TLE, 2,10);
 
                 echo $yearFull.'='.$nextString; exit; 
 
