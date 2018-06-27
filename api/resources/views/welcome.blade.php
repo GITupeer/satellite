@@ -333,6 +333,24 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td class="table_main_colName">
+						<div class="info_Name">
+						Inclination
+						</div>
+						<div class="info_Value">
+							<span v-if="satelliteInformations.Inclination">@{{satelliteInformations.Inclination}}</span><span v-else> n/o </span>
+						</div>
+					</td>
+					<td class="table_main_colName">
+						<div class="info_Name">
+							
+						</div>
+						<div class="info_Value">
+						
+						</div>
+					</td>
+				</tr>
 
 			</table>	
 
