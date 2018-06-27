@@ -193,6 +193,14 @@ class APIController extends BaseController
 
 
 
+            $category = DB::table('category_informations')->select('*')->where([['satellite_id','=',$title]])->get();
+            $category = json_decode( $category, true);
+
+            $satellite[0]['category'] = $category;
+
+
+
+
             $arr['status'] = 'OK';
             $arr['data'] = $satellite[0];
         } else {
