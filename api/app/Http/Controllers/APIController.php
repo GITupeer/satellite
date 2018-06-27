@@ -247,7 +247,7 @@ class APIController extends BaseController
     }
 
 
-    public function get_position(){
+    public function get_position($bounds){
         header("Access-Control-Allow-Origin: *");
         $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->get();
         $satellite = json_decode( $satellite, true);

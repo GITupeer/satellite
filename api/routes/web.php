@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 
 Route::get('/API/test', 'APIController@test');
-Route::get('/get_position', 'APIController@get_position');
+Route::get('/get_position/{bounds}', 'APIController@get_position');
 Route::GET('/satellite/{title}', 'APIController@satellite');
 Route::GET('/userposition', 'APIController@userposition');
 
