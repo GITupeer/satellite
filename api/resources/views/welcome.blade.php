@@ -594,22 +594,33 @@
 
 
 						google.maps.event.addListener(map, 'idle', function (marker) {
-						
-							drawBounds(map);
-							console.log('dsfsd');
-						});
-						function drawBounds(map){
-							var bounds = map.getBounds();
-							var areaBounds = {
-								north: bounds.getNorthEast().lat(),
-								south: bounds.getSouthWest().lat(),
-								east: bounds.getNorthEast().lng(),
-								west: bounds.getSouthWest().lng()
-							};
-						
-							console.log(areaBounds);
-						}
 
+					var bounds = map.getBounds();
+					var areaBounds = {
+						north: bounds.getNorthEast().lat(),
+						south: bounds.getSouthWest().lat(),
+						east: bounds.getNorthEast().lng(),
+						west: bounds.getSouthWest().lng()
+					};
+					
+
+					var json = JSON.stringify(areaBounds);
+					$.get('http://46.101.110.28/get_position/'+json).done(function(data){
+					var json = data;
+					
+					scope.satelliteConuter = json.counter;
+					var dataGeo = json.data;
+							console.log('dsfdfdf');
+					});
+
+
+
+
+
+						});
+
+
+			
 
 					$.get('http://46.101.110.28/satellite/25544').done(function(data){ 
 						scope.satelliteInformations = data.data;
