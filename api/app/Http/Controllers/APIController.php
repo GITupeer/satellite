@@ -200,7 +200,9 @@ class APIController extends BaseController
             if (!empty($category[0])) {
                 $category_string = '';
                 foreach($category[0] as $cat) {
-                    $category_string .= $cat['category'];
+                   echo '<pre>';
+                    print_r($cat);
+                    echo '</pre>';
                 }
             }
 
