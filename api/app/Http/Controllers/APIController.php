@@ -206,7 +206,12 @@ class APIController extends BaseController
                         } else {
                             $category_string .= ', '.$cat['category'];
                         }
-                        
+                    } else {
+                        if (empty($category_string)){
+                            $category_string .= 'Other';
+                        } else {
+                            $category_string .= ', Other';
+                        }
                     }
                     
                 }
