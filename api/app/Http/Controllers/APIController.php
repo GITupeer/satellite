@@ -16,9 +16,26 @@ class APIController extends BaseController
         $category = json_decode( $category, true);      
 
 
-        echo '<pre>';
-        print_r($category);
-        echo '</pre>';
+       foreach($category as $cat){
+            $satellite_api = 'https://www.n2yo.com/rest/v1/satellite/above/41.702/-76.014/0/360/'.$cat['category_id'].'/&apiKey=G5SS8B-WJK25E-PU9GFC-3U40';
+            $json =  file_get_contents($satellite_api);
+            $array = json_decode($json, true);
+
+
+            foreach($array['above'] as $row){
+                $categoryInfoDBInsert = DB::table('category_informations')->insert(
+                    [
+                    'satellite_id' => $row['satid'],
+                    'category' => $cat['category_name'],
+                    'category_id' => $cat['id']
+                    ]
+                );
+            }
+
+            
+
+
+       }
 
 
     }
