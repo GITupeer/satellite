@@ -225,6 +225,13 @@ class APIController extends BaseController
 
 
 
+            if (!empty($satellite[0]['images'])) {
+                $explodeImgae = explode('//', $satellite[0]['images']);
+                $explodeImgae2 = explode('/', $explodeImgae );
+                $satellite[0]['ImageSource'] = $explodeImgae2[0];
+            }
+
+
 
             $arr['status'] = 'OK';
             $arr['data'] = $satellite[0];
@@ -311,42 +318,15 @@ class APIController extends BaseController
     }
 
     public function test() {
-       $ch = curl_init('http://www.n2yo.com/satellite/?s=41764'); //inicjacja curla
-       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-       $jakasZmienna2 = curl_exec($ch);
-       curl_close($ch); 
-       $jakasZmienna = iconv("iso-8859-2", "utf-8", $jakasZmienna2);
-       $one = array("<", ">");
-       $two   = array("&lt;", "&gt;");
-       $newphrase = str_replace($one, $two, $jakasZmienna);
+        $ch = curl_init('https://nssdc.gsfc.nasa.gov/nmc/masterCatalog.do?sc=1998-067A'); //inicjacja curla
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $jakasZmienna2 = curl_exec($ch);
+        curl_close($ch); 
+        $jakasZmienna = iconv("iso-8859-2", "utf-8", $jakasZmienna2);
+        $one = array("<", ">");
+        $two   = array("&lt;", "&gt;");
+        $newphrase = str_replace($one, $two, $jakasZmienna);
 
-
-        $Apogee = explode('Apogee',$newphrase); 
-        $Apogee2 = explode(' ',$Apogee[1]); 
-        $arr['Apogee'] = $Apogee2[1].' km';
-
-        $Perigee = explode('Perigee',$newphrase); 
-        $Perigee2 = explode(' ',$Perigee[1]); 
-        $arr['Perigee'] = $Perigee2[1].' km';
-
-        $RCS = explode('RCS',$newphrase); 
-        $RCS2 = explode(' ',$RCS[1]); 
-        $arr['RCS'] = $RCS2[1];  
-        
-        
-        $Inclination = explode('Inclination',$newphrase); 
-        $Inclination2 = explode(' ',$Inclination[1]); 
-        $arr['Inclination'] = $Inclination2[1].' °';  
-        
-        $Semi_major_axis = explode('Semi major axis',$newphrase); 
-        $Semi_major_axis2 = explode(' ',$Semi_major_axis[1]); 
-        $arr['Semi_major_axis'] = $Semi_major_axis2[1].' km';         
-
-
-
-        echo '<pre>';
-        print_r($arr);
-        echo '</pre>';
 
     }
 

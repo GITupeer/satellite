@@ -355,8 +355,7 @@
 			</table>	
 
 			<div style="color: #2e5ca5;font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: bold;">Track this satellite <i class="fas fa-external-link-alt"></i></div>
-			<div style="color: #2e5ca5;font-size: 12px; font-family: 'Montserrat', sans-serif; font-weight: bold;">NASA NSSDC Master Catalog <i class="fas fa-external-link-alt"></i></div>
-
+			</a>
 </div>
 
 
