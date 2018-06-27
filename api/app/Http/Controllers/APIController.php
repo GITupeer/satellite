@@ -372,7 +372,7 @@ class APIController extends BaseController
     }
 
     public function userposition() {
-
+        header("Access-Control-Allow-Origin: *");
     
         $ip = $this->get_client_ip_env();
 

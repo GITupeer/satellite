@@ -427,7 +427,7 @@
 				var scope = this;
 
 
-				$.get('/userposition').done(function(data){
+				$.get('http://46.101.110.28/userposition').done(function(data){
 					scope.user_position = data;
 					scope.user_loader = true;
 					console.log(scope.user_position);
