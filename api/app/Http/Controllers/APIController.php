@@ -197,16 +197,9 @@ class APIController extends BaseController
             $category = json_decode( $category, true);
 
 
-            if (!empty($category[0])) {
-                $category_string = '';
-                foreach($category[0] as $cat) {
-                   echo '<pre>';
-                    print_r($cat);
-                    echo '</pre>';
-                }
-            }
+       
 
-            $satellite[0]['category'] = $category;
+            $satellite[0]['category'] = $category[0];
 
 
 
