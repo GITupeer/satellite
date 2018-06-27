@@ -227,7 +227,7 @@ class APIController extends BaseController
 
             if (!empty($satellite[0]['images'])) {
                 $explodeImgae = explode('//', $satellite[0]['images']);
-                $explodeImgae2 = explode('/', $explodeImgae );
+                $explodeImgae2 = explode('/', $explodeImgae);
                 $satellite[0]['ImageSource'] = $explodeImgae2[0];
             }
 
