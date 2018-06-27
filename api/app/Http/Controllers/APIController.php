@@ -216,7 +216,9 @@ class APIController extends BaseController
                     
                 }
             }
-
+            if ($category_string == 'Other'){
+                $category_string = 'Unclassified';     
+            }
             $satellite[0]['category'] = $category_string;
 
 
