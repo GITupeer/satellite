@@ -155,6 +155,7 @@ class APIController extends BaseController
         $satellite = json_decode( $satellite, true);
 
 
+
       
         
         
@@ -248,8 +249,13 @@ class APIController extends BaseController
 
 
     public function get_position($bounds){
+
+        $boundsJSON =json_decode($bounds);
+
         header("Access-Control-Allow-Origin: *");
-        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')->get();
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
+        ->whereRaw("latitude > ".$boundsJSON->east." AND latitude < ".$boundsJSON->west." AND longitude < ".$boundsJSON->north." AND longitude < ".$boundsJSON->south."")
+        ->get();
         $satellite = json_decode( $satellite, true);
         $query = '';
         $count=0; 
