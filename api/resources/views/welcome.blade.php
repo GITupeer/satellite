@@ -37,7 +37,7 @@
 
 
 
-		<div class="menu_header_links">
+		<div class="menu_header_links" >
 		<div class="menu_button">
 				<table border="0">
 					<tr>
@@ -154,7 +154,7 @@
 
 				   
 				 
-	<div class="leftMenu" id="leftMenu">
+	<div class="leftMenu" id="leftMenu" style="overflow-y: auto;">
 
 		<div class="close_button" @click="close()">
 			<i class="material-icons" style="font-size: 14px;color: #212121;"> close </i>

@@ -353,7 +353,7 @@ class APIController extends BaseController
 
 
     public function userposition() {
-        $url = 'http://ip-api.com/json';
+        $url = 'http://ip-api.com/json/'.$_SERVER['HTTP_CLIENT_IP'];
 
         $json =  file_get_contents($url);
         $array = json_decode($json, true);
