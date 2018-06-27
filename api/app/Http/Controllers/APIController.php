@@ -11,6 +11,20 @@ class APIController extends BaseController
 {
 
 
+    public function cron_category_info() {
+        $category = DB::table('category')->select('*')->get();
+        $category = json_decode( $category, true);      
+
+
+        echo '<pre>';
+        print_r($category);
+        echo '</pre>';
+
+
+    }
+
+
+
     public function cron_satellite_info() {
         $satellite = DB::table('satellite')->select('*')->get();
         $satellite = json_decode( $satellite, true);
