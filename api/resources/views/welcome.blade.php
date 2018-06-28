@@ -564,8 +564,7 @@
 
 
 				refreshMap: function(map) {
-					this.zoom = map.getZoom();
-					this.initMapGoogleRef(this.zoom);
+					console.log('test');
 				},
 
 
