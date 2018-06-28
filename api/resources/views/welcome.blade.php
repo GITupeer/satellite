@@ -433,7 +433,7 @@
 					var scope = this;
 					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
-						zoom: 1,
+						zoom: 4,
 						styles: [
 							{
 								featureType: "road",
@@ -465,7 +465,7 @@
 						var infoWindow = new google.maps.InfoWindow;
 
 															// Change this depending on the name of your PHP or XML file
-															downloadUrl('http://46.101.110.28/get_position_of_satellites_xml/'+json, function(data) {
+															downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
 																var xml = data.responseXML;
 																var markers = xml.documentElement.getElementsByTagName('marker');
 																Array.prototype.forEach.call(markers, function(markerElem) {
