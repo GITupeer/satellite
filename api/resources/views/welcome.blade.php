@@ -431,26 +431,96 @@
 
 				initMapGoogle: function() {
 					var scope = this;
-					scope.map = new google.maps.Map(document.getElementById('map'), {
-						zoom: 6,
-						mapTypeControl: false,
-						disableDefaultUI: true,
+					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
+						zoom: 1,
 						styles: [
-								{
-									featureType: "road",
-									elementType: "all",
-									stylers: [
+							{
+								featureType: "road",
+								elementType: "all",
+								stylers: [
 									{ visibility: "off" }
-									]
-								}
-							]
-						});
-						scope.mapInitMethods();
+								]
+							}
+						]
+					});
+					scope.map = map;
+					scope.initDynamicMap(map);
 				},
 
-				refreshMap: function(markers){
+				initDynamicMap: function(map) {
+					var scope = this;
+					var customLabel = {
+						satellite: { label: 'S' }
+					};
+					google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+						var bounds = map.getBounds();
+						var areaBounds = {
+							north: bounds.getNorthEast().lat(),
+							south: bounds.getSouthWest().lat(),
+							east: bounds.getNorthEast().lng(),
+							west: bounds.getSouthWest().lng()
+						};
+						var json = JSON.stringify(areaBounds);
+						var infoWindow = new google.maps.InfoWindow;
 
+															// Change this depending on the name of your PHP or XML file
+															downloadUrl('http://46.101.110.28/get_position_of_satellites_xml/'+json, function(data) {
+																var xml = data.responseXML;
+																var markers = xml.documentElement.getElementsByTagName('marker');
+																Array.prototype.forEach.call(markers, function(markerElem) {
+																var id = markerElem.getAttribute('id');
+																var name = markerElem.getAttribute('name');
+																var address = markerElem.getAttribute('address');
+																var type = markerElem.getAttribute('type');
+																var point = new google.maps.LatLng(
+																	parseFloat(markerElem.getAttribute('lat')),
+																	parseFloat(markerElem.getAttribute('lng')));
+
+																var infowincontent = document.createElement('div');
+																var strong = document.createElement('strong');
+																strong.textContent = name
+																infowincontent.appendChild(strong);
+																infowincontent.appendChild(document.createElement('br'));
+
+																var text = document.createElement('text');
+																text.textContent = address
+																infowincontent.appendChild(text);
+																var icon = customLabel[type] || {};
+																var marker = new google.maps.Marker({
+																	map: map,
+																	position: point,
+																	label: icon.label
+																});
+																marker.addListener('click', function() {
+																	infoWindow.setContent(infowincontent);
+																	infoWindow.open(map, marker);
+																});
+																});
+															});
+															
+
+
+
+														function downloadUrl(url, callback) {
+															var request = window.ActiveXObject ?
+																new ActiveXObject('Microsoft.XMLHTTP') :
+																new XMLHttpRequest;
+
+															request.onreadystatechange = function() {
+															if (request.readyState == 4) {
+																request.onreadystatechange = doNothing;
+																callback(request, request.status);
+															}
+															};
+
+															request.open('GET', url, true);
+															request.send(null);
+														}
+
+														function doNothing() {}
+														scope.satellite_loader = true;
+					});
 				},
 
 				mapInitMethods: function() {
@@ -661,15 +731,8 @@
 			},
 			mounted: function(){
 				var scope = this;
-				var map = this.map;
-				var marker = this.marker;
-
-
 				this.userPosition();
-				setTimeout(function(){ 
-					scope.setFirstSatellite();
-				}, 700);
-				
+
 
 			}
 		})

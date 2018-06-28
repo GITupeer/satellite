@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Response;
 
 class APIController extends BaseController
 {
@@ -245,6 +246,30 @@ class APIController extends BaseController
 
         return $arr;
 
+    }
+
+
+
+    public function get_position_of_satellites_xml($bounds){
+        $boundsJSON =json_decode($bounds);
+        header("Access-Control-Allow-Origin: *");
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
+        ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
+        ->limit(2)->get();
+        $satellite = json_decode( $satellite, true);
+        $xml = '<markers>';
+        $count=0; 
+        foreach ($satellite as $row){
+
+
+            $count++;
+        }
+
+
+
+        $xml .= '</markers>';
+        $content = view("API_xml", $xml);
+        return  Response::make($content, '200')->header('Content-Type', 'text/xml');
     }
 
 
