@@ -263,16 +263,12 @@ class APIController extends BaseController
         $xml['data'] = '<markers>';
             foreach ($satellite as $row){
                     
-                    $offsetRate = DB::table('satellite_log')->select('latitude', 'longitude', 'timestamp')->where([['satellite_id','=',$row['satellite_id']]])->limit(2)->get();
-                    $offsetRate = json_decode( $offsetRate, true);
-                    
+        
                     $offsetRateLat = '';
                     $offsetRateLat = '';    
 
 
-                    if(!empty($offsetRate[0])){
-                        $offsetRateLat = $offsetRate[0]['timestamp'];
-                    }
+                    
 
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
                     $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
