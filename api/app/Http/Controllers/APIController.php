@@ -257,7 +257,7 @@ class APIController extends BaseController
         ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
         ->limit(1500)->get();
         $satellite = json_decode( $satellite, true);
-        $xml['data'] = '';
+        $xml['data'] = '<allSatellites>17356</allSatellites><returnSatellites>17356</returnSatellites>';
         $count=0; 
         foreach ($satellite as $row){
 
