@@ -258,6 +258,12 @@ class APIController extends BaseController
         $satellite = json_decode( $satellite, true);
         $xml['data'] = '';
         $count=0; 
+
+        echo '<pre>';
+        print_r($satellite);
+        echo '</pre>';
+
+
         foreach ($satellite as $row){
 
   
@@ -268,7 +274,6 @@ class APIController extends BaseController
             
         }
 
-        exit;
 
         $content = view("API_xml", $xml);
         return  Response::make($content, '200')->header('Content-Type', 'text/xml');
