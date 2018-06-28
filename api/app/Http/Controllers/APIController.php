@@ -265,17 +265,21 @@ class APIController extends BaseController
                     
                     $offsetRate = DB::table('satellite_log')->select('latitude', 'longitude', 'timestamp')->where([['satellite_id','=',$row['satellite_id']]])->limit(2)->get();
                     $offsetRate = json_decode( $offsetRate, true);
-                    echo $row['satellite_id'];
-                    echo '<pre>';
-                    print_r($offsetRate);
-                    echo '</pre>'; exit;
+                    
+                    $offsetRateLat = '';
+                    $offsetRateLat = '';    
+
+
+                    if(!empty($offsetRate[0])){
+                        $offsetRateLat = $offsetRate[0]['timestamp'];
+                    }
 
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
                     $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
                     $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
                     $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
             
-                    $xml['data'] .= '<marker id="'.$count.'" offsetRateLat="'.$offsetRate[0]['timestamp'].'" offsetRateLng="" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
+                    $xml['data'] .= '<marker id="'.$count.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
                     $count++;
                 
             }
