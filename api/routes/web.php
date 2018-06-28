@@ -24,6 +24,7 @@ Route::GET('/satellite/{title}', 'APIController@satellite');
 Route::GET('/userposition', 'APIController@userposition');
 
 
+
 Route::get('/API/cron', 'APIController@cron');
 Route::get('/API/cron_satellite_info', 'APIController@cron_satellite_info');
 Route::GET('/cron_category_info', 'APIController@cron_category_info');

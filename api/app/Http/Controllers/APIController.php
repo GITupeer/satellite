@@ -248,6 +248,7 @@ class APIController extends BaseController
 
     }
 
+  
 
 
     public function get_position_of_satellites_xml($bounds){
@@ -271,7 +272,6 @@ class APIController extends BaseController
                     $count++;
                 
             }
-            $xml['data'] .= '<allSatellites>17356</allSatellites><returnSatellites>'.$count.'</returnSatellites>';
         $xml['data'] .= '</markers>';
         
 
@@ -406,7 +406,12 @@ class APIController extends BaseController
         $arrayToReturn['ip'] = $array['query'];
         $arrayToReturn['timezone'] = $array['timezone'];
 
+
+        $satellite = DB::table('satellite')->count();
+        $arrayToReturn['website']['count'] = $satellite;
+
         sleep(1);
+
         return($arrayToReturn);
 
     }

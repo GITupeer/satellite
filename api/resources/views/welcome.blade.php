@@ -384,6 +384,7 @@
 			el: '#app',
 			data: {
 				satelliteConuter: 0,
+				satelliteConuterAll: 0,
 				marker: [],
 				map: [],
 				actualMarker: [],
@@ -473,11 +474,13 @@
 						};
 						var json = JSON.stringify(areaBounds);
 						var infoWindow = new google.maps.InfoWindow;
-
 						downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
+
 							var xml = data.responseXML;
 							var markers = xml.documentElement.getElementsByTagName('marker');
+							var  i = 0;
 							Array.prototype.forEach.call(markers, function(markerElem) {
+								
 								var id = markerElem.getAttribute('id');
 								var name = markerElem.getAttribute('name');
 								var address = markerElem.getAttribute('address');
@@ -526,17 +529,16 @@
 									infoWindow.open(map, marker);
 
 								});
+								i++;
 							});
-							
+							scope.satelliteConuter = i;
 							google.maps.event.addListener(map, 'idle', function (marker) {
 								scope.refreshMap(map);
 							});
 							
 
 
-
 						});
-								
 						function downloadUrl(url, callback) {
 							var request = window.ActiveXObject ?
 								new ActiveXObject('Microsoft.XMLHTTP') :
