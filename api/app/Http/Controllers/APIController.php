@@ -258,8 +258,8 @@ class APIController extends BaseController
         ->limit(1500)->get();
         $satellite = json_decode( $satellite, true);
         $count=0; 
-        $xml['data'] = '<allSatellites>17356</allSatellites><returnSatellites>0</returnSatellites>';
-        $xml['data'] .= '<markers>';
+       
+        $xml['data'] = '<markers>';
             foreach ($satellite as $row){
 
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
