@@ -261,10 +261,10 @@ class APIController extends BaseController
         $count=0; 
         foreach ($satellite as $row){
 
-            if (!empty($count) AND !empty($row['satellite_name']) AND !empty($row['satellite_id']) AND !empty($row['latitude']) AND !empty($row['longitude'])){
+         
                 $xml['data'] .= '<marker id="'.$count.'" name="'.$row['satellite_name'].'" satellieID="'.$row['satellite_id'].'" address="n/o" lat="'.$row['latitude'].'" lng="'.$row['longitude'].'" type="satellite"/>';
                 $count++;
-            }
+            
         }
 
 
