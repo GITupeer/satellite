@@ -255,7 +255,7 @@ class APIController extends BaseController
         header("Access-Control-Allow-Origin: *");
         $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
         //->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
-        ->get();
+        ->limit(1500)->get();
         $satellite = json_decode( $satellite, true);
         $xml['data'] = '';
         $count=0; 
