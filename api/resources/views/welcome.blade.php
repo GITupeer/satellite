@@ -387,7 +387,6 @@
 				marker: [],
 				map: [],
 				actualMarker: [],
-				map: '',
 				satelliteInformations: {
 					launch_date: '',
 					Apogee: '',
@@ -407,7 +406,8 @@
 					speed: '',
 					launch_date_day: '',
 					firstload: false,
-					areaBoundsScope: ''
+					areaBoundsScope: '',
+					pin: ''
 				},
 				user_loader: false,
 				satellite_loader: false,
@@ -416,22 +416,22 @@
 			methods: {
 				close: function() {
 					document.getElementById("leftMenu").style.transform = "translateX(-105%)";
-				}
-				
-			},
-			computed: {
-				
-
-			},
-			mounted: function(){
-				var scope = this;
+				},
 
 
-				$.get('http://46.101.110.28/userposition').done(function(data){
-					scope.user_position = data;
-					scope.user_loader = true;
-					console.log(scope.user_position);
-					map = new google.maps.Map(document.getElementById('map'), {
+
+				userPosition: function() {
+					var scope = this;
+					$.get('http://46.101.110.28/userposition').done(function(data){
+						scope.user_position = data;
+						scope.user_loader = true;
+						scope.initMapGoogle();
+					});
+				},
+
+				initMapGoogle: function() {
+					var scope = this;
+					scope.map = new google.maps.Map(document.getElementById('map'), {
 						zoom: 6,
 						mapTypeControl: false,
 						disableDefaultUI: true,
@@ -446,6 +446,19 @@
 								}
 							]
 						});
+						scope.mapInitMethods();
+				},
+
+				refreshMap: function(markers){
+
+				},
+
+				mapInitMethods: function() {
+					var scope = this;
+					var map = scope.map;
+					var beaches;
+
+
 						var shape = {
 							coords: [1, 1, 1, 20, 18, 20, 18, 1],
 							type: 'poly'
@@ -465,192 +478,198 @@
 							shape: shape,
 							title: 'Your Position',
 						});
-	
-				google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-					var bounds = map.getBounds();
-					var areaBounds = {
-						north: bounds.getNorthEast().lat(),
-						south: bounds.getSouthWest().lat(),
-						east: bounds.getNorthEast().lng(),
-						west: bounds.getSouthWest().lng()
-					};
+						this.marker = marker;
+		
+						google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+							var bounds = map.getBounds();
+							var areaBounds = {
+								north: bounds.getNorthEast().lat(),
+								south: bounds.getSouthWest().lat(),
+								east: bounds.getNorthEast().lng(),
+								west: bounds.getSouthWest().lng()
+							};
 					
+							var json = JSON.stringify(areaBounds);
 
-					var json = JSON.stringify(areaBounds);
-					$.get('http://46.101.110.28/get_position/'+json).done(function(data){
-					var json = data;
-					
-					scope.satelliteConuter = json.counter;
-					var dataGeo = json.data;
-					console.log();
-					var array = JSON.parse('[' + dataGeo + ']');
-					var beaches = array;
-					var image = {
-					url: 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png',
-					size: new google.maps.Size(24, 24),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(0, 32)
-					};
+							$.get('http://46.101.110.28/get_position/'+json).done(function(data){
+								var json = data;
+								scope.satelliteConuter = json.counter;
+								var dataGeo = json.data;
+								var array = JSON.parse('[' + dataGeo + ']');
+								beaches = array;
+								scope.pin = beaches;
+								var infowindow = new google.maps.InfoWindow();
+								var Markers = {};
+								var imageChoose;
+								var markers = {};
 
-					var image_ISS = {
-					url: 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png',
-					size: new google.maps.Size(24, 24),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(0, 32)
-					};
-					var infowindow = new google.maps.InfoWindow();
-					var Markers = {};
-					var imageChoose;
-					//beaches.join() = ', ["user", '+scope.user_position.latitude+', '+scope.user_position.longitude+']';
-					
-					for (var i = 0; i < beaches.length; i++) {
-						var beach = beaches[i];
-						if (beach[0] == 'SPACE STATION |*| 25544') {
-							imageChoose = image_ISS;
-						} if (beach[0] == 'user') {
-							imageChoose = image_user;
-						} else {
-							imageChoose = image;
-						}
-						marker = new google.maps.Marker({
-							position: {lat: beach[1], lng: beach[2]},
-							map : map,
-							icon: imageChoose,
-							shape: shape,
-							title: beach[0],
-							zIndex: beach[3]
-						});
-						actualMarker = beach[0];
+								var image = {
+									url: 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png',
+									size: new google.maps.Size(24, 24),
+									origin: new google.maps.Point(0, 0),
+									anchor: new google.maps.Point(0, 32)
+								};
 
-						google.maps.event.addListener(marker, 'mouseover', (function(marker, i, event) {
-							return function() {
-								var str = this.title;
-								var res = str.split(" |*| ");
-								if (res[0] != 'user'){
-									infowindow.setContent(res[0]);
-									infowindow.setOptions({maxWidth: 200});
-									infowindow.open(map, marker);
+								var image_ISS = {
+									url: 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png',
+									size: new google.maps.Size(24, 24),
+									origin: new google.maps.Point(0, 0),
+									anchor: new google.maps.Point(0, 32)
+								};
+								console.log('Refresh Map1', beaches);	
+								for (var i = 0; i < beaches.length; i++) {
+									var beach = beaches[i];
+									if (beach[0] == 'SPACE STATION |*| 25544') {
+										imageChoose = image_ISS;
+									} if (beach[0] == 'user') {
+										imageChoose = image_user;
+									} else {
+										imageChoose = image;
+									}
+
+
+									marker = new google.maps.Marker({
+										position: {lat: beach[1], lng: beach[2]},
+										map : map,
+										icon: imageChoose,
+										shape: shape,
+										title: beach[0],
+										zIndex: beach[3],
+										duration: 1000
+									});
+									actualMarker = beach[0];
+									Markers[i] = marker;	
+
+									google.maps.event.addListener(marker, 'mouseover', (function(marker, i, event) {
+										return function() {
+											var str = this.title;
+											var res = str.split(" |*| ");
+											if (res[0] != 'user'){
+												infowindow.setContent(res[0]);
+												infowindow.setOptions({maxWidth: 200});
+												infowindow.open(map, marker);
+											}
+
+										}
+									}) (marker, i));
+
+
+
+									google.maps.event.addListener(marker, 'mouseout', (function(marker, i, event) {
+										return function() {
+											infowindow.close();
+										}
+									}) (marker, i));
+							
+
+
+									google.maps.event.addListener(marker, "click", function (event) {
+
+										if (this.title != 'user'){
+											var styleVal = document.getElementById("leftMenu").style.transform
+
+
+											if (styleVal == 'translateX(-105%)' || styleVal == ''){
+												document.getElementById("leftMenu").style.transform = "translateX(0)";	
+											} else {
+												document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+												setTimeout(function(){ 
+													document.getElementById("leftMenu").style.transform = "translateX(0)";
+												}, 700);
+											}
+
+								
+											var str = this.title;
+											var res = str.split(" |*| ");
+											$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
+												scope.satelliteInformations = data.data;
+											});
+							
+											/*var flightPlanCoordinates = [
+											{lat: 37.772, lng: -122.214},
+											{lat: 21.291, lng: -157.821},
+											{lat: -18.142, lng: 178.431},
+											{lat: -27.467, lng: 153.027}
+											];
+											var flightPath = new google.maps.Polyline({
+											path: flightPlanCoordinates,
+											geodesic: true,
+											strokeColor: '#FF0000',
+											strokeOpacity: 1.0,
+											strokeWeight: 2
+											});
+											
+											
+											flightPath.setMap(map); 
+											
+											console.log('DSFDSFDS', this.title);
+											*/
+										}
+									});
 								}
+								scope.marker = marker;
 
-							}
-						}) (marker, i));
-						google.maps.event.addListener(marker, 'mouseout', (function(marker, i, event) {
-							return function() {
-								infowindow.close();
-							}
-						}) (marker, i));
-						Markers[i] = marker;
+								scope.satellite_loader = true;
 
-
-						google.maps.event.addListener(marker, "click", function (event) {
-							if (this.title != 'user'){
-								var styleVal = document.getElementById("leftMenu").style.transform
-								if (styleVal == 'translateX(-105%)' || styleVal == ''){
-									document.getElementById("leftMenu").style.transform = "translateX(0)";	
-								} else {
-									document.getElementById("leftMenu").style.transform = "translateX(-105%)";
-									setTimeout(function(){ 
-										document.getElementById("leftMenu").style.transform = "translateX(0)";
-									}, 700);
-										
+								function locate(marker_id) {
+									var myMarker = Markers[marker_id];
+									var markerPosition = myMarker.getPosition();
+									map.setCenter(markerPosition);
+									google.maps.event.trigger(myMarker, 'click');
 								}
+							});
+
+							google.maps.event.addListener(map, 'idle', function (marker) {
+								var beaches = scope.pin;
+								var marker = scope.marker;
+								var map = scope.map;								
+								console.log('Refresh Map', scope.pin);
+								console.log('Refresh Map2', marker);
+								for (var i = 0; i < beaches.length; i++) {
+									marker[i] = new google.maps.Marker(null);
+								}
+								//scope.mapInitMethods();
+							});
+
+
+
 
 							
-								var str = this.title;
-								var res = str.split(" |*| ");
-								$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
-									scope.satelliteInformations = data.data;
-								});
-						
-															
-								
-								/*var flightPlanCoordinates = [
-								{lat: 37.772, lng: -122.214},
-								{lat: 21.291, lng: -157.821},
-								{lat: -18.142, lng: 178.431},
-								{lat: -27.467, lng: 153.027}
-								];
-								var flightPath = new google.maps.Polyline({
-								path: flightPlanCoordinates,
-								geodesic: true,
-								strokeColor: '#FF0000',
-								strokeOpacity: 1.0,
-								strokeWeight: 2
-								});
-								
-								
-								flightPath.setMap(map); 
-								
-								console.log('DSFDSFDS', this.title);
-								*/
-								
-							}
-
-
-							
-						});
-						
-					}
-
-
-						google.maps.event.addListener(map, 'idle', function (marker) {
-
-					var bounds = map.getBounds();
-					var areaBounds = {
-						north: bounds.getNorthEast().lat(),
-						south: bounds.getSouthWest().lat(),
-						east: bounds.getNorthEast().lng(),
-						west: bounds.getSouthWest().lng()
-					};
-					
-
-					var json = JSON.stringify(areaBounds);
-					$.get('http://46.101.110.28/get_position/'+json).done(function(data){
-					var json = data;
-					
-					scope.satelliteConuter = json.counter;
-					var dataGeo = json.data;
-							console.log('dsfdfdf');
-					});
-
-
-
 
 
 						});
 
+							setTimeout(function(){ 
+								myLatlng = new google.maps.LatLng(52.352299, 20.786510);
+								marker.setPosition(myLatlng)
+								console.log('New position');
+							}, 1000);
+						
+				},
 
-			
-
+				setFirstSatellite: function() {
+					var scope = this;
 					$.get('http://46.101.110.28/satellite/25544').done(function(data){ 
 						scope.satelliteInformations = data.data;
 						document.getElementById("leftMenu").style.transform = "translateX(0)";
 					});	
-
-					scope.satellite_loader = true;
-
-					function locate(marker_id) {
-						var myMarker = Markers[marker_id];
-						var markerPosition = myMarker.getPosition();
-						map.setCenter(markerPosition);
-						google.maps.event.trigger(myMarker, 'click');
-					}
-
-					});
-				});
-			});
-
-
-						google.maps.event.addListenerOnce(map, 'idle', function(){
-							drawBounds(map);  
-						});
-
-				function runforever() {
-					setTimeout(function(){ 
-						console.log('dsfdsf', SWCorner.lat);
-					}, 10000);
 				}
-				runforever();
+			},
+			computed: {
+				
+
+			},
+			mounted: function(){
+				var scope = this;
+				var map = this.map;
+				var marker = this.marker;
+
+
+				this.userPosition();
+				setTimeout(function(){ 
+					scope.setFirstSatellite();
+				}, 700);
+				
 
 			}
 		})
