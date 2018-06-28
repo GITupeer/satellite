@@ -262,12 +262,14 @@ class APIController extends BaseController
         foreach ($satellite as $row){
 
   
-                $xml['data'] .= '<marker id="'.$count.'" name="'.$row['satellite_name'].'" satellieID="'.$row['satellite_id'].'" address="n/o" lat="'.$row['latitude'].'" lng="'.$row['longitude'].'" type="satellite"/>';
+                $xml['data'] = '<marker id="'.$count.'" name="'.$row['satellite_name'].'" satellieID="'.$row['satellite_id'].'" address="n/o" lat="'.$row['latitude'].'" lng="'.$row['longitude'].'" type="satellite"/>';
+                
+                echo $xml['data'].'<br>';
                 $count++;
             
         }
 
-        echo $xml['data']; exit;
+        exit;
 
         $content = view("API_xml", $xml);
         return  Response::make($content, '200')->header('Content-Type', 'text/xml');
