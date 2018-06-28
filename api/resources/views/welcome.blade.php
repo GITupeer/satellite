@@ -553,7 +553,7 @@
 
 
 				refreshMap: function(map) {
-					this.initMapGoogle();
+					map.setMap(null);
 				},
 
 
