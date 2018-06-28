@@ -260,6 +260,7 @@ class APIController extends BaseController
         $count=0; 
        
         $xml['data'] = '<markers>';
+        $xml['data'] .= '<allSatellites>17356</allSatellites><returnSatellites>0</returnSatellites>';
             foreach ($satellite as $row){
 
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
