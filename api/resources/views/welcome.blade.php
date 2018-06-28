@@ -641,7 +641,7 @@
 
 							setTimeout(function(){ 
 								myLatlng = new google.maps.LatLng(52.352299, 20.786510);
-								marker.setPosition(myLatlng)
+								//marker.setPosition(myLatlng)
 								console.log('New position');
 							}, 1000);
 						
