@@ -254,25 +254,19 @@ class APIController extends BaseController
         $boundsJSON =json_decode($bounds);
         header("Access-Control-Allow-Origin: *");
         $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
+        //->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
         ->get();
         $satellite = json_decode( $satellite, true);
         $xml['data'] = '';
         $count=0; 
-
-        echo '<pre>';
-        print_r($satellite);
-        echo '</pre>';
-
-
         foreach ($satellite as $row){
 
-  
-                $xml['data'] = '<marker id="'.$count.'" name="'.$row['satellite_name'].'" satellieID="'.$row['satellite_id'].'" address="n/o" lat="'.$row['latitude'].'" lng="'.$row['longitude'].'" type="satellite"/>';
-                
-                echo $xml['data'].'<br>';
+            if (!empty($count) AND !empty($row['satellite_name']) AND !empty($row['satellite_id']) AND !empty($row['latitude']) AND !empty($row['longitude'])){
+                $xml['data'] .= '<marker id="'.$count.'" name="'.$row['satellite_name'].'" satellieID="'.$row['satellite_id'].'" address="n/o" lat="'.$row['latitude'].'" lng="'.$row['longitude'].'" type="satellite"/>';
                 $count++;
-            
+            }
         }
+
 
 
         $content = view("API_xml", $xml);
