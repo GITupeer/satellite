@@ -409,6 +409,7 @@
 					areaBoundsScope: '',
 					pin: ''
 				},
+				zoom: '',
 				user_loader: false,
 				satellite_loader: false,
 				user_position: ''
@@ -443,6 +444,15 @@
 								]
 							}
 						]
+					});
+					scope.map = map;
+					scope.initDynamicMap(map);
+				},
+				initMapGoogleRef: function(zoom) {
+					var scope = this;
+					var map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
+						zoom: zoom
 					});
 					scope.map = map;
 					scope.initDynamicMap(map);
@@ -496,6 +506,7 @@
 									icon: image,
 									satellieID: satellieID
 								});
+								
 
 								marker.addListener('click', function() {
 									var styleVal = document.getElementById("leftMenu").style.transform
@@ -553,7 +564,8 @@
 
 
 				refreshMap: function(map) {
-					map.setMap(null);
+					this.zoom = map.getZoom();
+					this.initMapGoogleRef(this.zoom);
 				},
 
 
