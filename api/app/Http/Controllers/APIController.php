@@ -257,20 +257,21 @@ class APIController extends BaseController
         ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
         ->limit(1500)->get();
         $satellite = json_decode( $satellite, true);
-        $xml['data'] = '<allSatellites>17356</allSatellites><returnSatellites>17356</returnSatellites>';
         $count=0; 
-        foreach ($satellite as $row){
+        $xml['data'] .= '<markers>';
+            foreach ($satellite as $row){
 
-                $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
-                $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
-                $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
-                $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
-         
-                $xml['data'] .= '<marker id="'.$count.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
-                $count++;
+                    $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
+                    $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
+                    $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
+                    $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
             
-        }
-
+                    $xml['data'] .= '<marker id="'.$count.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
+                    $count++;
+                
+            }
+        $xml['data'] .= '</markers>';
+        $xml['data'] = '<details><allSatellites>17356</allSatellites><returnSatellites>'.$count.'</returnSatellites></details>';
 
 
         $content = view("API_xml", $xml);
