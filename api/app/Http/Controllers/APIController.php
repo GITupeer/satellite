@@ -265,6 +265,7 @@ class APIController extends BaseController
                     
                     $offsetRate = DB::table('satellite_log')->select('latitude', 'longitude', 'timestamp')->where([['satellite_id','=',$row['satellite_id']]])->limit(2)->get();
                     $offsetRate = json_decode( $offsetRate, true);
+                    echo $row['satellite_id'];
                     echo '<pre>';
                     print_r($offsetRate);
                     echo '</pre>'; exit;
