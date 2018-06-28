@@ -464,62 +464,94 @@
 						var json = JSON.stringify(areaBounds);
 						var infoWindow = new google.maps.InfoWindow;
 
-															// Change this depending on the name of your PHP or XML file
-															downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
-																var xml = data.responseXML;
-																var markers = xml.documentElement.getElementsByTagName('marker');
-																Array.prototype.forEach.call(markers, function(markerElem) {
-																var id = markerElem.getAttribute('id');
-																var name = markerElem.getAttribute('name');
-																var address = markerElem.getAttribute('address');
-																var type = markerElem.getAttribute('type');
-																var point = new google.maps.LatLng(
-																	parseFloat(markerElem.getAttribute('lat')),
-																	parseFloat(markerElem.getAttribute('lng')));
+						downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
+							var xml = data.responseXML;
+							var markers = xml.documentElement.getElementsByTagName('marker');
+							Array.prototype.forEach.call(markers, function(markerElem) {
+								var id = markerElem.getAttribute('id');
+								var name = markerElem.getAttribute('name');
+								var address = markerElem.getAttribute('address');
+								var satellieID = markerElem.getAttribute('satellieID');
+								var point = new google.maps.LatLng(
+								parseFloat(markerElem.getAttribute('lat')),
+								parseFloat(markerElem.getAttribute('lng')));
+								var infowincontent = document.createElement('div');
+								var strong = document.createElement('strong');
+								strong.textContent = name
+								infowincontent.appendChild(strong);
+								infowincontent.appendChild(document.createElement('br'));
+								var text = document.createElement('text');
+								text.textContent = address
+								infowincontent.appendChild(text);
 
-																var infowincontent = document.createElement('div');
-																var strong = document.createElement('strong');
-																strong.textContent = name
-																infowincontent.appendChild(strong);
-																infowincontent.appendChild(document.createElement('br'));
+								var image = {
+									url: 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png',
+									size: new google.maps.Size(24, 24),
+									origin: new google.maps.Point(0, 0),
+									anchor: new google.maps.Point(0, 32)
+								};							
+								var marker = new google.maps.Marker({
+									map: map,
+									position: point,
+									icon: image,
+									satellieID: satellieID
+								});
 
-																var text = document.createElement('text');
-																text.textContent = address
-																infowincontent.appendChild(text);
-																var icon = customLabel[type] || {};
-																var marker = new google.maps.Marker({
-																	map: map,
-																	position: point,
-																	label: icon.label
-																});
-																marker.addListener('click', function() {
-																	infoWindow.setContent(infowincontent);
-																	infoWindow.open(map, marker);
-																});
-																});
-															});
-															
+								marker.addListener('click', function() {
+									var styleVal = document.getElementById("leftMenu").style.transform
+									//var str = this.title;
+									//var res = str.split(" |*| ");
 
 
+									console.log(this.satellieID);
 
-														function downloadUrl(url, callback) {
-															var request = window.ActiveXObject ?
-																new ActiveXObject('Microsoft.XMLHTTP') :
-																new XMLHttpRequest;
+									/*$.get('http://46.101.110.28/satellite/'+res[1]).done(function(data){ 
+										scope.satelliteInformations = data.data;
+										if (styleVal == 'translateX(-105%)' || styleVal == ''){
+											document.getElementById("leftMenu").style.transform = "translateX(0)";	
+										} else {
+											document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+											setTimeout(function(){ 
+												document.getElementById("leftMenu").style.transform = "translateX(0)";
+										}, 700);
+}
+									});
+*/
+									infoWindow.setContent(infowincontent);
+									infoWindow.open(map, marker);
 
-															request.onreadystatechange = function() {
-															if (request.readyState == 4) {
-																request.onreadystatechange = doNothing;
-																callback(request, request.status);
-															}
-															};
+											
 
-															request.open('GET', url, true);
-															request.send(null);
-														}
 
-														function doNothing() {}
-														scope.satellite_loader = true;
+
+
+
+
+								});
+							});
+						});
+								
+						function downloadUrl(url, callback) {
+							var request = window.ActiveXObject ?
+								new ActiveXObject('Microsoft.XMLHTTP') :
+								new XMLHttpRequest;
+
+							request.onreadystatechange = function() {
+							if (request.readyState == 4) {
+								request.onreadystatechange = doNothing;
+								callback(request, request.status);
+							}
+							};
+
+							request.open('GET', url, true);
+							request.send(null);
+						}
+
+						function doNothing() {}
+						scope.satellite_loader = true;
+
+
+
 					});
 				},
 
