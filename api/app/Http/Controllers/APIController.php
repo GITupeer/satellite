@@ -257,17 +257,16 @@ class APIController extends BaseController
         ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
         ->limit(2)->get();
         $satellite = json_decode( $satellite, true);
-        $xml['data'] = '<markers>';
+        $xml['data'] = '';
         $count=0; 
         foreach ($satellite as $row){
-
+            $xml['data'] .= '<test id="1"> </test>';
 
             $count++;
         }
 
 
 
-        $xml['data'] .= '</markers>';
         $content = view("API_xml", $xml);
         return  Response::make($content, '200')->header('Content-Type', 'text/xml');
     }
