@@ -268,7 +268,7 @@ class APIController extends BaseController
                     $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
                     $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
             
-                    $xml['data'] .= '<marker id="'.$count.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
+                    $xml['data'] .= '<marker id="'.$count.'" offsetRateLat="" offsetRateLng="" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
                     $count++;
                 
             }

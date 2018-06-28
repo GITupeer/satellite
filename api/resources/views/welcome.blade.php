@@ -28,7 +28,7 @@
 						<div style="margin-bottom: -5px;">Satellite Radar | <span style="color: #FFD740;">Sky-Space</span></div>
 						<div style="font-size:  10px;">Check position satellite in Real-Time</div>
 					</td>
-					<td style="padding-left: 25px;">
+					<td style="padding-left: 25px;" class="search_input">
 						<input type="text" name="search" placeholder="Search setallite..." style="border-radius: 4px;padding: 7px;font-size: 10px;width: 200px;">
 					</td>
 				</tr>
@@ -111,10 +111,14 @@
 
 	<div class="map_setting" id="map_setting">
 		<div style="margin: 20px;">
-			
-			<img style="width: 120px;" src="https://vignette.wikia.nocookie.net/logopedia/images/b/b9/Get-it-on-Google-Play.png/revision/latest?cb=20150704202355">
-
-
+			<div class="map_settings_button" style="float: right; height: 38px; opacity: 1; color: white; background-color: #212121; padding-left: 15px; padding-right: 15px; padding-top: 2px; padding-bottom: 2px; margin-bottom: 20px;"> 
+				<div style="font-size: 11px; margin-bottom: -4px;">
+				Satellites
+				</div>
+				<div style="font-size: 14px;">
+					@{{satelliteConuter}} / @{{satelliteConuterAll}} 
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -124,10 +128,7 @@
 				<i class="fas fa-globe map_settings_icon" style="font-size: 15px; color: #FFD740;"></i>	
 				<div class="map_settings_text">Category Filter</div>
 				<i class="fas fa-angle-down map_settings_icon" style="font-size: 15px;"></i>
-			</div>
-
-
-		
+			</div>		
 			<div class="map_settings_button">
 				<i class="fas fa-cog map_settings_icon"></i>
 			</div>
@@ -154,7 +155,8 @@
 
 				   
 				 
-	<div class="leftMenu" id="leftMenu" style="overflow-y: auto;">
+	<div class="leftMenu" id="leftMenu" style="overflow-y: auto; z-index: 999;">
+
 
 		<div class="close_button" @click="close()">
 			<i class="material-icons" style="font-size: 14px;color: #212121;"> close </i>
@@ -427,6 +429,8 @@
 					$.get('http://46.101.110.28/userposition').done(function(data){
 						scope.user_position = data;
 						scope.user_loader = true;
+						scope.satelliteConuterAll = data['website'].count;
+						console.log(data['website'].count);
 						scope.initMapGoogle();
 					});
 				},
@@ -435,7 +439,8 @@
 					var scope = this;
 					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
-						zoom: 4,
+						zoom: 1,
+						disableDefaultUI: true,
 						styles: [
 							{
 								featureType: "road",
@@ -474,11 +479,13 @@
 						};
 						var json = JSON.stringify(areaBounds);
 						var infoWindow = new google.maps.InfoWindow;
+						
 						downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
 
 							var xml = data.responseXML;
 							var markers = xml.documentElement.getElementsByTagName('marker');
 							var  i = 0;
+							var multiMarker;
 							Array.prototype.forEach.call(markers, function(markerElem) {
 								
 								var id = markerElem.getAttribute('id');
@@ -504,12 +511,35 @@
 									anchor: new google.maps.Point(0, 32)
 								};							
 								var marker = new google.maps.Marker({
+									MarkerID: id,
 									map: map,
 									position: point,
 									icon: image,
 									satellieID: satellieID
 								});
-								
+
+
+											var latitude = parseFloat(markerElem.getAttribute('lat'));
+											var  longitude = parseFloat(markerElem.getAttribute('lng'));
+
+										animateCircle(marker);
+
+										function animateCircle(marker) {
+											var count = 0;
+											window.setInterval(function() {
+												latitude = latitude + 0.00030;	
+												longitude = longitude + 0.0050;	
+
+												myLatlng = new google.maps.LatLng(latitude, longitude);
+				-								marker.setPosition(myLatlng)
+				+								marker.setPosition(myLatlng)
+
+											}, 1);
+										}
+
+
+
+
 
 								marker.addListener('click', function() {
 									var styleVal = document.getElementById("leftMenu").style.transform
@@ -536,9 +566,14 @@
 								scope.refreshMap(map);
 							});
 							
-
+							console.log(multiMarker);
 
 						});
+
+
+						
+
+
 						function downloadUrl(url, callback) {
 							var request = window.ActiveXObject ?
 								new ActiveXObject('Microsoft.XMLHTTP') :
@@ -557,16 +592,15 @@
 
 						function doNothing() {}
 						scope.satellite_loader = true;
-						scope.setFirstSatellite();
-
-
 
 					});
 				},
 
 
 				refreshMap: function(map) {
-					console.log('test');
+
+
+					//this.initDynamicMap(map);
 				},
 
 
@@ -589,7 +623,7 @@
 			mounted: function(){
 				var scope = this;
 				this.userPosition();
-				
+				this.setFirstSatellite();
 
 
 			}
