@@ -273,6 +273,7 @@ class APIController extends BaseController
                     $offsetRateLat = '';    
 
                     if ($satellite_id == '25544') { $image = 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png'; }
+                   // if ($satellite_id == '20580') { $image = 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png'; }
                     else { $image = 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png'; }
 
                     
@@ -424,6 +425,14 @@ class APIController extends BaseController
         return($arrayToReturn);
 
     }
+
+
+
+
+    public function offsetRate() {
+        echo 'test';
+    }
+
 
 
     
