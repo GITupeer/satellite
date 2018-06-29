@@ -433,7 +433,7 @@ class APIController extends BaseController
         $satellite_id = 25544;
 
 
-        $rateOffset = DB::table('satellite_log')->select('*')->where([['satellite_id','=',$title]])->limit(5)->get();
+        $rateOffset = DB::table('satellite_log')->select('*')->where([['satellite_id','=',$satellite_id]])->limit(5)->get();
         $rateOffset = json_decode( $rateOffset, true);
 
         echo '<pre>';
