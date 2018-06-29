@@ -457,14 +457,13 @@ class APIController extends BaseController
         }
 
 
-        $sek = $data2 - $data;
-        echo $sek.'<br>';
-        echo $lat.'<br>';
-        echo $lng;
+        $sek = $data - $data2;
+        $arr['offsetLat'] = $lat/$sek;
+        $arr['offsetLng'] = $lng/$sek;
 
 
         echo '<pre>';
-        print_r($rateOffset);
+        print_r($arr);
         echo '</pre>';
 
 
