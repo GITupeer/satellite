@@ -443,6 +443,9 @@ class APIController extends BaseController
             if ($i != 0){
                 $lat = $lat - $offdet['latitude'];
                 $lng = $lng - $offdet['longitude'];
+                $data = strtotime($timestamp);
+                $data2 = strtotime($offdet['timestamp']);
+
             } else {
                 $lat = $offdet['latitude'];
                 $lng = $offdet['longitude'];
@@ -454,6 +457,9 @@ class APIController extends BaseController
         }
 
 
+         $sekund_c = floor((((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24 - floor((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24)) * 60 - floor(((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24 - floor((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24)) * 60)) * 60);
+
+        echo $sekund_c.'<br>';
         echo $lat.'<br>';
         echo $lng;
 
