@@ -493,6 +493,7 @@
 								var address = markerElem.getAttribute('address');
 								var satellieID = markerElem.getAttribute('satellieID');
 								var imageURL = markerElem.getAttribute('image');
+								var motion = markerElem.getAttribute('motion');
 								var point = new google.maps.LatLng(
 								parseFloat(markerElem.getAttribute('lat')),
 								parseFloat(markerElem.getAttribute('lng')));
@@ -523,7 +524,11 @@
 											var latitude = parseFloat(markerElem.getAttribute('lat'));
 											var  longitude = parseFloat(markerElem.getAttribute('lng'));
 
-										animateCircle(marker);
+
+										if (motion == 'yes'){
+											animateCircle(marker);
+										}
+										
 
 										function animateCircle(marker) {
 											var count = 0;
