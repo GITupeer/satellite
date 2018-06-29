@@ -432,39 +432,44 @@ class APIController extends BaseController
 
 
     public function offsetRate() {
-        $satellite_id = 25544;
 
+        $satellite = DB::table('satellite_informations')->select('*')->get();
+        $satellite = json_decode($satellite, true);
 
-        $rateOffset = DB::table('satellite_log')->select('*')->where([['satellite_id','=',$satellite_id]])->orderBy('timestamp', 'desc')->limit(2)->get();
-        $rateOffset = json_decode( $rateOffset, true);
-
-        $i=0;
-        foreach($rateOffset as $offdet){
-            if ($i != 0){
-                $lat = $lat - $offdet['latitude'];
-                $lng = $lng - $offdet['longitude'];
-                $data = strtotime($timestamp);
-                $data2 = strtotime($offdet['timestamp']);
-
-            } else {
-                $lat = $offdet['latitude'];
-                $lng = $offdet['longitude'];
-                $timestamp = $offdet['timestamp'];
+        foreach($satellite as $sat){
+            $satellite_id = $sat['satellite_id'];
+            $rateOffset = DB::table('satellite_log')->select('*')->where([['satellite_id','=',$satellite_id]])->orderBy('timestamp', 'desc')->limit(2)->get();
+            $rateOffset = json_decode( $rateOffset, true);
+    
+            $i=0;
+            foreach($rateOffset as $offdet){
+                if ($i != 0){
+                    $lat = $lat - $offdet['latitude'];
+                    $lng = $lng - $offdet['longitude'];
+                    $data = strtotime($timestamp);
+                    $data2 = strtotime($offdet['timestamp']);
+    
+                } else {
+                    $lat = $offdet['latitude'];
+                    $lng = $offdet['longitude'];
+                    $timestamp = $offdet['timestamp'];
+                }
+    
+    
+                $i++;
             }
+    
+    
+            $sek = $data - $data2;
+            $arr['offsetLat'] = $lat/$sek;
+            $arr['offsetLng'] = $lng/$sek;
+    
+            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
+            ->update(['offsetLat' => $arr['offsetLat']]);
+            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
+            ->update(['offsetLng' => $arr['offsetLng']]);
+        }    
 
-
-            $i++;
-        }
-
-
-        $sek = $data - $data2;
-        $arr['offsetLat'] = $lat/$sek;
-        $arr['offsetLng'] = $lng/$sek;
-
-
-        echo '<pre>';
-        print_r($arr);
-        echo '</pre>';
 
 
 
