@@ -436,6 +436,16 @@ class APIController extends BaseController
         $rateOffset = DB::table('satellite_log')->select('*')->where([['satellite_id','=',$satellite_id]])->orderBy('timestamp', 'desc')->limit(5)->get();
         $rateOffset = json_decode( $rateOffset, true);
 
+        $i=0;
+        foreach($rateOffset as $offdet){
+            if ($i == 0){
+               
+            }
+
+
+            $i++;
+        }
+
         echo '<pre>';
         print_r($rateOffset);
         echo '</pre>';
