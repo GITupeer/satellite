@@ -439,7 +439,7 @@
 					var scope = this;
 					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
-						zoom: 1,
+						zoom: 6,
 						disableDefaultUI: true,
 						styles: [
 							{
