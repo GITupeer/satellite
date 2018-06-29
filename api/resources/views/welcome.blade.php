@@ -480,7 +480,7 @@
 						var json = JSON.stringify(areaBounds);
 						var infoWindow = new google.maps.InfoWindow;
 						
-						downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json, function(data) {
+						downloadUrl('http://46.101.110.28/API/get_position_of_satellites_xml/'+json+'/'+scope.user_position.latitude+'/'+scope.user_position.longitude, function(data) {
 
 							var xml = data.responseXML;
 							var markers = xml.documentElement.getElementsByTagName('marker');

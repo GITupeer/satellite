@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/API/test', 'APIController@test');
 Route::get('/get_position/{bounds}', 'APIController@get_position');
-Route::get('/API/get_position_of_satellites_xml/{bounds}', 'APIController@get_position_of_satellites_xml');
+Route::get('/API/get_position_of_satellites_xml/{bounds}/{userLat}/{userLng}', 'APIController@get_position_of_satellites_xml');
 Route::GET('/satellite/{title}', 'APIController@satellite');
 Route::GET('/userposition', 'APIController@userposition');
 
