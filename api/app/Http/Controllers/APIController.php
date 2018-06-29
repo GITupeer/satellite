@@ -459,15 +459,17 @@ class APIController extends BaseController
                 $i++;
             }
     
-    
-            $sek = $data - $data2;
-            $arr['offsetLat'] = $lat/$sek;
-            $arr['offsetLng'] = $lng/$sek;
-    
-            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
-            ->update(['offsetLat' => $arr['offsetLat']]);
-            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
-            ->update(['offsetLng' => $arr['offsetLng']]);
+            if (!empty($data)){
+                $sek = $data - $data2;
+                $arr['offsetLat'] = $lat/$sek;
+                $arr['offsetLng'] = $lng/$sek;
+        
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
+                ->update(['offsetLat' => $arr['offsetLat']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$satellite_id]])
+                ->update(['offsetLng' => $arr['offsetLng']]);               
+            }
+
         }    
 
 
