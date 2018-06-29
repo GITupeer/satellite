@@ -454,7 +454,7 @@ class APIController extends BaseController
         }
 
 
-        echo $lat;
+        echo $lat.'<br>';
         echo $lng;
 
 
