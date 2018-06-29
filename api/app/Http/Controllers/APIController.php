@@ -251,7 +251,7 @@ class APIController extends BaseController
   
 
 
-    public function get_position_of_satellites_xml($bounds){
+    public function get_position_of_satellites_xml($bounds, $userLat, $userLng){
         $boundsJSON =json_decode($bounds);
         header("Access-Control-Allow-Origin: *");
         $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
@@ -261,6 +261,8 @@ class APIController extends BaseController
         $count=0; 
        
         $xml['data'] = '<markers>';
+        $xml['data'] .= '<marker move="no" id="'.$count.'" image="http://icons.iconarchive.com/icons/paomedia/small-n-flat/24/map-marker-icon.png" offsetRateLat="" offsetRateLng="" name="Your Position." satellieID="000" address="n/o" lat="'.$userLat.'" lng="'.$userLng.'" type="user"/>';
+            
             foreach ($satellite as $row){
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
                     $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
@@ -278,7 +280,7 @@ class APIController extends BaseController
 
                     
             
-                    $xml['data'] .= '<marker id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
+                    $xml['data'] .= '<marker move="yes" id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
                     $count++;
                 
             }
