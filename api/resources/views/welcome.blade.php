@@ -221,6 +221,8 @@
 							Latitude
 						</div>
 						<div class="info_Value">
+							
+
 							<span v-if="satelliteInformations.latitude">@{{satelliteInformations.latitude}}</span><span v-else> n/o </span>
 						</div>
 					</td>
@@ -387,6 +389,7 @@
 			data: {
 				satelliteConuter: 0,
 				satelliteConuterAll: 0,
+				satellitePosition: {},
 				marker: [],
 				map: [],
 				actualMarker: [],
@@ -439,7 +442,7 @@
 					var scope = this;
 					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
-						zoom: 2,
+						zoom: 6,
 						disableDefaultUI: true,
 						styles: [
 							{
@@ -498,6 +501,7 @@
 								var point = new google.maps.LatLng(
 								parseFloat(markerElem.getAttribute('lat')),
 								parseFloat(markerElem.getAttribute('lng')));
+								scope.satellitePosition[satellieID] = { latitude: parseFloat(markerElem.getAttribute('lat')), longitude: parseFloat(markerElem.getAttribute('lng')) };
 								var infowincontent = document.createElement('div');
 								var strong = document.createElement('strong');
 								strong.textContent = name
@@ -534,9 +538,9 @@
 										function animateCircle(marker) {
 											var count = 0;
 											window.setInterval(function() {
-												latitude = latitude + 0.00030;	
-												longitude = longitude + 0.0050;	
-
+												latitude = latitude + 0.00006;	
+												longitude = longitude + 0.00002;	
+												scope.satellitePosition[satellieID] = { latitude: latitude, longitude: longitude };
 												myLatlng = new google.maps.LatLng(latitude, longitude);
 				-								marker.setPosition(myLatlng)
 				+								marker.setPosition(myLatlng)
