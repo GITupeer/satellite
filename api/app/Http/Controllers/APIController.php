@@ -457,9 +457,8 @@ class APIController extends BaseController
         }
 
 
-         $sekund_c = floor((((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24 - floor((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24)) * 60 - floor(((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24 - floor((($data2 - $data) / (60 * 60 * 24)- floor(($data2 - $data) / (60 * 60 * 24))) * 24)) * 60)) * 60);
-
-        echo $sekund_c.'<br>';
+        $sek = $data2 - $data;
+        echo $sek.'<br>';
         echo $lat.'<br>';
         echo $lng;
 
