@@ -494,6 +494,7 @@
 								var satellieID = markerElem.getAttribute('satellieID');
 								var imageURL = markerElem.getAttribute('image');
 								var motion = markerElem.getAttribute('motion');
+								var infoBox = markerElem.getAttribute('infoBox');
 								var point = new google.maps.LatLng(
 								parseFloat(markerElem.getAttribute('lat')),
 								parseFloat(markerElem.getAttribute('lng')));
@@ -547,25 +548,27 @@
 
 
 
+								if (infoBox == 'yes'){
+									marker.addListener('click', function() {
+										var styleVal = document.getElementById("leftMenu").style.transform
 
-								marker.addListener('click', function() {
-									var styleVal = document.getElementById("leftMenu").style.transform
-
-									if (styleVal == 'translateX(0px)'){
-										document.getElementById("leftMenu").style.transform = "translateX(-105%)";
-									}
+										if (styleVal == 'translateX(0px)'){
+											document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+										}
+											
+										$.get('http://46.101.110.28/satellite/'+this.satellieID).done(function(data){ 
+											scope.satelliteInformations = data.data;
+											setTimeout(function(){	
+												document.getElementById("leftMenu").style.transform = "translateX(0)";
+											}, 700);
+										});
 										
-									$.get('http://46.101.110.28/satellite/'+this.satellieID).done(function(data){ 
-										scope.satelliteInformations = data.data;
-										setTimeout(function(){	
-											document.getElementById("leftMenu").style.transform = "translateX(0)";
-										}, 700);
-									});
-									
-									infoWindow.setContent(infowincontent);
-									infoWindow.open(map, marker);
+										infoWindow.setContent(infowincontent);
+										infoWindow.open(map, marker);
 
-								});
+									});
+								}
+
 								i++;
 							});
 							scope.satelliteConuter = i;

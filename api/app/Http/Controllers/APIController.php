@@ -261,7 +261,7 @@ class APIController extends BaseController
         $count=0; 
        
         $xml['data'] = '<markers>';
-        $xml['data'] .= '<marker motion="no" id="'.$count.'" image="http://icons.iconarchive.com/icons/paomedia/small-n-flat/24/map-marker-icon.png" offsetRateLat="" offsetRateLng="" name="Your Position." satellieID="000" address="n/o" lat="'.$userLat.'" lng="'.$userLng.'" type="user"/>';
+        $xml['data'] .= '<marker infoBox="no" motion="no" id="'.$count.'" image="http://icons.iconarchive.com/icons/paomedia/small-n-flat/24/map-marker-icon.png" offsetRateLat="" offsetRateLng="" name="Your Position." satellieID="000" address="n/o" lat="'.$userLat.'" lng="'.$userLng.'" type="user"/>';
             
             foreach ($satellite as $row){
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
@@ -280,7 +280,7 @@ class APIController extends BaseController
 
                     
             
-                    $xml['data'] .= '<marker motion="yes" id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
+                    $xml['data'] .= '<marker infoBox="yes" motion="yes" id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
                     $count++;
                 
             }
