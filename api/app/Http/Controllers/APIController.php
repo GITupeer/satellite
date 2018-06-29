@@ -262,20 +262,20 @@ class APIController extends BaseController
        
         $xml['data'] = '<markers>';
             foreach ($satellite as $row){
-                    
-        
-                    $offsetRateLat = '';
-                    $offsetRateLat = '';    
-
-
-
-                    $image = 'http://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/24/FunFair-FUN-icon.png';
-
-
                     $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
                     $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
                     $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
                     $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
+
+
+                            
+                    $offsetRateLat = '';
+                    $offsetRateLat = '';    
+
+                    if ($satellite_id == '25544') { $image = 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png'; }
+                    else { $image = 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png'; }
+
+                    
             
                     $xml['data'] .= '<marker id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
                     $count++;

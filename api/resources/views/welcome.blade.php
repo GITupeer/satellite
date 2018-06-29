@@ -492,6 +492,7 @@
 								var name = markerElem.getAttribute('name');
 								var address = markerElem.getAttribute('address');
 								var satellieID = markerElem.getAttribute('satellieID');
+								var imageURL = markerElem.getAttribute('image');
 								var point = new google.maps.LatLng(
 								parseFloat(markerElem.getAttribute('lat')),
 								parseFloat(markerElem.getAttribute('lng')));
@@ -505,7 +506,7 @@
 								infowincontent.appendChild(text);
 
 								var image = {
-									url: 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png',
+									url: imageURL,
 									size: new google.maps.Size(24, 24),
 									origin: new google.maps.Point(0, 0),
 									anchor: new google.maps.Point(0, 32)
