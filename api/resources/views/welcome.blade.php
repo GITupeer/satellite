@@ -548,26 +548,27 @@
 
 
 
-								if (infoBox == 'yes'){
+								
 									marker.addListener('click', function() {
-										var styleVal = document.getElementById("leftMenu").style.transform
+										if (infoBox == 'yes'){
+											var styleVal = document.getElementById("leftMenu").style.transform
 
-										if (styleVal == 'translateX(0px)'){
-											document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+											if (styleVal == 'translateX(0px)'){
+												document.getElementById("leftMenu").style.transform = "translateX(-105%)";
+											}
+												
+											$.get('http://46.101.110.28/satellite/'+this.satellieID).done(function(data){ 
+												scope.satelliteInformations = data.data;
+												setTimeout(function(){	
+													document.getElementById("leftMenu").style.transform = "translateX(0)";
+												}, 700);
+											});
 										}
-											
-										$.get('http://46.101.110.28/satellite/'+this.satellieID).done(function(data){ 
-											scope.satelliteInformations = data.data;
-											setTimeout(function(){	
-												document.getElementById("leftMenu").style.transform = "translateX(0)";
-											}, 700);
-										});
-										
 										infoWindow.setContent(infowincontent);
 										infoWindow.open(map, marker);
 
 									});
-								}
+								
 
 								i++;
 							});
