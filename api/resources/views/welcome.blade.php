@@ -295,7 +295,7 @@
 					</td>
 					<td class="table_main_colName">
 						<div class="info_Name">
-						Perigee
+							Perigee
 						</div>
 						<div class="info_Value">
 							<span v-if="satelliteInformations.Perigee">@{{satelliteInformations.Perigee}}</span><span v-else> n/o </span>
@@ -305,10 +305,10 @@
 				<tr>
 					<td class="table_main_colName">
 						<div class="info_Name">
-							Semi major axis
+							Inclination
 						</div>
 						<div class="info_Value">
-							<span v-if="satelliteInformations.Semi_major_axis">@{{satelliteInformations.Semi_major_axis}}</span><span v-else> n/o </span>
+							<span v-if="satelliteInformations.Inclination">@{{satelliteInformations.Inclination}}</span><span v-else> n/o </span>
 						</div>
 					</td>
 					<td class="table_main_colName">
@@ -335,24 +335,6 @@
 						</div>
 						<div class="info_Value">
 						<span v-if="satelliteInformations.Peroid">@{{satelliteInformations.Peroid}} minutes</span><span v-else> n/o </span>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="table_main_colName">
-						<div class="info_Name">
-						Inclination
-						</div>
-						<div class="info_Value">
-							<span v-if="satelliteInformations.Inclination">@{{satelliteInformations.Inclination}}</span><span v-else> n/o </span>
-						</div>
-					</td>
-					<td class="table_main_colName">
-						<div class="info_Name">
-							
-						</div>
-						<div class="info_Value">
-						
 						</div>
 					</td>
 				</tr>

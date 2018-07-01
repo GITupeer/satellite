@@ -11,14 +11,22 @@ use Response;
 class Cron extends BaseController
 {
 
+
+    public function getAdditionalInfo() {
+        // RCS
+        // category
+        // category_id
+
+    }
+
+
     public function ZwrocLiczbeDniDoWydarzenia($data_wydarzenia) {
         $data_aktualna = Date("Y-m-d");
      
         $liczba_sekund_dla_wydarzenia = StrToTime($data_wydarzenia);
         $liczba_sekund_dla_aktualnej_daty = StrToTime($data_aktualna);
      
-        $liczba_sekund_miedzy_datami = $liczba_sekund_dla_wydarzenia 
-                         - $liczba_sekund_dla_aktualnej_daty;
+        $liczba_sekund_miedzy_datami = $liczba_sekund_dla_wydarzenia - $liczba_sekund_dla_aktualnej_daty;
         if ($liczba_sekund_miedzy_datami<0)
            return -1;
      
@@ -39,6 +47,30 @@ class Cron extends BaseController
             $satelliteInfo = json_decode($satelliteInfo, true);
 
             if (!empty($satelliteInfo[0])){
+                $lauch_date_day = $this->ZwrocLiczbeDniDoWydarzenia($row['LAUNCH']);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['lauch_date_day' => $lauch_date_day]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Perigee' => $row['PERIGEE']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Apogee' => $row['APOGEE']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Peroid' => $row['PERIOD']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Inclination' => $row['INCLINATION']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Intl_Code' => $row['OBJECT_ID']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Launch_Site' => $row['COUNTRY']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['comment' => $row['COMMENT']]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['onOrbit' => 0]);
+
+                if (empty($satelliteInfo[0]['tle'])){
+                    $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$row['NORAD_CAT_ID']);
+                    $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['tle' => $tle]);
+                    $tle = json_decode($tle, true);
+                    if (!empty($tle)){
+                        $explodeTLE2 = explode(' ', $tle[1]);
+                        $perDay = round($explodeTLE2[7], 4);
+                        $perDay = round($explodeTLE2[7], 2);
+                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['perDay' => $perDay]);
+                    }
+                   
+                
+                }
                 
             } else {
                 $lauch_date_day = $this->ZwrocLiczbeDniDoWydarzenia($row['LAUNCH']);
@@ -58,7 +90,18 @@ class Cron extends BaseController
                     'onOrbit' => 0,
                     'comment' => $row['COMMENT'],
                     ]
-                );               
+                );    
+                
+                $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$row['NORAD_CAT_ID']);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['tle' => $tle]);
+                $tle = json_decode($tle, true);
+                if (!empty($tle)){
+                    $explodeTLE2 = explode(' ', $tle[1]);
+                    $perDay = round($explodeTLE2[7], 4);
+                    $perDay = round($explodeTLE2[7], 2);
+                    $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['perDay' => $perDay]);
+                }
+
             }
 
 
