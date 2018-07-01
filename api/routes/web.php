@@ -33,4 +33,4 @@ Route::GET('/API/offsetRate', 'APIController@offsetRate');
 
 
 
-Route::GET('/cron/get_satellite_data', 'Cron@get_satellite_data');
+Route::GET('/cron/get_satellite_data', 'Cron@get_satellite_data');   // one per day 00:00
