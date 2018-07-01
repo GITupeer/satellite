@@ -83,7 +83,7 @@ class Cron extends BaseController
 
 
                 if (empty($satelliteInfo[0]['RCS'])){
-                    $ch = curl_init('http://www.n2yo.com/satellite/?s='.$satellite2[0]['satellite_id']); //inicjacja curla
+                    $ch = curl_init('http://www.n2yo.com/satellite/?s='.$satelliteInfo[0]['satellite_id']); //inicjacja curla
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                     $jakasZmienna2 = curl_exec($ch);
                     curl_close($ch); 
