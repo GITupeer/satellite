@@ -110,6 +110,7 @@ class SatelliteController extends BaseController
         return $draan;
     }
 
+ 
 
     public function getPosition() {
 
@@ -119,13 +120,15 @@ class SatelliteController extends BaseController
 
         $explode_TLE_1 = explode(' ', $tle[0]);
         $explode_TLE_2 = explode(' ', $tle[1]);
+        date_default_timezone_set('Europe/Warsaw');
 
+$script_tz = date_default_timezone_get();
 
 
         $data['b3'] = date('Y');
         $data['b4'] = date('m');
         $data['b5'] = date('d');
-        $data['b6'] = date('H')+2;
+        $data['b6'] = date('H');
         $data['b7'] = date('i');
         $data['b8'] = date('s');
         $data['b9'] = 28.89919910;
@@ -146,7 +149,7 @@ class SatelliteController extends BaseController
 
         // DATA EYGENEROWANIA TLE DD/MM/YY HH:II:SS
 
-        $data['epoch_JD'] = $this->JD(2018, 6,30,8,5,1, 0);
+        $data['epoch_JD'] = $this->JD(2018, 6,30,8,5,1, 0);                                                                                 // DO POPRAWY
         $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9']);
         $data['GMST'] = $this->SternzeitGreenwich($data['now_JD']);
         $data['deltaT'] = $data['now_JD'] - $data['epoch_JD'];
@@ -155,9 +158,16 @@ class SatelliteController extends BaseController
         $data['dap'] = $this->dap($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
         $data['tmp_2'] = $data['Arg_Peri']+ $data['dap']*$data['deltaT'];
         $data['tmp_3'] = 1440/$data['Mean_Motion_MM'];
-        $data['tmp_4'] = 2*0.00001727*360/(15.53993048*360)/3 * (1.0521704079583/2);
+        
+        $data['tmp_4a'] = 2*$data['Mean_Motion']*360;
+        $data['tmp_4b'] = $data['Mean_Motion_MM']*360;
+        $data['tmp_4c'] = $data['deltaT']/2;
+        $data['tmp_4'] = -$data['tmp_4a']/$data['tmp_4b']/3*$data['tmp_4c'];
+
         $data['tmp_5'] = 1 - 3 * $data['tmp_4'];
         $data['tmp_6'] = 1 + 4 * $data['tmp_4'];
+        $data['tmp_7'] = 1 -7 * $data['tmp_4'];
+        $data['tmp_8'] = $this->rang($data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']));                 // DO POPRAWY
 
 
         echo '<pre>';
