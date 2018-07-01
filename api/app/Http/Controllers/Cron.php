@@ -48,7 +48,7 @@ class Cron extends BaseController
                     'launch_date' => $row['LAUNCH'],
                     'Perigee' => $row['PERIGEE'],
                     'Apogee' => $row['APOGEE'],
-                    'name' => $row['OBJECT_NAME']
+                    'name' => $row['OBJECT_NAME'],
                     'satellite_id' => $row['NORAD_CAT_ID'],
                     'Peroid' => $row['PERIOD'],
                     'Inclination' => $row['INCLINATION'],
