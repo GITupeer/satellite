@@ -35,7 +35,7 @@ class Cron extends BaseController
         $satellite = json_decode( $satellite, true);
 
         foreach($satellite as $row) {
-            $satelliteInfo = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$row['COL 3']]])->get();
+            $satelliteInfo = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->get();
             $satelliteInfo = json_decode($satelliteInfo, true);
 
             if (!empty($satelliteInfo[0])){
