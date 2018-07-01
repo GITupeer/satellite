@@ -48,7 +48,7 @@ class Cron extends BaseController
 
             if (!empty($satelliteInfo[0])){
                 $lauch_date_day = $this->ZwrocLiczbeDniDoWydarzenia($row['LAUNCH']);
-                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['lauch_date_day' => $lauch_date_day]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['launch_date_day' => $lauch_date_day]);
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Perigee' => $row['PERIGEE']]);
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Apogee' => $row['APOGEE']]);
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Peroid' => $row['PERIOD']]);
