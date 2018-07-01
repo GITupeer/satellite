@@ -73,11 +73,12 @@ class Cron extends BaseController
                 } else {
                     $tle = json_decode($satelliteInfo[0]['tle'], true);
                         echo $row['NORAD_CAT_ID'];
-                        $explodeTLE2 = explode(' ', $tle[1]);
-                        $perDay = round($explodeTLE2[7], 4);
-                        $perDay = round($explodeTLE2[7], 2);
-                        $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['perDay' => $perDay]);
-                                     
+                        if (!empty($tle[1])){
+                            $explodeTLE2 = explode(' ', $tle[1]);
+                            $perDay = round($explodeTLE2[7], 4);
+                            $perDay = round($explodeTLE2[7], 2);
+                            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['perDay' => $perDay]);
+                        }            
                 }
 
 
