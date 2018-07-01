@@ -57,6 +57,7 @@ class Cron extends BaseController
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['Launch_Site' => $row['COUNTRY']]);
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['comment' => $row['COMMENT']]);
                 $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['onOrbit' => 0]);
+                $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['RCS_SIZE' => $row['RCS_SIZE']]);
 
                 if (empty($satelliteInfo[0]['tle'])){
                     $tle = file_get_contents('http://www.n2yo.com/sat/gettle.php?s='.$row['NORAD_CAT_ID']);
@@ -78,6 +79,32 @@ class Cron extends BaseController
                         $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['perDay' => $perDay]);
                                      
                 }
+
+
+
+                if (empty($satelliteInfo[0]['RCS'])){
+                    $ch = curl_init('http://www.n2yo.com/satellite/?s='.$satellite2[0]['satellite_id']); //inicjacja curla
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    $jakasZmienna2 = curl_exec($ch);
+                    curl_close($ch); 
+                    $jakasZmienna = iconv("iso-8859-2", "utf-8", $jakasZmienna2);
+                    $one = array("<", ">");
+                    $two   = array("&lt;", "&gt;");
+                    $newphrase = str_replace($one, $two, $jakasZmienna);
+                    $RCS = explode('RCS',$newphrase); 
+                    if (!empty($RCS[1])){
+                        $RCS2 = explode(' ',$RCS[1]); 
+                        if (!empty($RCS2[1])){
+                            $getRCS = $RCS2[1]; 
+                            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['NORAD_CAT_ID']]])->update(['RCS' => $getRCS]);
+                        }
+                    }
+                    
+                         
+
+
+                }
+
                 
             } else {
                 $lauch_date_day = $this->ZwrocLiczbeDniDoWydarzenia($row['LAUNCH']);
@@ -90,6 +117,7 @@ class Cron extends BaseController
                     'name' => $row['OBJECT_NAME'],
                     'satellite_id' => $row['NORAD_CAT_ID'],
                     'Peroid' => $row['PERIOD'],
+                    'RCS_SIZE' => $row['RCS_SIZE'],
                     'Inclination' => $row['INCLINATION'],
                     'launch_date_day' => $lauch_date_day,
                     'Intl_Code' => $row['OBJECT_ID'],
