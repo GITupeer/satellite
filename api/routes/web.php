@@ -29,3 +29,8 @@ Route::get('/API/cron', 'APIController@cron');
 Route::get('/API/cron_satellite_info', 'APIController@cron_satellite_info');
 Route::GET('/cron_category_info', 'APIController@cron_category_info');
 Route::GET('/API/offsetRate', 'APIController@offsetRate');
+
+
+
+
+Route::GET('/cron/get_satellite_in_orbit', 'Cron@get_satellite_in_orbit');

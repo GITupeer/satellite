@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script src="http://www.lizard-tail.com/isana/lab/astro_calc/terminator.js" type="text/javascript"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Satellite Radar</title>
@@ -442,7 +443,7 @@
 					var scope = this;
 					var map = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: scope.user_position.latitude, lng: scope.user_position.longitude},
-						zoom: 6,
+						zoom: 4,
 						disableDefaultUI: true,
 						styles: [
 							{
@@ -469,6 +470,28 @@
 
 				initDynamicMap: function(map) {
 					var scope = this;
+					var terminator;
+
+
+						var terminator_options = {
+							map:map,
+							shade:true,
+							boundary:false
+						}
+
+						terminator = new GST.Terminator(terminator_options);
+						var date = new Date()
+						terminator.set(date);
+						Updater();
+						
+
+						function Updater(){
+							var date = new Date()  
+							terminator.update(date);
+							window.setTimeout("Updater();",60000);
+						}
+
+
 					var customLabel = {
 						satellite: { label: 'S' }
 					};
