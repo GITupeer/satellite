@@ -195,10 +195,7 @@ class SatelliteController extends BaseController
                 $explode_TLE_1 = explode(' ', $tle[0]);
                 
                 if (!empty($explode_TLE_1[1])){
-                    $explode_TLE_1['tle'] = $tle;
-                    echo '<pre>';
-                    print_r($explode_TLE_1);
-                    echo '</pre>'; exit;
+
                     $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     
