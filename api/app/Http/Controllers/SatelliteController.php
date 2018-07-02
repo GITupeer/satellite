@@ -199,7 +199,7 @@ class SatelliteController extends BaseController
                     echo '<pre>';
                     print_r($explode_TLE_1);
                     echo '</pre>'; exit;
-                    $tle[1] = str_replace(array('  ', '   ','    '), array(' ',' ',' '), $tle[1]);
+                    $tle[1] = str_replace(array('  ', '   ','    '), array('',' ',' '), $tle[1]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     
                     date_default_timezone_set('Europe/Warsaw');
@@ -214,8 +214,8 @@ class SatelliteController extends BaseController
                     $data['b7'] = date('i');
                     $data['b8'] = date('s');
                     $data['b9'] = 28.89919910;
-                    $data['Mean_Motion'] = str_replace('+', '0', $explode_TLE_1[4]);
-                    $data['Epoka_TLE'] = str_replace('+', '0', $explode_TLE_1[3]);
+                    $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[4]);
+                    $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[3]);
                     $data['Inklinacja'] = $explode_TLE_2[2];
                     $data['RAAN'] = $explode_TLE_2[3];
                     $data['excentrity'] = '0.'.$explode_TLE_2[4];
