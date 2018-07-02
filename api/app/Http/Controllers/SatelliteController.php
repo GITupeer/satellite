@@ -178,7 +178,7 @@ class SatelliteController extends BaseController
  
 
     public function getPosition() {
-        $rateOffset = DB::table('satellite_information')->select('*')->limit(100)->get();
+        $rateOffset = DB::table('satellite_informations')->select('*')->limit(100)->get();
         $rateOffset = json_decode( $rateOffset, true);
 
         foreach ($rateOffset as $row){
