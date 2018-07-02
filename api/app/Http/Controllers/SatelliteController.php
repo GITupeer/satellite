@@ -193,7 +193,7 @@ class SatelliteController extends BaseController
 
                     echo '<pre>';
                     print_r($explode_TLE_1);
-                    echo '</pre>';
+                    echo '</pre>'; exit;
                     
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     date_default_timezone_set('Europe/Warsaw');
