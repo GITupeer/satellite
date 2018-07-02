@@ -188,7 +188,7 @@ class SatelliteController extends BaseController
                 $tle = json_decode($row['tle']);
                 $data['tle'] = $tle;
                 $arr[$row['satellite_id']]['tle'] = $tle;
-                if (!empty($explode_TLE_1[0])){
+                if (!empty($explode_TLE_1[1])){
                     $explode_TLE_1 = explode(' ', $tle[0]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     date_default_timezone_set('Europe/Warsaw');
