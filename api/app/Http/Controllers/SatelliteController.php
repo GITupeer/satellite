@@ -186,7 +186,7 @@ class SatelliteController extends BaseController
                 //$tle = '["1 25544U 98067A 18182.82365002 +.00001702 +00000-0 +33102-4 0 9993\r","2 25544 051.6426 305.7534 0003492 248.6425 251.5586 15.53997847120798"]';
                 $tle = json_decode($row['tle']);
                 $data['tle'] = $tle;
-                if (!empt($explode_TLE_1[0])){
+                if (!empty($explode_TLE_1[0])){
                     $explode_TLE_1 = explode(' ', $tle[0]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     date_default_timezone_set('Europe/Warsaw');
