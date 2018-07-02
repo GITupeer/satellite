@@ -190,7 +190,7 @@ class SatelliteController extends BaseController
                 $arr[$row['satellite_id']]['tle'] = $tle;
                 $explode_TLE_1 = explode(' ', $tle[0]);
                 if (!empty($explode_TLE_1[1])){
-
+                    $explode_TLE_1['tle'] = $tle;
                     echo '<pre>';
                     print_r($explode_TLE_1);
                     echo '</pre>'; exit;
