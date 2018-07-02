@@ -178,75 +178,83 @@ class SatelliteController extends BaseController
  
 
     public function getPosition() {
+        $rateOffset = DB::table('satellite_information')->select('*')->limit(100)->get();
+        $rateOffset = json_decode( $rateOffset, true);
 
-        $tle = '["1 25544U 98067A 18182.82365002 +.00001702 +00000-0 +33102-4 0 9993\r","2 25544 051.6426 305.7534 0003492 248.6425 251.5586 15.53997847120798"]';
-        $tle = json_decode($tle);
-        $data['tle'] = $tle;
+        foreach ($rateOffset as $row){
+            if (!empty($row['tle'])){
+                //$tle = '["1 25544U 98067A 18182.82365002 +.00001702 +00000-0 +33102-4 0 9993\r","2 25544 051.6426 305.7534 0003492 248.6425 251.5586 15.53997847120798"]';
+                $tle = json_decode($row['tle']);
+                $data['tle'] = $tle;
+                if (!empt($explode_TLE_1[0])){
+                    $explode_TLE_1 = explode(' ', $tle[0]);
+                    $explode_TLE_2 = explode(' ', $tle[1]);
+                    date_default_timezone_set('Europe/Warsaw');
 
-        $explode_TLE_1 = explode(' ', $tle[0]);
-        $explode_TLE_2 = explode(' ', $tle[1]);
-        date_default_timezone_set('Europe/Warsaw');
-
-$script_tz = date_default_timezone_get();
+                    $script_tz = date_default_timezone_get();
 
 
-        $data['b3'] = date('Y');
-        $data['b4'] = date('m');
-        $data['b5'] = date('d');
-        $data['b6'] = date('H');
-        $data['b7'] = date('i');
-        $data['b8'] = date('s');
-        $data['b9'] = 28.89919910;
-        $data['Mean_Motion'] = str_replace('+', '0', $explode_TLE_1[4]);
-        $data['Epoka_TLE'] = str_replace('+', '0', $explode_TLE_1[3]);
-        $data['Inklinacja'] = $explode_TLE_2[2];
-        $data['RAAN'] = $explode_TLE_2[3];
-        $data['excentrity'] = '0.'.$explode_TLE_2[4];
-        $data['Arg_Peri'] = $explode_TLE_2[5];
-        $data['Mean_Anomaly'] = $explode_TLE_2[6];
-        $Mean_Motion_MM = explode('.', $explode_TLE_2[7]);
-        $data['Mean_Motion_MM'] = $Mean_Motion_MM[0].'.'.substr($Mean_Motion_MM[1], 0, 8);
-        
+                    $data['b3'] = date('Y');
+                    $data['b4'] = date('m');
+                    $data['b5'] = date('d');
+                    $data['b6'] = date('H');
+                    $data['b7'] = date('i');
+                    $data['b8'] = date('s');
+                    $data['b9'] = 28.89919910;
+                    $data['Mean_Motion'] = str_replace('+', '0', $explode_TLE_1[4]);
+                    $data['Epoka_TLE'] = str_replace('+', '0', $explode_TLE_1[3]);
+                    $data['Inklinacja'] = $explode_TLE_2[2];
+                    $data['RAAN'] = $explode_TLE_2[3];
+                    $data['excentrity'] = '0.'.$explode_TLE_2[4];
+                    $data['Arg_Peri'] = $explode_TLE_2[5];
+                    $data['Mean_Anomaly'] = $explode_TLE_2[6];
+                    $Mean_Motion_MM = explode('.', $explode_TLE_2[7]);
+                    $data['Mean_Motion_MM'] = $Mean_Motion_MM[0].'.'.substr($Mean_Motion_MM[1], 0, 8);
+                    
 
-        $data['epoch_datum'] = $this->epochDatum($data['Epoka_TLE']);
-        $epochZeit = explode('.', $data['Epoka_TLE']);
-        $data['epoch_zeit'] = '0.'.$epochZeit[1];
+                    $data['epoch_datum'] = $this->epochDatum($data['Epoka_TLE']);
+                    $epochZeit = explode('.', $data['Epoka_TLE']);
+                    $data['epoch_zeit'] = '0.'.$epochZeit[1];
 
-        // DATA EYGENEROWANIA TLE DD/MM/YY HH:II:SS
+                    // DATA EYGENEROWANIA TLE DD/MM/YY HH:II:SS
 
-        $data['epoch_JD'] = $this->JD(2018, 7,1,10,5,1, 0);                                                                                 // DO POPRAWY
-        $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9']);
-        $data['GMST'] = $this->SternzeitGreenwich($data['now_JD']);
-        $data['deltaT'] = $data['now_JD'] - $data['epoch_JD'];
-        $data['draan'] = $this->draan($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
-        $data['tmp_1'] = $data['RAAN']+$data['draan']*$data['deltaT'];
-        $data['dap'] = $this->dap($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
-        $data['tmp_2'] = $data['Arg_Peri']+ $data['dap']*$data['deltaT'];
-        $data['tmp_3'] = 1440/$data['Mean_Motion_MM'];
-        
-        $data['tmp_4a'] = 2*$data['Mean_Motion']*360;
-        $data['tmp_4b'] = $data['Mean_Motion_MM']*360;
-        $data['tmp_4c'] = $data['deltaT']/2;
-        $data['tmp_4'] = -$data['tmp_4a']/$data['tmp_4b']/3*$data['tmp_4c'];
+                    $data['epoch_JD'] = $this->JD(2018, 7,1,10,5,1, 0);                                                                                 // DO POPRAWY
+                    $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9']);
+                    $data['GMST'] = $this->SternzeitGreenwich($data['now_JD']);
+                    $data['deltaT'] = $data['now_JD'] - $data['epoch_JD'];
+                    $data['draan'] = $this->draan($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
+                    $data['tmp_1'] = $data['RAAN']+$data['draan']*$data['deltaT'];
+                    $data['dap'] = $this->dap($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
+                    $data['tmp_2'] = $data['Arg_Peri']+ $data['dap']*$data['deltaT'];
+                    $data['tmp_3'] = 1440/$data['Mean_Motion_MM'];
+                    
+                    $data['tmp_4a'] = 2*$data['Mean_Motion']*360;
+                    $data['tmp_4b'] = $data['Mean_Motion_MM']*360;
+                    $data['tmp_4c'] = $data['deltaT']/2;
+                    $data['tmp_4'] = -$data['tmp_4a']/$data['tmp_4b']/3*$data['tmp_4c'];
 
-        $data['tmp_5'] = 1 - 3 * $data['tmp_4'];
-        $data['tmp_6'] = 1 + 4 * $data['tmp_4'];
-        $data['tmp_7'] = 1 -7 * $data['tmp_4'];
-        $data['tmp_8'] = $this->rang($data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']));                 // DO POPRAWY
-        $data['tmp_9'] = $data['tmp_7']*( $data['RAAN']+$data['deltaT']*$data['draan']);
-        $data['tmp_10'] = $data['tmp_6']*( $data['Arg_Peri']+$data['dap']*$data['deltaT']);
-        $gha = $this->gha($data['Mean_Motion_MM']);
-        $data['tmp_11'] = $data['tmp_6']*$gha;
-        $data['tmp_12'] = $data['tmp_6']*$data['tmp_11']*(1-$data['excentrity']*$data['excentrity']);
-        $ExzentrischeAnomalie = $this->ExzentrischeAnomalie($data['tmp_8'], $data['excentrity']);
-        $data['tmp_13'] =  $ExzentrischeAnomalie;
-        $data['tmp_14'] = $this->WahreAnomalie($data['tmp_8'], $data['excentrity']);
-        $data['tmp_15'] = $data['tmp_11']*(1-$data['excentrity']*cos($data['tmp_13']*pi()/180));
-        $data['altitude'] = $data['tmp_15']-6378.13649;
-        $data['speed'] = 631.35/sqrt($data['tmp_15']);
-
+                    $data['tmp_5'] = 1 - 3 * $data['tmp_4'];
+                    $data['tmp_6'] = 1 + 4 * $data['tmp_4'];
+                    $data['tmp_7'] = 1 -7 * $data['tmp_4'];
+                    $data['tmp_8'] = $this->rang($data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']));                 // DO POPRAWY
+                    $data['tmp_9'] = $data['tmp_7']*( $data['RAAN']+$data['deltaT']*$data['draan']);
+                    $data['tmp_10'] = $data['tmp_6']*( $data['Arg_Peri']+$data['dap']*$data['deltaT']);
+                    $gha = $this->gha($data['Mean_Motion_MM']);
+                    $data['tmp_11'] = $data['tmp_6']*$gha;
+                    $data['tmp_12'] = $data['tmp_6']*$data['tmp_11']*(1-$data['excentrity']*$data['excentrity']);
+                    $ExzentrischeAnomalie = $this->ExzentrischeAnomalie($data['tmp_8'], $data['excentrity']);
+                    $data['tmp_13'] =  $ExzentrischeAnomalie;
+                    $data['tmp_14'] = $this->WahreAnomalie($data['tmp_8'], $data['excentrity']);
+                    $data['tmp_15'] = $data['tmp_11']*(1-$data['excentrity']*cos($data['tmp_13']*pi()/180));
+                    $data['altitude'] = $data['tmp_15']-6378.13649;
+                    $data['speed'] = 631.35/sqrt($data['tmp_15']);
+                    $arr[$row['satellite_id']]['speed'] = $data['speed'];
+                    $arr[$row['satellite_id']]['altitude'] = $data['altitude'];
+                }
+            }
+        }
         echo '<pre>';
-        print_r($data);
+        print_r($arr);
         echo '</pre>';
 
     }
