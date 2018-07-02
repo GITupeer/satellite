@@ -110,11 +110,76 @@ class SatelliteController extends BaseController
         return $draan;
     }
 
+    public function gha($mm){
+        $s = ($mm / 13750.98708) * ($mm / 13750.98708);
+        $gha = pow((398601.2 / $s), (1 / 3));
+        return $gha;
+    }
+
+
+
+    public function ExzentrischeAnomalie($m, $e) {
+
+        $A = $m + $e * (180 / 3.14159265358979) * sin($m * 3.14159265358979 / 180) * (1 + $e * Cos($m * 3.14159265358979 / 180));
+        $A = $A - ($A - $e * (180 / 3.14159265358979) * sin($A * 3.14159265358979 / 180) - $m) / (1 - $e * Cos($A * 3.14159265358979 / 180));
+        $A = $A + $e * (180 / 3.14159265358979) * sin(0 * 3.14159265358979 / 180) * (1 + $e * Cos($A * 3.14159265358979 / 180));
+        $A = $A - ($A - $e * (180 / 3.14159265358979) * sin($A * 3.14159265358979 / 180) - $m) / (1 - $e * Cos($A * 3.14159265358979 / 180));
+
+ 
+        $A = $A / 360;
+        $b = (int) $A;
+        $c = $A - $b;
+        $d = 360 * $c;
+
+        if($d<0){
+            $d = 360 + $d;
+        }
+        $ExzentrischeAnomalie = $d;
+        return $ExzentrischeAnomalie;
+
+    }
+
+
+
+    public function WahreAnomalie($m, $e) {
+        $A = $m + $e * (180 / 3.14159265358979) * sin($m * 3.14159265358979 / 180) * (1 + $e * Cos($m * 3.14159265358979 / 180));
+        $A = $A - ($A - $e * (180 / 3.14159265358979) * sin($A * 3.14159265358979 / 180) - $m) / (1 - $e * Cos($A * 3.14159265358979 / 180));
+        $A = $A + $e * (180 / 3.14159265358979) * sin(0 * 3.14159265358979 / 180) * (1 + $e * Cos($A * 3.14159265358979 / 180));
+        $A = $A - ($A - $e * (180 / 3.14159265358979) * sin($A * 3.14159265358979 / 180) - $m) / (1 - $e * Cos($A * 3.14159265358979 / 180));
+
+        $A = $A / 360;
+        $d = 360 * ($A - (int)$A);
+        if ($d < 0){
+            $d = 360+$d;
+        }
+
+        $k = sqrt((1 + $e) / (1 - $e));
+        $L = tan(($d / 2) * 3.14159265358979 / 180);
+        $N = ($L*$k);
+        $o = Atan2(1, $N) * 180 / 3.14159265358979;
+        $o = 2 * $o;
+
+
+        if ($o < 0){
+            $o = 360 + $o;
+        }
+        $WahreAnomalie = $o;
+        return $WahreAnomalie;
+    
+    }
+
+ 
+
+
+
+
+
+
  
 
     public function getPosition() {
 
-        $tle = '["1 25544U 98067A 18181.85702480 +.00001727 +00000-0 +33490-4 0 9993\r","2 25544 051.6430 310.5700 0003773 248.6425 248.9286 15.53993048120647"]';
+        $tle = '["1 25544U 98067A 18182.82365002 +.00001702 +00000-0 +33102-4 0 9993\r","2 25544 051.6426 305.7534 0003492 248.6425 251.5586 15.53997847120798"]';
         $tle = json_decode($tle);
         $data['tle'] = $tle;
 
@@ -149,7 +214,7 @@ $script_tz = date_default_timezone_get();
 
         // DATA EYGENEROWANIA TLE DD/MM/YY HH:II:SS
 
-        $data['epoch_JD'] = $this->JD(2018, 6,30,8,5,1, 0);                                                                                 // DO POPRAWY
+        $data['epoch_JD'] = $this->JD(2018, 7,1,10,5,1, 0);                                                                                 // DO POPRAWY
         $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9']);
         $data['GMST'] = $this->SternzeitGreenwich($data['now_JD']);
         $data['deltaT'] = $data['now_JD'] - $data['epoch_JD'];
@@ -168,7 +233,17 @@ $script_tz = date_default_timezone_get();
         $data['tmp_6'] = 1 + 4 * $data['tmp_4'];
         $data['tmp_7'] = 1 -7 * $data['tmp_4'];
         $data['tmp_8'] = $this->rang($data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']));                 // DO POPRAWY
-
+        $data['tmp_9'] = $data['tmp_7']*( $data['RAAN']+$data['deltaT']*$data['draan']);
+        $data['tmp_10'] = $data['tmp_6']*( $data['Arg_Peri']+$data['dap']*$data['deltaT']);
+        $gha = $this->gha($data['Mean_Motion_MM']);
+        $data['tmp_11'] = $data['tmp_6']*$gha;
+        $data['tmp_12'] = $data['tmp_6']*$data['tmp_11']*(1-$data['excentrity']*$data['excentrity']);
+        $ExzentrischeAnomalie = $this->ExzentrischeAnomalie($data['tmp_8'], $data['excentrity']);
+        $data['tmp_13'] =  $ExzentrischeAnomalie;
+        $data['tmp_14'] = $this->WahreAnomalie($data['tmp_8'], $data['excentrity']);
+        $data['tmp_15'] = $data['tmp_11']*(1-$data['excentrity']*cos($data['tmp_13']*pi()/180));
+        $data['altitude'] = $data['tmp_15']-6378.13649;
+        $data['speed'] = 631.35/sqrt($data['tmp_15']);
 
         echo '<pre>';
         print_r($data);
