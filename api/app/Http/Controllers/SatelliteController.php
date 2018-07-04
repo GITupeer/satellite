@@ -298,6 +298,7 @@ class SatelliteController extends BaseController
                     $time = $explodeDate[1];
                     $explodeHour = explode('-', $hour);
                     $explodeMin = explode(':', $time);
+
                     $data['b3'] = $explodeHour[0];
                     $data['b4'] = $explodeHour[1];
                     if (date('H') == 00){
@@ -310,8 +311,30 @@ class SatelliteController extends BaseController
                     $data['b7'] = $explodeMin[1];
                     $data['b8'] = $explodeMin[2];
                     $data['b9'] = 2;
-                    $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[4]);
-                    $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[3]);
+
+                    $counterTLE1 = 3;
+                    $flagTLE1 = false;
+                    while($flagTLE1 == false){
+                        if (!empty($explode_TLE_1[$i])){
+                            $flagTLE1 = true;
+                            $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$i]);
+                        } else {
+                            $counterTLE1++;
+                        }
+                    }
+
+                    $counterTLE1 = 3;
+                    $flagTLE1 = false;
+                    while($flagTLE1 == false){
+                        if (!empty($explode_TLE_1[$i])){
+                            $flagTLE1 = true;
+                            $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$i]);
+                        } else {
+                            $counterTLE1++;
+                        }
+                    }                   
+                    
+                    
                     $data['Inklinacja'] = $explode_TLE_2[2];
                     $data['RAAN'] = $explode_TLE_2[3];
                     $data['excentrity'] = '0.'.$explode_TLE_2[4];
@@ -322,9 +345,6 @@ class SatelliteController extends BaseController
                     $data['epoch_datum'] = $this->epochDatum($data['Epoka_TLE']);
                     $epochZeit = explode('.', $data['Epoka_TLE']);
 
-
-
-                    
 
                     echo '<pre>';
                     print_r($tle);
