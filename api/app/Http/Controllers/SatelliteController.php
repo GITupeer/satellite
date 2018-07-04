@@ -258,7 +258,7 @@ class SatelliteController extends BaseController
 
         $arr['results'] = $orbit;
 
-        return json_decode($arr, true);;
+        return json_decode($arr, true);
         
         
     }
