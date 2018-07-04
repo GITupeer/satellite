@@ -256,7 +256,10 @@ class SatelliteController extends BaseController
         }
         $orbit .= ']';
 
-        echo $orbit;
+        $arr['results'] = $orbit;
+
+        return $arr;
+        
         
     }
 

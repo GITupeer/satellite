@@ -562,6 +562,15 @@
 								
 									marker.addListener('click', function() {
 
+
+
+
+
+
+											$.get('http://46.101.110.28/satellite/api/getOrbit/'+this.satellieID).done(function(data){ 
+												scope.satelliteInformations = data.data;
+
+
 										        var flightPlanCoordinates = [{lat: 11.597815466898, lng: 128.40923873854},{lat: 35.271611543706, lng: 150.78778957195},{lat: 50.641656089355, lng: -171.6856243566},{lat: 46.864829142149, lng: -124.26692817026},{lat: 27.380408895436, lng: -93.373002489633},{lat: 2.6014663933029, lng: -73.512044112874},{lat: -22.556167380299, lng: -54.524823710324},{lat: -43.757026856618, lng: -26.873663552056},{lat: -51.66015138842, lng: 18.476489711499},{lat: -39.369516596307, lng: 59.89544811571},{lat: -16.634319269378, lng: 84.36127825674},{lat: 8.7584273505605, lng: 102.7837400982},{lat: 32.852374643508, lng: 124.21605985895},{lat: 49.700232261434, lng: 159.55738808442},{lat: 48.310835212082, lng: -152.49058592295},];
 												var flightPath = new google.maps.Polyline({
 												path: flightPlanCoordinates,
@@ -572,6 +581,10 @@
 												});
 
 												flightPath.setMap(map);
+
+
+											});
+
 
 
 										if (infoBox == 'yes'){
