@@ -247,6 +247,8 @@ class SatelliteController extends BaseController
 
 
     public function getOrbit($satellie_id) {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Header: *");
         $orbit = '[';
         for($i=0; $i<15; $i++){
             $sec = ($i*500);
