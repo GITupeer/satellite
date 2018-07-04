@@ -315,9 +315,9 @@ class SatelliteController extends BaseController
                     $counterTLE1 = 3;
                     $flagTLE1 = false;
                     while($flagTLE1 == false){
-                        if (!empty($explode_TLE_1[$i])){
+                        if (!empty($explode_TLE_1[$counterTLE1])){
                             $flagTLE1 = true;
-                            $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$i]);
+                            $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$counterTLE1]);
                         } else {
                             $counterTLE1++;
                         }
@@ -326,9 +326,9 @@ class SatelliteController extends BaseController
                     $counterTLE1 = 3;
                     $flagTLE1 = false;
                     while($flagTLE1 == false){
-                        if (!empty($explode_TLE_1[$i])){
+                        if (!empty($explode_TLE_1[$counterTLE1])){
                             $flagTLE1 = true;
-                            $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$i]);
+                            $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$counterTLE1]);
                         } else {
                             $counterTLE1++;
                         }
