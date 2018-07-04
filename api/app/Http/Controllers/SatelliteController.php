@@ -271,7 +271,7 @@ class SatelliteController extends BaseController
         if ($satellite2[0]['tle']){
             $tle = $satellite2[0]['tle'];
         }
-
+        echo $tle; exit;
 
 
 
