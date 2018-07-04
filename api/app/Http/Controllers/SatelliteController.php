@@ -267,6 +267,12 @@ class SatelliteController extends BaseController
         $satellite2 = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$satellite_id]])->get();
         $satellite2 = json_decode( $satellite2, true);
 
+
+        if ($satellite2){
+            echo $satellite2;
+        }
+
+        exit;
         echo '<pre>';
         print_r($satellite2);
         echo '</pre>'; exit;
