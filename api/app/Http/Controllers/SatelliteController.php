@@ -262,24 +262,21 @@ class SatelliteController extends BaseController
 
 
     public function getPosition($sec, $satellite_id) {
-
+        $arr = array();
   
         $satellite2 = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$satellite_id]])->get();
         $satellite2 = json_decode( $satellite2, true);
 
 
         if ($satellite2[0]['tle']){
-            echo $satellite2[0]['tle'];
+            $tle = $satellite2[0]['tle'];
         }
 
-        exit;
-        echo '<pre>';
-        print_r($satellite2);
-        echo '</pre>'; exit;
 
 
-                $arr = array();
-                $tle = '["1 25544U 98067A 18184.80969102 +.00001614 +00000-0 +31745-4 0 9993\r","2 25544 051.6414 295.8524 0003435 262.6267 204.2868 15.54005638121106"]';
+
+               // $arr = array();
+               // $tle = '["1 25544U 98067A 18184.80969102 +.00001614 +00000-0 +31745-4 0 9993\r","2 25544 051.6414 295.8524 0003435 262.6267 204.2868 15.54005638121106"]';
                 $tle = json_decode($tle);
                 $data['tle'] = $tle;
                 $tle[0] = str_replace(array('  ', '   ','    '), array(' ',' ',' '), $tle[0]);
