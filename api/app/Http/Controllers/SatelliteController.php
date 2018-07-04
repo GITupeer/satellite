@@ -24,10 +24,14 @@ class SatelliteController extends BaseController
             $rok = $rok - 1;           
         }
 
-        $A = (int) $rok / 100;
-        $tmp1 = (int) ($A/4);
-        $b = 2 - $A + $tmp1;
-        $JD = (365.25 * ($rok + 4716) + (30.6001 * ($miesiac + 1)) + $dzien + $b + (($sekunda + $min / 60 + $sec / 3600) / 24) - 1524.5)-($timezone/24);
+    
+        $A = round($rok / 100,0);
+        $b = 2 - $A + round($A/4,0);
+
+        $tmp1 = round(365.25 * ($rok + 4716),0);
+        $tmp2 = round(30.6001 * ($miesiac + 1),0);
+
+        $JD = ($tmp1 + $tmp2 + $dzien + $b + (($sekunda + $min / 60 + $sec / 3600) / 24) - 1524.5)-($timezone/24);
         return $JD;
     }
 
@@ -36,7 +40,7 @@ class SatelliteController extends BaseController
 
     public function rang($x){
         $b = $x/360;
-        $intB = (int) $b;
+        $intB =  round($b,0);
         $A = 360*($b - $intB);
         if ($A < 0 ){
             $A = $A + 360;
@@ -199,10 +203,15 @@ class SatelliteController extends BaseController
        $minutes = $dayOfYearE[1]*337/23432123;
        $minutes = round($minutes / 60, 2);
        $minutes = explode('.', $minutes);
-       $date['hour'] = $minutes[0]-3;
+       $date['hour'] = $minutes[0];
        $sec = explode('.', 60-$minutes[0]*60/100);
-       $date['min'] = round($sec[0], 2)+5;
-       $date['sec'] = $sec[1]*60/10;
+       $date['min'] = round($sec[0], 2);
+       if (!empty($sec[1])){
+           $date['sec'] = $sec[1]*60/10+37;
+       } else {
+        $date['sec'] = 0;
+       }
+       
        return $date;
 
     }
@@ -215,21 +224,62 @@ class SatelliteController extends BaseController
     }
 
             
-    
+    public function wyciagDateTLE($data, $czas) {
+        // 86400 - 1
+        //   x   - int
+        $sec =  $czas*86400/1;
+        $sec = explode('.', $sec);
+        $data = $data - 39448;
+        $dateNow = date( 'Y-m-d H:i:s', strtotime( '2008-01-01' .' +'. $data.' days' ));
+        $data =  $dateNow = date( 'Y-m-d H:i:s', strtotime( $dateNow  .' +'.$sec[0].' seconds' ));
+        $arr['year'] = date( 'Y', strtotime( $data  .' +0 seconds' ));
+        $arr['month'] = date( 'm', strtotime( $data  .' +0 seconds' ));
+        $arr['day'] = date( 'd', strtotime( $data  .' +0 seconds' ));
+        $arr['hour'] = date( 'H', strtotime( $data  .' +0 seconds' ));
+        $arr['min'] = date( 'i', strtotime( $data  .' +0 seconds' ));
+        $arr['sec'] = date( 's', strtotime( $data  .' +0 seconds' ));
+
+       return $this->JD($arr['year'], $arr['month'],$arr['day'],$arr['hour'],$arr['min'],$arr['sec'], 71.99972211); 
+
+    }
 
  
 
-    public function getPosition() {
-        $arr = array();
+
+    public function getOrbit() {
+        $orbit = '[';
+        for($i=0; $i<15; $i++){
+            $sec = ($i*500);
+            $arr = $this->getPosition($sec, 25544);
+            $orbit .= '{lat: '.$arr['latitude'].', lng: '.$arr['longitude'].'},';
+
+        }
+        $orbit .= ']';
+
+        echo $orbit;
+        
+    }
 
 
-                $tle = '["1 25544U 98067A 18182.82365002 +.00001702 +00000-0 +33102-4 0 9999\r","2 25544 051.6426 305.7534 0003492 251.5586 257.2723 15.53997847120798"]';
+    public function getPosition($sec, $satellite_id) {
+
+  
+        $satellite2 = DB::table('satellite_informations')->select('*')->where([['satellite_id','=',$satellite_id]])->get();
+        $satellite2 = json_decode( $satellite2, true);
+
+        echo '<pre>';
+        print_r($satellite2);
+        echo '</pre>'; exit;
+
+
+                $arr = array();
+                $tle = '["1 25544U 98067A 18184.80969102 +.00001614 +00000-0 +31745-4 0 9993\r","2 25544 051.6414 295.8524 0003435 262.6267 204.2868 15.54005638121106"]';
                 $tle = json_decode($tle);
                 $data['tle'] = $tle;
                 $tle[0] = str_replace(array('  ', '   ','    '), array(' ',' ',' '), $tle[0]);
      
                 $explode_TLE_1 = explode(' ', $tle[0]);
-    
+               
 
                     $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
@@ -238,15 +288,29 @@ class SatelliteController extends BaseController
 
                     $script_tz = date_default_timezone_get();
 
+                    
 
-                    $data['date'] = date('Y-m-d H:i:s');
+                    $data['date'] = date('Y-m-d H:i:s', strtotime( ' +'.$sec.' seconds' ));
+                    
 
-                    $data['b3'] = date('Y');
-                    $data['b4'] = date('m');
-                    $data['b5'] = date('d')-1;
-                    $data['b6'] = date('H')-3;//date('H');
-                    $data['b7'] = date('i')+7;//date('i');
-                    $data['b8'] = date('s')+30;//date('s');
+
+                    $explodeDate = explode(' ', $data['date']);
+                    $hour = $explodeDate[0];
+                    $time = $explodeDate[1];
+                    $explodeHour = explode('-', $hour);
+                    $explodeMin = explode(':', $time);
+
+                    $data['b3'] = $explodeHour[0];
+                    $data['b4'] = $explodeHour[1];
+                    if (date('H') == 00){
+                        $data['b5'] = $explodeHour[2];
+                    } else {
+                        $data['b5'] = $explodeHour[2]-1;
+                    }
+                    
+                    $data['b6'] = $explodeMin[0];
+                    $data['b7'] = $explodeMin[1];
+                    $data['b8'] = $explodeMin[2];
                     $data['b9'] = 2;
                     $data['Mean_Motion'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[4]);
                     $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[3]);
@@ -257,16 +321,16 @@ class SatelliteController extends BaseController
                     $data['Mean_Anomaly'] = $explode_TLE_2[6];
                     $Mean_Motion_MM = explode('.', $explode_TLE_2[7]);
                     $data['Mean_Motion_MM'] = $Mean_Motion_MM[0].'.'.substr($Mean_Motion_MM[1], 0, 8);
-                    
-
                     $data['epoch_datum'] = $this->epochDatum($data['Epoka_TLE']);
                     $epochZeit = explode('.', $data['Epoka_TLE']);
                     $data['epoch_zeit'] = '0.'.$epochZeit[1];
 
-                    // DATA EYGENEROWANIA TLE DD/MM/YY HH:II:SS
-                    $dataTLE = $this->dateTLE($data['Epoka_TLE']);
-                    $data['epoch_JD'] = $this->JD($dataTLE['year'], $dataTLE['month'],$dataTLE['day'],$dataTLE['hour'],$dataTLE['min'],$dataTLE['sec'], 0);                                                                                 // DO POPRAWY
-                    $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9']);
+
+                    $data['epoch_JD'] = $this->wyciagDateTLE($data['epoch_datum'], $data['epoch_zeit']);                                                                               // DO POPRAWY
+                   
+                    $data['now_JD'] = $this->JD($data['b3'], $data['b4'],$data['b5'],$data['b6'],$data['b7'],$data['b8'], $data['b9'])-1;
+                  
+                    
                     $data['GMST'] = $this->SternzeitGreenwich($data['now_JD']);
                     $data['deltaT'] = $data['now_JD'] - $data['epoch_JD'];
                     $data['draan'] = $this->draan($data['Mean_Motion_MM'], $data['Inklinacja'], $data['excentrity']);
@@ -284,6 +348,9 @@ class SatelliteController extends BaseController
                     $data['tmp_6'] = 1 + 4 * $data['tmp_4'];
                     $data['tmp_7'] = 1 -7 * $data['tmp_4'];
                     $data['tmp_8'] = $this->rang($data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']));                 // DO POPRAWY
+                    $data['tmp_8a'] = $data['Mean_Anomaly'] + ($data['Mean_Motion_MM']*360*$data['deltaT']*$data['tmp_5']);                 // DO POPRAWY
+                   
+                   
                     $data['tmp_9'] = $data['tmp_7']*( $data['RAAN']+$data['deltaT']*$data['draan']);
                     $data['tmp_10'] = $data['tmp_6']*( $data['Arg_Peri']+$data['dap']*$data['deltaT']);
                     $gha = $this->gha($data['Mean_Motion_MM']);
@@ -299,7 +366,8 @@ class SatelliteController extends BaseController
                     $data['tmp_17'] = ASIN( SIN($data['Inklinacja']*PI()/180) *SIN($data['tmp16']*PI()/180) )*180/PI();
                     $data['latitude'] = $this->GeogrBreite($data['tmp_17']);
                     $data['tmp18'] = ATAN(COS($data['Inklinacja']*PI()/180)*TAN($data['tmp16']*PI()/180))*180/PI();
-                    $data['tmp_19'] =(360-($data['tmp_9']+$data['tmp_17'])+$data['GMST']);
+                    $data['tmp_19'] =(360-($data['tmp_9']+$data['tmp18'])+$data['GMST']);
+                    $data['tmp_19a'] =($data['tmp_9']+$data['tmp_17']);
 
                     if ((COS($data['tmp16']*PI()/180)) < 0){
                         $data['tmp_20'] = $this->rang($data['tmp_19']-180);
@@ -314,10 +382,15 @@ class SatelliteController extends BaseController
                     } else {
                         $data['longitude'] = 360-$data['tmp_20'];  
                     }
+
+
+                    $returnData['longitude'] = $data['longitude'];
+                    $returnData['latitude'] = $data['latitude'];
+                    $returnData['altitude'] = $data['altitude'];
+                    $returnData['speed'] = $data['speed'];
+                    $returnData['date'] = $data['date'];
         
-                    echo '<pre>';
-        print_r($data);
-        echo '</pre>';
+                    return $returnData;
 
     }
 
