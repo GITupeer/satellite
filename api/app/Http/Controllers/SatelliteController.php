@@ -268,8 +268,8 @@ class SatelliteController extends BaseController
         $satellite2 = json_decode( $satellite2, true);
 
 
-        if ($satellite2){
-            echo $satellite2;
+        if ($satellite2[0]['tle']){
+            echo $satellite2[0]['tle'];
         }
 
         exit;
