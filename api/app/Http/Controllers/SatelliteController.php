@@ -280,28 +280,26 @@ class SatelliteController extends BaseController
                 $data['tle'] = $tle;
                 $tle[0] = str_replace(array('  ', '   ','    '), array(' ',' ',' '), $tle[0]);
      
-                $explode_TLE_1 = explode(' ', $tle[0]);
-               
-
+                    $explode_TLE_1 = explode(' ', $tle[0]);
                     $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     
-                    date_default_timezone_set('Europe/Warsaw');
+                    $tle[0] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[0]);
+                    $tle[1] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[1]);
 
+
+
+                    date_default_timezone_set('Europe/Warsaw');
                     $script_tz = date_default_timezone_get();
 
                     
 
                     $data['date'] = date('Y-m-d H:i:s', strtotime( ' +'.$sec.' seconds' ));
-                    
-
-
                     $explodeDate = explode(' ', $data['date']);
                     $hour = $explodeDate[0];
                     $time = $explodeDate[1];
                     $explodeHour = explode('-', $hour);
                     $explodeMin = explode(':', $time);
-
                     $data['b3'] = $explodeHour[0];
                     $data['b4'] = $explodeHour[1];
                     if (date('H') == 00){
@@ -328,7 +326,7 @@ class SatelliteController extends BaseController
 
 
 
-                    $tle[0] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[0]);
+                    
 
                     echo '<pre>';
                     print_r($tle);
