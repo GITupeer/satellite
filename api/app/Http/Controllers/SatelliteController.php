@@ -278,14 +278,15 @@ class SatelliteController extends BaseController
                // $tle = '["1 25544U 98067A 18184.80969102 +.00001614 +00000-0 +31745-4 0 9993\r","2 25544 051.6414 295.8524 0003435 262.6267 204.2868 15.54005638121106"]';
                 $tle = json_decode($tle);
                 $data['tle'] = $tle;
-                $tle[0] = str_replace(array('  ', '   ','    '), array(' ',' ',' '), $tle[0]);
-     
+ 
+                    $tle[0] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[0]);
+                    $tle[1] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[1]);
+
                     $explode_TLE_1 = explode(' ', $tle[0]);
                     $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     
-                    $tle[0] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[0]);
-                    $tle[1] = str_replace(array('  ', '   ', '    '), array(' ',' ',' '), $tle[1]);
+
 
 
 
