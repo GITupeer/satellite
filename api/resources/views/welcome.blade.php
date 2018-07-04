@@ -567,7 +567,7 @@
 
 
 
-											$.get('http://46.101.110.28/satellite/api/getOrbit/'+this.satellieID).done(function(data){ 
+											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
 												scope.satelliteInformations = data.data;
 
 
