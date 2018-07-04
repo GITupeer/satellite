@@ -327,7 +327,9 @@ class SatelliteController extends BaseController
                     $epochZeit = explode('.', $data['Epoka_TLE']);
 
 
-echo $tle;
+                    echo '<pre>';
+                    print_r($tle);
+                    echo '</pre>';
                     echo '<pre>';
                     print_r($explode_TLE_1);
                     echo '</pre>'; exit;
