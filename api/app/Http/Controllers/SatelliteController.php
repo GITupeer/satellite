@@ -271,8 +271,7 @@ class SatelliteController extends BaseController
         if ($satellite2[0]['tle']){
             $tle = $satellite2[0]['tle'];
         }
-        echo $tle; exit;
-
+    
 
 
                // $arr = array();
@@ -326,6 +325,13 @@ class SatelliteController extends BaseController
                     $data['Mean_Motion_MM'] = $Mean_Motion_MM[0].'.'.substr($Mean_Motion_MM[1], 0, 8);
                     $data['epoch_datum'] = $this->epochDatum($data['Epoka_TLE']);
                     $epochZeit = explode('.', $data['Epoka_TLE']);
+
+
+
+                    echo '<pre>';
+                    print_r($epochZeit);
+                    echo '</pre>'; exit;
+
                     $data['epoch_zeit'] = '0.'.$epochZeit[1];
 
 
