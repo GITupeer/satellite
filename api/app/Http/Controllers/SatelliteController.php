@@ -309,7 +309,7 @@ class SatelliteController extends BaseController
                     if (date('H') == 00){
                         $data['b5'] = $explodeHour[2];
                     } else {
-                        $data['b5'] = $explodeHour[2]-1;
+                        $data['b5'] = $explodeHour[2];
                     }
                     
                     $data['b6'] = $explodeMin[0];
@@ -410,7 +410,13 @@ class SatelliteController extends BaseController
                         $data['longitude'] = -$data['tmp_20'];
                     } else {
                         $data['longitude'] = 360-$data['tmp_20'];  
+                    
                     }
+
+
+                    echo '<pre>';
+                    print_r($data);
+                    echo '</pre>';
 
 
                     $returnData['longitude'] = $data['longitude'];
