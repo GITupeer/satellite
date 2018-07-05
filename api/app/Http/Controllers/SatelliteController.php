@@ -285,10 +285,7 @@ class SatelliteController extends BaseController
                 $data['tle'] = $tle;
 
 
-                echo '<pre>';
-                print_r($data['tle']);
-                echo '</pre>';
-
+      
 
 
                     $explode_TLE_1 = explode(' ', $tle[0]);
