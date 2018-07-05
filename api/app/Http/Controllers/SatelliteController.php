@@ -327,6 +327,7 @@ class SatelliteController extends BaseController
                         if (!empty($explode_TLE_1[$counterTLE1])){
                             $flagTLE1 = true;
                             $data['Epoka_TLE'] = str_replace(array('+','-'), array('0','0'), $explode_TLE_1[$counterTLE1]);
+                            $counterTLE1++;
                         } else {
                             $counterTLE1++;
                         }
