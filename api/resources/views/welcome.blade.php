@@ -570,7 +570,7 @@
 											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
 												scope.satelliteInformations = data;
 												console.log(data);
-										        var flightPlanCoordinates = JSON.parse(JSON.stringify(data));
+										        var flightPlanCoordinates = [{"lat": 43.704226056937, "lng": 108.13521583314},{"lat": 51.672140340726, "lng": 153.4087443718},{"lat": 39.457732153933, "lng": -165.12156147671},{"lat": 16.706476912615, "lng": -140.57310127312},{"lat": -8.6840820192363, "lng": -122.14834767818},{"lat": -32.795744267456, "lng": -100.73025266554},{"lat": -49.682265010211, "lng": -65.410956643678},{"lat": -48.328062174325, "lng": -17.421874472909},{"lat": -29.98104128304, "lng": 15.515469682175},{"lat": -5.480042496118, "lng": 36.040895708086},{"lat": 19.812103771169, "lng": 54.699230334038},{"lat": 41.782645053259, "lng": 80.75064752033},{"lat": 51.829501526619, "lng": 124.37208406916},{"lat": 41.532162238833, "lng": 167.76719044577},{"lat": 19.474635192809, "lng": -166.36326975089},];
 												var flightPath = new google.maps.Polyline({
 												path: flightPlanCoordinates,
 												geodesic: true,
