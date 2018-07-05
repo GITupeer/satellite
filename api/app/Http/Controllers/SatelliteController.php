@@ -418,10 +418,6 @@ class SatelliteController extends BaseController
                     }
 
 
-                    echo '<pre>';
-                    print_r($data);
-                    echo '</pre>';
-
 
                     $returnData['longitude'] = $data['longitude'];
                     $returnData['latitude'] = $data['latitude'];
