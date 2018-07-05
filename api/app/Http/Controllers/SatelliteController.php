@@ -249,18 +249,18 @@ class SatelliteController extends BaseController
     public function getOrbit($satellie_id) {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Header: *");
-        $orbit = '[';
+        
         for($i=0; $i<15; $i++){
             $sec = ($i*500);
             $arr = $this->getPosition($sec, $satellie_id);
             $orbit .= '{lat: '.$arr['latitude'].', lng: '.$arr['longitude'].'},';
 
         }
-        $orbit .= ']';
+        
 
         $arr['results'] = $orbit;
 
-       echo $arr['results']; 
+       echo $orbit; 
         
     }
 
