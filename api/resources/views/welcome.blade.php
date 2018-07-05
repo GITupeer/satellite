@@ -570,7 +570,7 @@
 											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
 												scope.satelliteInformations = data;
 												console.log(data);
-										        var flightPlanCoordinates = {data};
+										        var flightPlanCoordinates = '['+data+']';
 												var flightPath = new google.maps.Polyline({
 												path: flightPlanCoordinates,
 												geodesic: true,
