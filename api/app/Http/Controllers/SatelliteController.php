@@ -285,6 +285,10 @@ class SatelliteController extends BaseController
                 $data['tle'] = $tle;
 
 
+                echo '<pre>';
+                print_r($data['tle']);
+                echo '</pre>';
+
 
 
                     $explode_TLE_1 = explode(' ', $tle[0]);
@@ -328,7 +332,6 @@ class SatelliteController extends BaseController
                         }
                     }
 
-                    $counterTLE1 = 3;
                     $flagTLE1 = false;
                     while($flagTLE1 == false){
                         if (!empty($explode_TLE_1[$counterTLE1])){
