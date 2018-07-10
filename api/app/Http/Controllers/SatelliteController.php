@@ -250,8 +250,8 @@ class SatelliteController extends BaseController
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Header: *");
         $orbit = '[';
-        for($i=0; $i<17; $i++){
-            $sec = 1000-($i*500);
+        for($i=0; $i<15; $i++){
+            $sec = ($i*500);
             $arr = $this->getPosition($sec, $satellie_id);
             $orbit .= '{"lat": '.$arr['latitude'].', "lng": '.$arr['longitude'].'},';
 

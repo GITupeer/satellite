@@ -561,31 +561,6 @@
 
 								
 									marker.addListener('click', function() {
-
-
-
-
-
-
-											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
-												scope.satelliteInformations = data;
-												console.log(data);
-										        var flightPlanCoordinates = [{"lat": -43.095106460715, "lng": -68.353997826823},{"lat": -51.752734444442, "lng": -23.551624689627},{"lat": -40.121966538934, "lng": 18.575355207482},{"lat": -17.602026894229, "lng": 43.503272756445},{"lat": 7.7677276496286, "lng": 61.982656002146},{"lat": 31.992420897366, "lng": 83.119039368136},{"lat": 49.315683812117, "lng": 117.71211717687},{"lat": 48.76354388364, "lng": 165.73582638306},{"lat": 30.799646303994, "lng": -160.59217283068},{"lat": 6.4093708190282, "lng": -139.83309360448},{"lat": -18.919568238846, "lng": -121.25404168918},{"lat": -41.125336088016, "lng": -95.660728551802},{"lat": -51.820738577835, "lng": -52.602705743036},{"lat": -42.157583069076, "lng": -8.6132926239432},{"lat": -20.311670167867, "lng": 17.72747744893},];
-												var flightPath = new google.maps.Polyline({
-												path: flightPlanCoordinates,
-												geodesic: true,
-												strokeColor: '#FF0000',
-												strokeOpacity: 1.0,
-												strokeWeight: 2
-												});
-
-												flightPath.setMap(map);
-
-
-											});
-
-
-
 										if (infoBox == 'yes'){
 											var styleVal = document.getElementById("leftMenu").style.transform
 
@@ -602,6 +577,26 @@
 										}
 										infoWindow.setContent(infowincontent);
 										infoWindow.open(map, marker);
+
+
+											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
+												scope.satelliteInformationsOrbit = data;
+												console.log(data);
+										        var flightPlanCoordinates = data;
+												var flightPath = new google.maps.Polyline({
+												path: flightPlanCoordinates,
+												geodesic: true,
+												strokeColor: '#FF0000',
+												strokeOpacity: 1.0,
+												strokeWeight: 2
+												});
+
+												flightPath.setMap(map);
+
+
+											});
+
+
 
 									});
 								
