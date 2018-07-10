@@ -581,9 +581,15 @@
 
 											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
 												scope.satelliteInformationsOrbit = data;
-										        var flightPlanCoordinates = JSON.parse(data);
+
+												var triangleCoordsLS12 = []
+												for (var i=0; i< data.length; i++) {
+													triangleCoordsLS12[i] = new google.maps.LatLng(data[i].lat, data[i].lng);
+												}
+
+										        var flightPlanCoordinates = scope.satelliteInformationsOrbit;
 												var flightPath = new google.maps.Polyline({
-												path: flightPlanCoordinates,
+												path: triangleCoordsLS12,
 												geodesic: true,
 												strokeColor: '#FF0000',
 												strokeOpacity: 1.0,
