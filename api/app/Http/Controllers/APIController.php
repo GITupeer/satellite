@@ -251,46 +251,6 @@ class APIController extends BaseController
   
 
 
-    public function get_position_of_satellites_xml($bounds, $userLat, $userLng){
-        $boundsJSON =json_decode($bounds);
-        header("Access-Control-Allow-Origin: *");
-        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
-        ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
-        ->limit(1499)->get();
-        $satellite = json_decode( $satellite, true);
-        $count=0; 
-       
-        $xml['data'] = '<markers>';
-        $xml['data'] .= '<marker infoBox="no" motion="no" id="'.$count.'" image="http://icons.iconarchive.com/icons/paomedia/small-n-flat/24/map-marker-icon.png" offsetRateLat="" offsetRateLng="" name="Your Position." satellieID="000" address="n/o" lat="'.$userLat.'" lng="'.$userLng.'" type="user"/>';
-            
-            foreach ($satellite as $row){
-                    $name = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_name']));
-                    $satellite_id = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['satellite_id']));
-                    $latitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
-                    $longitude = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
-
-
-                            
-                    $offsetRateLat = '';
-                    $offsetRateLat = '';    
-
-                    if ($satellite_id == '25544') { $image = 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png'; }
-                   // if ($satellite_id == '20580') { $image = 'http://icons.iconarchive.com/icons/goodstuff-no-nonsense/free-space/24/international-space-station-icon.png'; }
-                    else { $image = 'http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/24/42597-satellite-icon.png'; }
-
-                    
-            
-                    $xml['data'] .= '<marker infoBox="yes" motion="yes" id="'.$count.'" image="'.$image.'" offsetRateLat="'.$offsetRateLat.'" offsetRateLng="'.$offsetRateLat.'" name="'.$name.'" satellieID="'.$satellite_id.'" address="n/o" lat="'.$latitude.'" lng="'.$longitude.'" type="satellite"/>';
-                    $count++;
-                
-            }
-        $xml['data'] .= '</markers>';
-        
-
-
-        $content = view("API_xml", $xml);
-        return  Response::make($content, '200')->header('Content-Type', 'text/xml');
-    }
 
 
     public function get_position($bounds){
