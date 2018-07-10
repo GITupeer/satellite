@@ -518,6 +518,7 @@ class SatelliteController extends BaseController
             $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellite_id']]])->update(['latitude' => $arr['latitude']]);
             $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellite_id']]])->update(['longitude' => $arr['longitude']]);
             $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellite_id']]])->update(['speed' => $arr['speed']]);
+            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellite_id']]])->update(['altitude' => $arr['altitude']]);
         }
 
 
