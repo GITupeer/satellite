@@ -293,6 +293,7 @@ class SatelliteController extends BaseController
                         $arr['longitude'] = '';
                         $arr['latitude'] = '';
                         $arr['speed'] = '';
+                        $arr['altitude'] = '';
                         return $arr; exit;
                     }
                     $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
