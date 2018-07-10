@@ -439,8 +439,8 @@ class SatelliteController extends BaseController
         $arr = array();
         foreach ($satellite as $row){
             $count++;
-            $arr[$count]['latitude'] = $latitude;
-            $arr[$count]['longitude'] = $longitude;
+            $arr[$count]['latitude'] = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['latitude']));
+            $arr[$count]['longitude'] = strip_tags(preg_replace("/&(?!#?[a-z0-9]+;)/", "&amp;",$row['longitude']));
 
         }
 
