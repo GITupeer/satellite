@@ -289,13 +289,14 @@ class SatelliteController extends BaseController
 
 
                     $explode_TLE_1 = explode(' ', $tle[0]);
-                    $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
                     if (empty($tle[1])){
                         $arr['longitude'] = '';
                         $arr['latitude'] = '';
                         $arr['speed'] = '';
                         return $arr; exit;
                     }
+                    $tle[1] = str_replace(array(' ','  ', '   ','    '), array(' ',' ',' ',' '), $tle[1]);
+
                     $explode_TLE_2 = explode(' ', $tle[1]);
                     
 
