@@ -580,14 +580,14 @@
 
 
 											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
-												scope.satelliteInformationsOrbit = data;
+											
 
-												var triangleCoordsLS12 = []
+												var triangleCoordsLS12 = [];
+												var tmp;
 												for (var i=0; i< data.length; i++) {
-													triangleCoordsLS12[i] = new google.maps.LatLng(data[i].lat, data[i].lng);
+													console.log(data[i]);
 												}
 
-										        var flightPlanCoordinates = scope.satelliteInformationsOrbit;
 												var flightPath = new google.maps.Polyline({
 												path: triangleCoordsLS12,
 												geodesic: true,
@@ -595,7 +595,7 @@
 												strokeOpacity: 1.0,
 												strokeWeight: 2
 												});
-console.log(flightPlanCoordinates);
+console.log(triangleCoordsLS12);
 												flightPath.setMap(map);
 
 
