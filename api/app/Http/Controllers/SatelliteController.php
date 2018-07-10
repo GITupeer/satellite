@@ -435,7 +435,7 @@ class SatelliteController extends BaseController
         header("Access-Control-Allow-Origin: *");
         $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
         ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
-        ->limit(1499)->get();
+        ->limit(10)->get();
         $satellite = json_decode( $satellite, true);
         $count=0; 
        
