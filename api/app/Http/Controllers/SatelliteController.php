@@ -505,7 +505,7 @@ class SatelliteController extends BaseController
         $satellite2 = json_decode( $satellite2, true);
 
 
-
+        $sec = 0;
         foreach($satellite2 as $row){
             $arr = $this->getPosition($sec, $row['satellie_id']);                  
             $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellie_id']]])
