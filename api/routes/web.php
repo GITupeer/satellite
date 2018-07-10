@@ -37,3 +37,4 @@ Route::GET('/cron/get_satellite_data', 'Cron@get_satellite_data');   // one per 
 Route::GET('/satellite/api/getPosition', 'SatelliteController@getPosition');   // one per day 00:00
 Route::GET('/satellite/api/getOrbit/{satellie_id}', 'SatelliteController@getOrbit');   // one per day 00:00
 Route::get('/satellite/api/get_position_of_satellites_xml/{bounds}/{userLat}/{userLng}', 'SatelliteController@get_position_of_satellites_xml');
+Route::get('/satellite/api/get_position_of_satellites_json/{bounds}/{userLat}/{userLng}', 'SatelliteController@get_position_of_satellites_json');

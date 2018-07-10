@@ -428,6 +428,25 @@ class SatelliteController extends BaseController
 
 
 
+    public function get_position_of_satellites_json($bounds, $userLat, $userLng){
+        $boundsJSON =json_decode($bounds);
+        header("Access-Control-Allow-Origin: *");
+        $satellite = DB::table('satellite')->select('latitude', 'longitude', 'satellite_name', 'satellite_id')
+        ->whereRaw("longitude < ".$boundsJSON->east." AND longitude > ".$boundsJSON->west." AND latitude < ".$boundsJSON->north." AND latitude > ".$boundsJSON->south."")
+        ->limit(10)->get();
+        $satellite = json_decode( $satellite, true);
+        $count=0; 
+        $arr = array();
+        foreach ($satellite as $row){
+            $count++;
+            $arr[$count]['latitude'] = $latitude;
+            $arr[$count]['longitude'] = $longitude;
+
+        }
+
+        return $arr;
+
+    }
 
 
     public function get_position_of_satellites_xml($bounds, $userLat, $userLng){
