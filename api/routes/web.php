@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::get('/API/test', 'APIController@test');
 Route::get('/get_position/{bounds}', 'APIController@get_position');
 Route::get('/API/get_position_of_satellites_xml/{bounds}/{userLat}/{userLng}', 'APIController@get_position_of_satellites_xml');
-Route::GET('/satellite/{title}', 'APIController@satellite');
+
 Route::GET('/userposition', 'APIController@userposition');
 
 
@@ -34,5 +34,6 @@ Route::GET('/API/offsetRate', 'APIController@offsetRate');
 
 
 Route::GET('/cron/get_satellite_data', 'Cron@get_satellite_data');   // one per day 00:00
-Route::GET('/satellite/api/getPosition', 'SatelliteController@getPosition');   // one per day 00:00
-Route::GET('/satellite/api/getOrbit/{satellie_id}', 'SatelliteController@getOrbit');   // one per day 00:00
+Route::GET('/satellite/api/getPosition', 'SatelliteController@getPosition');   
+Route::GET('/satellite/api/getOrbit/{satellie_id}', 'SatelliteController@getOrbit');   
+Route::GET('/satellite/{title}', 'SatelliteController@satellite');

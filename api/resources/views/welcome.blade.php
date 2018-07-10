@@ -579,24 +579,15 @@
 										infoWindow.open(map, marker);
 
 
-											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
-												//data = JSON.stringify(data);
-
-												var triangleCoordsLS12 = []
-												var tmp = []
-												for (var i=0; i< data.length; i++) {
-													console.log(data[i]);
-													//triangleCoordsLS12 = new google.maps.LatLng(data[i].lat, data[i].lng);
-												}
-
+											$.get('http://46.101.110.28/satellite/api/getOrbit/'+this.satellieID).done(function(data){ 
 												var flightPath = new google.maps.Polyline({
-												path: triangleCoordsLS12,
+												path: data,
 												geodesic: true,
 												strokeColor: '#FF0000',
 												strokeOpacity: 1.0,
 												strokeWeight: 2
 												});
-console.log(triangleCoordsLS12);
+
 												flightPath.setMap(map);
 
 
