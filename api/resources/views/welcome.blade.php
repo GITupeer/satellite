@@ -581,8 +581,8 @@
 
 											$.get('http://46.101.110.28/satellite/api/getOrbit/25544').done(function(data){ 
 												scope.satelliteInformationsOrbit = data;
-												
-										        var flightPlanCoordinates = "["+data+"]";
+												var corodi = data.toString()
+										        var flightPlanCoordinates = JSON.parse(corodi);
 												var flightPath = new google.maps.Polyline({
 												path: flightPlanCoordinates,
 												geodesic: true,
