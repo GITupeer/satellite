@@ -493,6 +493,37 @@ class SatelliteController extends BaseController
 
 
 
+
+
+
+
+
+
+
+    public function updatePosition(){
+        $satellite2 = DB::table('satellite_informations')->select('*')->get();
+        $satellite2 = json_decode( $satellite2, true);
+
+
+
+        foreach($satellite2 as $row){
+            $arr = $this->getPosition($sec, $row['satellie_id']);                  
+            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellie_id']]])
+            ->update(['latitude' => $arr['latitude']]);
+            $newstatus = DB::table('satellite_informations')->where([['satellite_id','=',$row['satellie_id']]])
+            ->update(['longitude' => $arr['longitude']]);
+        }
+
+
+
+    }
+
+
+
+
+
+
+
     
 
 }

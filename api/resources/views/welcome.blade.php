@@ -543,8 +543,8 @@
 										function animateCircle(marker) {
 											var count = 0;
 											window.setInterval(function() {
-												latitude = latitude + 0.00006;	
-												longitude = longitude + 0.00002;	
+												latitude = latitude + 0.00018;	
+												longitude = longitude + 0.00018;	
 												scope.satellitePosition[satellieID] = { latitude: latitude, longitude: longitude };
 												myLatlng = new google.maps.LatLng(latitude, longitude);
 				-								marker.setPosition(myLatlng)
