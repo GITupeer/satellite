@@ -221,7 +221,7 @@ class UpeerFinanseController extends BaseController
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
                 foreach($apiData as $data){
-                    $data['saldo'] != 'null'){
+                    if($data['saldo'] != 'null'){
                         $apiData[$apiDataCounter]['saldo'] = $saldo[$data['card']];
                     }
                 }
