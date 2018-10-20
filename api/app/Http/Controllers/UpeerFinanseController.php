@@ -174,14 +174,18 @@ class UpeerFinanseController extends BaseController
                                     0 => 'obcią',
                                     1 => 'uznany'
                                 );
-
+                                $obciazenieUznanieCount = 0;
                                 foreach($checkObciazanyUznany as $check){
                                     $explodeCheck = explode($check, $text);
                                     if (!empty($explodeCheck[1])){
-                                        echo $check.'<br><br><br><br>';
+                                        if ($obciazenieUznanieCount == 0){
+                                            $findeText['messgaeType'] = 'Obciązenie Rachunku';
+                                        } else if ($obciazenieUznanieCount == 1){
+                                            $findeText['messgaeType'] = 'Unzanie Rachunku';
+                                        } 
 
                                     }
-                                    
+                                    $obciazenieUznanieCount++;
                                 }
 
                                 
