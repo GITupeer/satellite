@@ -253,6 +253,20 @@ class UpeerFinanseController extends BaseController
                         if($data['date'] != 'null'){
                             $lastTransakciion[$data['card']] = $data['date'];	
                         }
+
+                        $categoryInfoDBInsert = DB::table('upeer-app-transaction')->insert(
+                            [
+                            'date' => $data['date'],
+                            'MCC' => $data['MCC'],
+                            'saldo' => $data['saldo'],
+                            'obciazenie' => $data['obciazenie'],
+                            'uznanie' => $data['uznanie'],
+                            'konto' => $data['konto'],
+                            'card' => $data['card'],
+                            'messgaeType' => $data['messgaeType'],
+                            ]
+                        );
+
                     }
                 }
                 
