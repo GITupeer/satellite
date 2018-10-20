@@ -181,8 +181,15 @@ class UpeerFinanseController extends BaseController
                                         $explodeSpacja = explode(' ',$explodeCheck[1]);
                                         if ($obciazenieUznanieCount == 0){
                                             $findeText['messgaeType'] = 'Obciązenie Rachunku';
-                                            $findeText['obciazenie'] = $explodeSpacja[2];
 
+                                            
+                                            $explodeCorrectPrice = explode(',',$explodeSpacja[2]);
+                                            if (!empty($explodeCorrectPrice[1])){
+                                                $price = $explodeSpacja[2];
+                                            } else {
+                                                $price = $explodeSpacja[2].''.$explodeSpacja[3];
+                                            }
+                                            $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$price)];
                                             $MCCexplode =  explode('MCC ', $text);
                                             if (!empty($MCCexplode[1])){
                                                 $findeText['MCC'] = substr($MCCexplode[1], 0, 4);
@@ -190,7 +197,14 @@ class UpeerFinanseController extends BaseController
 
                                         } else if ($obciazenieUznanieCount == 1){
                                             $findeText['messgaeType'] = 'Uznanie Rachunku';
-                                            $findeText['uznanie'] = $explodeSpacja[2];
+                                            $explodeCorrectPrice = explode(',',$explodeSpacja[2]);
+                                            if (!empty($explodeCorrectPrice[1])){
+                                                $price = $explodeSpacja[2];
+                                            } else {
+                                                $price = $explodeSpacja[2].''.$explodeSpacja[3];
+                                            }
+
+                                            $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$price)];
                                         } 
 
 
