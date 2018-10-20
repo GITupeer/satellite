@@ -254,7 +254,7 @@ class UpeerFinanseController extends BaseController
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
                 foreach($apiData as $data){
-                    if($data['status'] != 'null' && !empty($apiData)){
+                    if($data['status'] != 'null'){
                         if($data['saldo'] != 'null'){
                             $saldo[$data['card']] = $data['saldo'];	
                         }
@@ -284,11 +284,13 @@ class UpeerFinanseController extends BaseController
                 echo '</pre>';
                 echo '<pre>';
 
-
-                foreach($cards as $card) {
-                    $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['saldo' => $saldo[$card]]);
-                    $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['last_date_transaction' => $lastTransakciion[$card]]);
+                if (!empty($apiData)){
+                    foreach($cards as $card) {
+                        $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['saldo' => $saldo[$card]]);
+                        $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['last_date_transaction' => $lastTransakciion[$card]]);
+                    }                    
                 }
+
                 
 
 
