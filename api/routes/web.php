@@ -45,3 +45,9 @@ Route::get('/satellite/api/get_position_of_satellites_json/{bounds}/{userLat}/{u
 
 
 Route::get('/satellite/cron/updatePosition', 'SatelliteController@updatePosition');
+
+
+
+
+// ############ Upeer Finanse ####################
+Route::get('/upeerFinanse/getMail', 'UpeerFinanseController@getMail');
