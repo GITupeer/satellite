@@ -189,7 +189,7 @@ class UpeerFinanseController extends BaseController
                                             }
 
                                         } else if ($obciazenieUznanieCount == 1){
-                                            $findeText['messgaeType'] = 'Unzanie Rachunku';
+                                            $findeText['messgaeType'] = 'Uznanie Rachunku';
                                             $findeText['uznanie'] = $explodeSpacja[2];
                                         } 
 
