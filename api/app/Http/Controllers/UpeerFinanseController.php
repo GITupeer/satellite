@@ -98,11 +98,11 @@ class UpeerFinanseController extends BaseController
                     "%C4% %85" => "ą"
                     ); 
                     $text = (string) strtr($message, $zamiana);
-                    $text = str_replace('% ', '', $text);
+                    $text = str_replace('kwot% ą', 'kwotą', $text);
 
                     echo $text;
 
-                }
+              
 
                 
             //         $j =0;
@@ -222,29 +222,29 @@ class UpeerFinanseController extends BaseController
             //             break;
             //         }
             //         $i++;
-                // }
+                }
                 
                 
-                // $apiData = array_reverse($apiData);
-                // $apiDataCounter = 0;
-                // foreach($apiData as $data){
-                //     if ($data['saldo'] != 'null' && $data['card'] != 'null'){
-                //         $saldo[$data['card']] = $data['saldo'];
-                //     } else if ($data['obciazenie'] != 'null') {
-                //         $data['saldo'] = $saldo[$data['card']] - $data['obciazenie'];
-                //         $saldo[$data['card']] = $data['saldo'];		
-                //         $apiData[$apiDataCounter]['saldo'] = $saldo[$data['card']];
-                //     }
-                //     $apiDataCounter++;
-                // }
+                $apiData = array_reverse($apiData);
+                $apiDataCounter = 0;
+                foreach($apiData as $data){
+                    if ($data['saldo'] != 'null' && $data['card'] != 'null'){
+                        $saldo[$data['card']] = $data['saldo'];
+                    } else if ($data['obciazenie'] != 'null') {
+                        $data['saldo'] = $saldo[$data['card']] - $data['obciazenie'];
+                        $saldo[$data['card']] = $data['saldo'];		
+                        $apiData[$apiDataCounter]['saldo'] = $saldo[$data['card']];
+                    }
+                    $apiDataCounter++;
+                }
                 
-                // echo '<pre>';
-                // print_r($apiData);
-                // echo '</pre>';
+                echo '<pre>';
+                print_r($apiData);
+                echo '</pre>';
                 
-                // echo '<pre>';
-                // print_r($saldo);
-                // echo '</pre>';
+                echo '<pre>';
+                print_r($saldo);
+                echo '</pre>';
                 
             } 
 
