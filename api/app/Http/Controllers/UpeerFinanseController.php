@@ -119,7 +119,7 @@ class UpeerFinanseController extends BaseController
                     $j =0;
                     $explodeDate = explode(' ', $infoMessage['date']);
 
-
+                    echo $text;
                     if ($lastDate == $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4]){
                         break;
                     }
