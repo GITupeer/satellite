@@ -189,7 +189,7 @@ class UpeerFinanseController extends BaseController
                                             } else {
                                                 $price = $explodeSpacja[2].''.$explodeSpacja[3];
                                             }
-                                            $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$price)];
+                                            $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$price);
                                             $MCCexplode =  explode('MCC ', $text);
                                             if (!empty($MCCexplode[1])){
                                                 $findeText['MCC'] = substr($MCCexplode[1], 0, 4);
@@ -204,7 +204,7 @@ class UpeerFinanseController extends BaseController
                                                 $price = $explodeSpacja[2].''.$explodeSpacja[3];
                                             }
 
-                                            $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$price)];
+                                            $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$price);
                                         } 
 
 
