@@ -221,7 +221,7 @@ class UpeerFinanseController extends BaseController
                     $apiData[] = $findeText;
         
                     
-                    if ($i == 15) {
+                    if ($i == 3) {
                         break;
                     }
                     $i++;
