@@ -22,7 +22,7 @@ class UpeerFinanseController extends BaseController
             $emails = imap_search($inbox,'ALL');
 
 
-        $#$#$#$#$#$#$#$# Stale Wartosci $#$#$#$#$#$#$#$#
+        // $#$#$#$#$#$#$#$# Stale Wartosci $#$#$#$#$#$#$#$#
         
             $accountName = array(
                 0 => 'Konto Firmowe',
