@@ -14,6 +14,12 @@ class UpeerFinanseController extends BaseController
 
     public function getMail() {
 
+            $appData = DB::table('upeer-app-data')->select('*')->get();
+            $appData = json_decode($appData, true);
+
+            $lastDate = $appData[0]['last_date_transaction'];
+            exit;
+
         // $#$#$#$#$#$#$#$# Polaczenie do GMAIL $#$#$#$#$#$#$#$#
             $hostname = '{imap.gmail.com:993/imap/ssl}INBOX';
             $username = 'notification.alior@gmail.com';
@@ -112,6 +118,12 @@ class UpeerFinanseController extends BaseController
                 
                     $j =0;
                     $explodeDate = explode(' ', $infoMessage['date']);
+
+
+                    if ($lastDate == $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4]){
+                        break;
+                    }
+
                     $findeText = array(
                         'date' => $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4],
                         'status' => 'null',
