@@ -185,7 +185,7 @@ class UpeerFinanseController extends BaseController
 
                                             $MCCexplode =  explode('MCC ', $text);
                                             if (!empty($MCCexplode[1])){
-                                                $findeText['obciazenie'] = substr($MCCexplode[1], 0, 4);
+                                                $findeText['MCC'] = substr($MCCexplode[1], 0, 4);
                                             }
 
                                         } else if ($obciazenieUznanieCount == 1){
