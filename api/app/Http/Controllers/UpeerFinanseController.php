@@ -111,6 +111,7 @@ class UpeerFinanseController extends BaseController
                         'date' => $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4],
                         'status' => 'null',
                         'MCC' => 'null',
+                        'saldo' => 'null'
                     );
                     
                     
@@ -225,12 +226,8 @@ class UpeerFinanseController extends BaseController
                 }
 
 
-                echo '<pre>';
-                print_r($apiData);
-                echo '</pre>';        
-                exit;
 
-                
+
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
                 foreach($apiData as $data){
