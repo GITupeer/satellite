@@ -100,7 +100,7 @@ class UpeerFinanseController extends BaseController
                     $text = (string) strtr($message, $zamiana);
                     $text = str_replace('%', '', $text);
 
-                    echo $text;
+                
 
               
 
