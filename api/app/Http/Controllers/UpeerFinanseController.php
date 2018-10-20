@@ -18,8 +18,7 @@ class UpeerFinanseController extends BaseController
             $appData = json_decode($appData, true);
 
             $lastDate = $appData[0]['last_date_transaction'];
-            exit;
-
+     
         // $#$#$#$#$#$#$#$# Polaczenie do GMAIL $#$#$#$#$#$#$#$#
             $hostname = '{imap.gmail.com:993/imap/ssl}INBOX';
             $username = 'notification.alior@gmail.com';
@@ -118,8 +117,7 @@ class UpeerFinanseController extends BaseController
                 
                     $j =0;
                     $explodeDate = explode(' ', $infoMessage['date']);
-                    echo $lastDate.' | '.$explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4];
-                    echo $text;
+
                     if ($lastDate == $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4]){
                         break;
                     }
@@ -252,8 +250,6 @@ class UpeerFinanseController extends BaseController
                     $i++;
                 }
 
-
-                echo 'etst';
 
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
