@@ -98,7 +98,7 @@ class UpeerFinanseController extends BaseController
                     "%C4% %85" => "ą"
                     ); 
                     $text = (string) strtr($message, $zamiana);
-                    $text = str_replace('kwot% ą', 'kwotą', $text);
+                    $text = str_replace('%', '', $text);
 
                     echo $text;
 
