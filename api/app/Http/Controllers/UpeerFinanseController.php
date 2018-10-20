@@ -184,6 +184,14 @@ class UpeerFinanseController extends BaseController
                                             $findeText['messgaeType'] = 'Unzanie Rachunku';
                                         } 
 
+
+                                        $explodeSpacja = explode(' ',$explodeCheck[1]);
+                                        echo '<pre>';
+                                        print_r($explodeSpacja);
+                                        echo '</pre>';
+                                        $explodeSpacja[] = $findeText['messgaeType'];
+                                        
+
                                     }
                                     $obciazenieUznanieCount++;
                                 }
