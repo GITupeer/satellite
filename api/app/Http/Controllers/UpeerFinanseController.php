@@ -261,6 +261,15 @@ class UpeerFinanseController extends BaseController
                 print_r($apiData);
                 echo '</pre>';
                 echo '<pre>';
+
+
+                foreach($cards as $card) {
+                    $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['saldo' => $saldo[$card]]);
+                    $updateData = DB::table('upeer-app-data')->where([['konto','=',$card]])->update(['last_date_transaction' => $lastTransakciion[$card]]);
+                }
+                
+
+
                 print_r($saldo);
                 echo '</pre>';
                 echo '<pre>';
