@@ -219,17 +219,12 @@ class UpeerFinanseController extends BaseController
 
 
                 $apiData = array_reverse($apiData);
-                // $apiDataCounter = 0;
-                // foreach($apiData as $data){
-                //     if ($data['saldo'] != 'null' && $data['card'] != 'null'){
-                //         $saldo[$data['card']] = $data['saldo'];
-                //     } else if ($data['obciazenie'] != 'null') {
-                //         $data['saldo'] = $saldo[$data['card']] - $data['obciazenie'];
-                //         $saldo[$data['card']] = $data['saldo'];		
-                //         $apiData[$apiDataCounter]['saldo'] = $saldo[$data['card']];
-                //     }
-                //     $apiDataCounter++;
-                // }
+                $apiDataCounter = 0;
+                foreach($apiData as $data){
+                    $data['saldo'] != 'null'){
+                        $apiData[$apiDataCounter]['saldo'] = $saldo[$data['card']];
+                    }
+                }
                 
 
                 echo '<pre>';
