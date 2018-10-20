@@ -170,7 +170,7 @@ class UpeerFinanseController extends BaseController
                                 $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
                                 
                                 
-
+                                echo $text;
 
 
                             } else {
