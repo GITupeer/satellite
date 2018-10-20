@@ -185,8 +185,6 @@ class UpeerFinanseController extends BaseController
                                 }
 
                                 
-                                echo $text;
-
 
                             } else {
                                 $findeText['uznanie'] = 'null';
