@@ -182,6 +182,12 @@ class UpeerFinanseController extends BaseController
                                         if ($obciazenieUznanieCount == 0){
                                             $findeText['messgaeType'] = 'Obciązenie Rachunku';
                                             $findeText['obciazenie'] = $explodeSpacja[2];
+
+                                            $MCCexplode =  explode('MCC ', $text);
+                                            if (!empty($MCCexplode[1])){
+                                                $findeText['obciazenie'] = substr($MCCexplode[1], 0, 4);
+                                            }
+
                                         } else if ($obciazenieUznanieCount == 1){
                                             $findeText['messgaeType'] = 'Unzanie Rachunku';
                                             $findeText['uznanie'] = $explodeSpacja[2];
@@ -209,7 +215,7 @@ class UpeerFinanseController extends BaseController
                     $apiData[] = $findeText;
         
                     
-                    if ($i == 4) {
+                    if ($i == 100) {
                         break;
                     }
                     $i++;
