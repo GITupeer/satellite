@@ -39,6 +39,11 @@ class UpeerFinanseController extends BaseController
                 '42...8241' => 0
             );
 
+            $lastTransakciion = array(
+                '21...3524' => 0,
+                '42...8241' => 0
+            ); 
+
             $autorizations = array(
                 0 => '51...9259',
                 1 => '55...3623',
@@ -241,8 +246,13 @@ class UpeerFinanseController extends BaseController
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
                 foreach($apiData as $data){
-                    if($data['saldo'] != 'null'){
-                        $saldo[$data['card']] = $data['saldo'];	
+                    if($data['status'] != 'null'){
+                        if($data['saldo'] != 'null'){
+                            $saldo[$data['card']] = $data['saldo'];	
+                        }
+                        if($data['date'] != 'null'){
+                            $lastTransakciion[$data['card']] = $data['date'];	
+                        }
                     }
                 }
                 
@@ -253,6 +263,10 @@ class UpeerFinanseController extends BaseController
                 echo '<pre>';
                 print_r($saldo);
                 echo '</pre>';
+                echo '<pre>';
+                print_r($lastTransakciion);
+                echo '</pre>';                
+                
                 
             } 
 
