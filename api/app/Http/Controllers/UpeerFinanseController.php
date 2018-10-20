@@ -166,8 +166,8 @@ class UpeerFinanseController extends BaseController
                                 $findeText['obciazenie'] = 'null';
                                 $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
                                 
-                                $kwotaUznaniaObciazenia = explode('kwotą ', $text);
-                                $kwotaUznaniaObciazeniaCorrect = explode('PLN', str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazenia[1]));
+                                //$kwotaUznaniaObciazenia = explode('kwotą ', $text);
+                                //$kwotaUznaniaObciazeniaCorrect = explode('PLN', str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazenia[1]));
                                 
                                 $MCCexplode =  explode('MCC ', $text);
                                 $type = '';
@@ -186,10 +186,10 @@ class UpeerFinanseController extends BaseController
                                 }
                                 
                                 if ($type == 'uznanie') {
-                                    $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                    //$findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
                                     $findeText['messgaeType'] = 'Uznanie Rachunku';								
                                 } else if ($type == 'obciazenie') {
-                                    $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                    //$findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
                                     $findeText['messgaeType'] = 'Obciazenie Rachunku'; 
                                     $explodeCorrectMCC = explode(' ', $MCCexplode[1]);
                                     if (empty($mccCustom)) {
