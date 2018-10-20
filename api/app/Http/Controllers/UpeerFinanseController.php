@@ -223,7 +223,13 @@ class UpeerFinanseController extends BaseController
                     }
                     $i++;
                 }
-                
+
+
+                echo '<pre>';
+                print_r($apiData);
+                echo '</pre>';        
+                exit;
+
                 
                 $apiData = array_reverse($apiData);
                 $apiDataCounter = 0;
@@ -238,9 +244,7 @@ class UpeerFinanseController extends BaseController
                     $apiDataCounter++;
                 }
                 
-                echo '<pre>';
-                print_r($apiData);
-                echo '</pre>';
+
                 
                 echo '<pre>';
                 print_r($saldo);
