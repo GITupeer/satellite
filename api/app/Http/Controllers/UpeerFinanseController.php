@@ -172,36 +172,36 @@ class UpeerFinanseController extends BaseController
                                 //$kwotaUznaniaObciazenia = explode('kwotą ', $text);
                                 //$kwotaUznaniaObciazeniaCorrect = explode('PLN', str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazenia[1]));
                                 
-                                $MCCexplode =  explode('MCC ', $text);
-                                $type = '';
-                                if (empty($MCCexplode[1])) {
-                                    $type = 'uznanie';		
-                                    $TytulZleceniaExample =  explode('uznany ', $text);
-                                    if (!empty($TytulZleceniaExample[1])){
+                                // $MCCexplode =  explode('MCC ', $text);
+                                // $type = '';
+                                // if (empty($MCCexplode[1])) {
+                                //     $type = 'uznanie';		
+                                //     $TytulZleceniaExample =  explode('uznany ', $text);
+                                //     if (!empty($TytulZleceniaExample[1])){
 
-                                    } else {
-                                        $type = 'obciazenie';
-                                        $mccCustom = '0000';								
-                                    }
+                                //     } else {
+                                //         $type = 'obciazenie';
+                                //         $mccCustom = '0000';								
+                                //     }
                                     
-                                } else {
-                                    $type = 'obciazenie';
-                                }
+                                // } else {
+                                //     $type = 'obciazenie';
+                                // }
                                 
-                                if ($type == 'uznanie') {
-                                    //$findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
-                                    $findeText['messgaeType'] = 'Uznanie Rachunku';								
-                                } else if ($type == 'obciazenie') {
-                                    //$findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
-                                    $findeText['messgaeType'] = 'Obciazenie Rachunku'; 
-                                    $explodeCorrectMCC = explode(' ', $MCCexplode[1]);
-                                    if (empty($mccCustom)) {
-                                        $findeText['MCC'] = substr($explodeCorrectMCC[0], 0, 4);	
-                                    } else {
-                                        $findeText['MCC'] = $mccCustom;	
-                                    }
+                                // if ($type == 'uznanie') {
+                                //     //$findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                //     $findeText['messgaeType'] = 'Uznanie Rachunku';								
+                                // } else if ($type == 'obciazenie') {
+                                //     //$findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                //     $findeText['messgaeType'] = 'Obciazenie Rachunku'; 
+                                //     $explodeCorrectMCC = explode(' ', $MCCexplode[1]);
+                                //     if (empty($mccCustom)) {
+                                //         $findeText['MCC'] = substr($explodeCorrectMCC[0], 0, 4);	
+                                //     } else {
+                                //         $findeText['MCC'] = $mccCustom;	
+                                //     }
                                                             
-                                } 
+                                // } 
 
                                 
                             } else {
