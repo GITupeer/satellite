@@ -105,123 +105,123 @@ class UpeerFinanseController extends BaseController
               
 
                 
-            //         $j =0;
-            //         $explodeDate = explode(' ', $infoMessage['date']);
-            //         $findeText = array(
-            //             'date' => $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4],
-            //             'status' => 'null',
-            //             'MCC' => 'null',
-            //         );
+                    $j =0;
+                    $explodeDate = explode(' ', $infoMessage['date']);
+                    $findeText = array(
+                        'date' => $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4],
+                        'status' => 'null',
+                        'MCC' => 'null',
+                    );
                     
                     
-            //         foreach($search as $pharse){
+                    foreach($search as $pharse){
                         
-            //             $explode =  explode($pharse, $text);
-            //             if (!empty($explode[1])){
-            //                 $findeText['konto'] = 'null';
-            //                 $findeText['card'] = 'null';
-            //                 $cardCounter = 0;
+                        $explode =  explode($pharse, $text);
+                        if (!empty($explode[1])){
+                            $findeText['konto'] = 'null';
+                            $findeText['card'] = 'null';
+                            $cardCounter = 0;
                             
-            //                 foreach($cards as $card) {
-            //                     $explodeCard = explode($card, $text);	
-            //                     if (!empty($explodeCard[1])){
-            //                         $findeText['card'] = $card;
-            //                         $findeText['konto'] = $accountName[$cardCounter];
-            //                         break;
-            //                     }
-            //                     $cardCounter++;
-            //                 }
+                            foreach($cards as $card) {
+                                $explodeCard = explode($card, $text);	
+                                if (!empty($explodeCard[1])){
+                                    $findeText['card'] = $card;
+                                    $findeText['konto'] = $accountName[$cardCounter];
+                                    break;
+                                }
+                                $cardCounter++;
+                            }
                             
-            //                 if ($findeText['card'] == 'null'){
-            //                     $autorizationCounter = 0;
-            //                     foreach($autorizations as $autorization) {
-            //                         $explodeCardAutorization =  explode($autorization, $text);	
-            //                         if (!empty($explodeCardAutorization[1])){
-            //                             $findeText['card'] = $cards[$autorizationCounter];
-            //                             $findeText['konto'] = $accountName[$autorizationCounter];
-            //                             break;
-            //                         }
-            //                         $autorizationCounter++;
-            //                     }			
-            //                 }			
+                            if ($findeText['card'] == 'null'){
+                                $autorizationCounter = 0;
+                                foreach($autorizations as $autorization) {
+                                    $explodeCardAutorization =  explode($autorization, $text);	
+                                    if (!empty($explodeCardAutorization[1])){
+                                        $findeText['card'] = $cards[$autorizationCounter];
+                                        $findeText['konto'] = $accountName[$autorizationCounter];
+                                        break;
+                                    }
+                                    $autorizationCounter++;
+                                }			
+                            }			
                             
-            //                 $explodeFind = explode(' ',$explode[1]);
-            //                 $explodeFind = explode('PLN',$explode[1]);
-            //                 $findeText['status'] = 'ok';
-            //                 $findeText['index'] = $j;
+                            $explodeFind = explode(' ',$explode[1]);
+                            $explodeFind = explode('PLN',$explode[1]);
+                            $findeText['status'] = 'ok';
+                            $findeText['index'] = $j;
                             
-            //                 $findeText['messgaeType'] = $searchType[$j];
-            //                 $findeText['status'] = 'ok';
+                            $findeText['messgaeType'] = $searchType[$j];
+                            $findeText['status'] = 'ok';
                             
                             
-            //                 if ($findeText['index'] == 3) {
+                            if ($findeText['index'] == 3) {
                                 
-            //                     $findeText['uznanie'] = 'null';
-            //                     $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);
-            //                     $findeText['saldo'] = 'null';
+                                $findeText['uznanie'] = 'null';
+                                $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);
+                                $findeText['saldo'] = 'null';
                             
-            //                 } else if ($findeText['index'] == 2) { 
+                            } else if ($findeText['index'] == 2) { 
 
-            //                     $findeText['uznanie'] = 'null';
-            //                     $findeText['obciazenie'] = 'null';
-            //                     $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
+                                $findeText['uznanie'] = 'null';
+                                $findeText['obciazenie'] = 'null';
+                                $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
                                 
-            //                     $kwotaUznaniaObciazenia = explode('kwotą ', $text);
-            //                     $kwotaUznaniaObciazeniaCorrect = explode('PLN', str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazenia[1]));
+                                $kwotaUznaniaObciazenia = explode('kwotą ', $text);
+                                $kwotaUznaniaObciazeniaCorrect = explode('PLN', str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazenia[1]));
                                 
-            //                     $MCCexplode =  explode('MCC ', $text);
-            //                     $type = '';
-            //                     if (empty($MCCexplode[1])) {
-            //                         $type = 'uznanie';		
-            //                         $TytulZleceniaExample =  explode('uznany ', $text);
-            //                         if (!empty($TytulZleceniaExample[1])){
+                                $MCCexplode =  explode('MCC ', $text);
+                                $type = '';
+                                if (empty($MCCexplode[1])) {
+                                    $type = 'uznanie';		
+                                    $TytulZleceniaExample =  explode('uznany ', $text);
+                                    if (!empty($TytulZleceniaExample[1])){
 
-            //                         } else {
-            //                             $type = 'obciazenie';
-            //                             $mccCustom = '0000';								
-            //                         }
+                                    } else {
+                                        $type = 'obciazenie';
+                                        $mccCustom = '0000';								
+                                    }
                                     
-            //                     } else {
-            //                         $type = 'obciazenie';
-            //                     }
+                                } else {
+                                    $type = 'obciazenie';
+                                }
                                 
-            //                     if ($type == 'uznanie') {
-            //                         $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
-            //                         $findeText['messgaeType'] = 'Uznanie Rachunku';								
-            //                     } else if ($type == 'obciazenie') {
-            //                         $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
-            //                         $findeText['messgaeType'] = 'Obciazenie Rachunku'; 
-            //                         $explodeCorrectMCC = explode(' ', $MCCexplode[1]);
-            //                         if (empty($mccCustom)) {
-            //                             $findeText['MCC'] = substr($explodeCorrectMCC[0], 0, 4);	
-            //                         } else {
-            //                             $findeText['MCC'] = $mccCustom;	
-            //                         }
+                                if ($type == 'uznanie') {
+                                    $findeText['uznanie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                    $findeText['messgaeType'] = 'Uznanie Rachunku';								
+                                } else if ($type == 'obciazenie') {
+                                    $findeText['obciazenie'] = str_replace(array(',', ' '),array('.', ''),$kwotaUznaniaObciazeniaCorrect[0]);
+                                    $findeText['messgaeType'] = 'Obciazenie Rachunku'; 
+                                    $explodeCorrectMCC = explode(' ', $MCCexplode[1]);
+                                    if (empty($mccCustom)) {
+                                        $findeText['MCC'] = substr($explodeCorrectMCC[0], 0, 4);	
+                                    } else {
+                                        $findeText['MCC'] = $mccCustom;	
+                                    }
                                                             
-            //                     } 
+                                } 
 
                                 
-            //                 } else {
+                            } else {
                                 
-            //                     $findeText['uznanie'] = 'null';
-            //                     $findeText['obciazenie'] = 'null';
-            //                     $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
+                                $findeText['uznanie'] = 'null';
+                                $findeText['obciazenie'] = 'null';
+                                $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
                                 
-            //                 }
+                            }
                             
-            //                 break;
-            //             }
+                            break;
+                        }
                         
-            //             $j++;
-            //         }
+                        $j++;
+                    }
                 
-            //         $apiData[] = $findeText;
+                    $apiData[] = $findeText;
         
                     
-            //         if ($i == 15) {
-            //             break;
-            //         }
-            //         $i++;
+                    if ($i == 15) {
+                        break;
+                    }
+                    $i++;
                 }
                 
                 
