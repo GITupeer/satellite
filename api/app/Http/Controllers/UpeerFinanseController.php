@@ -169,6 +169,21 @@ class UpeerFinanseController extends BaseController
                                 $findeText['obciazenie'] = 'null';
                                 $findeText['saldo'] = str_replace(array(',', ' '),array('.', ''),$explodeFind[0]);	
                                 
+
+                                $checkObciazanyUznany = array(
+                                    0 => 'obcią',
+                                    1 => 'uznany'
+                                );
+
+                                foreach($checkObciazanyUznany as $check){
+                                    $explodeCheck = explode($check, $text);
+                                    if (!empty($explodeCheck[1])){
+                                        echo $text.'<br><br><br><br>';
+
+                                    }
+                                    
+                                }
+
                                 
                                 echo $text;
 
