@@ -111,7 +111,9 @@ class UpeerFinanseController extends BaseController
                         'date' => $explodeDate[3].'-'.$explodeDate[2].'-'.$explodeDate[1].' '.$explodeDate[4],
                         'status' => 'null',
                         'MCC' => 'null',
-                        'saldo' => 'null'
+                        'saldo' => 'null',
+                        'obciazenie' => 'null',
+                        'uznanie' => 'null'
                     );
                     
                     
