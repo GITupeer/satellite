@@ -12,6 +12,16 @@ class UpeerFinanseController extends BaseController
 {
 
 
+
+    public function getSaldo() {
+        $saldo = DB::table('upeer-app-data')->select('*')->get();
+        $saldo = json_decode( $saldo, true);
+
+
+        return $saldo;
+    }
+
+
     public function getMail() {
 
             $appData = DB::table('upeer-app-data')->select('*')->get();

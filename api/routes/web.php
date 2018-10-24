@@ -51,3 +51,4 @@ Route::get('/satellite/cron/updatePosition', 'SatelliteController@updatePosition
 
 // ############ Upeer Finanse ####################
 Route::get('/upeerFinanse/getMail', 'UpeerFinanseController@getMail');
+Route::get('/upeerFinanse/getSaldo', 'UpeerFinanseController@getSaldo');
