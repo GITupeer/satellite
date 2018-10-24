@@ -14,6 +14,7 @@ class UpeerFinanseController extends BaseController
 
 
     public function getSaldo() {
+        header("Access-Control-Allow-Origin: *");
         $saldo = DB::table('upeer-app-data')->select('*')->get();
         $saldo = json_decode( $saldo, true);
 
