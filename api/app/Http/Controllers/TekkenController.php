@@ -61,6 +61,17 @@ class TekkenController extends BaseController
     }
 
 
+    public function checkIfExsist($UID, $id){
+        $user = DB::table('tekken_gracze')->where([['UID_regrywki','=',$UID], ['id_gracza','=',$id]])->get();
+        $user = json_decode($user, true);
+
+        if (empty($user[0])){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 
     public function dolaczDoTurnieju(Request $request) {
  
@@ -71,28 +82,21 @@ class TekkenController extends BaseController
 
         $user = $user[0];
 
-        $insertGracz = DB::table('tekken_gracze')->insert(
-            [
-            'id_gracza' => $user['id'],
-            'nazwa_gracza' => $user['user'],
-            'punkty' => 0,
-            'UID_rozgrywki' => $UID
-            ]
-        );     
+        $checkIfExsist = $this->checkIfExsist($UID, $user['id']);
+        if ($checkIfExsist == false){
+            $insertGracz = DB::table('tekken_gracze')->insert(
+                [
+                'id_gracza' => $user['id'],
+                'nazwa_gracza' => $user['user'],
+                'punkty' => 0,
+                'UID_rozgrywki' => $UID
+                ]
+            );                 
+        }
+
     }
 
-    public function dolaczDoTurnieju2(Request $request){
-        $user = $request['User'];
-        $UID = $request['UID'];
-        $insertGracz = DB::table('tekken_gracze')->insert(
-            [
-            'id_gracza' => $user['id'],
-            'nazwa_gracza' => $user['user'],
-            'punkty' => 0,
-            'UID_rozgrywki' => $UID
-            ]
-        );      
-    }
+
 
 
     public function getTurnieje() {
