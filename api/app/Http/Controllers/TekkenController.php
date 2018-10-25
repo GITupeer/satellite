@@ -38,50 +38,50 @@ class TekkenController extends BaseController
 
 
     public function stworzTurniej(Request $request) {
-        header("Access-Control-Allow-Origin: *");
-        add_filter('allowed_http_origins', 'add_allowed_origins');
-        // Request $request
-        $user = $request['user'];
-        $pass = $request['pass'];
-        $nazwa = $request['nazwa'];
-        $ban = $request['ban'];
-        $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
-        $user = json_decode($user, true);
-        $return['status'] = 'success';
-        $return['message'] = array();
+        // header("Access-Control-Allow-Origin: *");
+        // add_filter('allowed_http_origins', 'add_allowed_origins');
+        // // Request $request
+        // $user = $request['user'];
+        // $pass = $request['pass'];
+        // $nazwa = $request['nazwa'];
+        // $ban = $request['ban'];
+        // $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
+        // $user = json_decode($user, true);
+        // $return['status'] = 'success';
+        // $return['message'] = array();
 
-        if (empty($user[0])){
-            $return['status'] = 'error';
-            $return['message']['logowanie'] = 'Login lub haslo jest nieprawidlowe';
+        // if (empty($user[0])){
+        //     $return['status'] = 'error';
+        //     $return['message']['logowanie'] = 'Login lub haslo jest nieprawidlowe';
 
-        } 
+        // } 
 
-        if (empty($nazwa) || $nazwa == ''){
-            $return['status'] = 'error';
-            $return['message']['nazwa'] = 'Nazwa Turnieju nie moze byc pusta';
-        }
+        // if (empty($nazwa) || $nazwa == ''){
+        //     $return['status'] = 'error';
+        //     $return['message']['nazwa'] = 'Nazwa Turnieju nie moze byc pusta';
+        // }
 
-        if(!is_numeric($ban)){
-            $return['status'] = 'error';
-            $return['message']['ban'] = 'Nieprawidlowy format danych';
-        } else {
-            if ($ban > 10 || $ban < 0){
-                $return['status'] = 'error';
-                $return['message']['ban'] = 'Zakres 0 - 10';               
-            }
-        }
+        // if(!is_numeric($ban)){
+        //     $return['status'] = 'error';
+        //     $return['message']['ban'] = 'Nieprawidlowy format danych';
+        // } else {
+        //     if ($ban > 10 || $ban < 0){
+        //         $return['status'] = 'error';
+        //         $return['message']['ban'] = 'Zakres 0 - 10';               
+        //     }
+        // }
 
 
-        if ($return['status'] == 'success'){
-            $insertTurniej = DB::table('tekken_turnieje')->insert(
-                [
-                'admin' => $user[0]['id'],
-                'nazwa' => $nazwa,
-                'ban' => $ban,
-                ]
-            );          
-        }
-        return $return;
+        // if ($return['status'] == 'success'){
+        //     $insertTurniej = DB::table('tekken_turnieje')->insert(
+        //         [
+        //         'admin' => $user[0]['id'],
+        //         'nazwa' => $nazwa,
+        //         'ban' => $ban,
+        //         ]
+        //     );          
+        // }
+        // return $return;
 
 
     }
