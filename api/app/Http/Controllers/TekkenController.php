@@ -102,7 +102,7 @@ class TekkenController extends BaseController
         $gracze = json_decode($gracze, true);
 
         $return = array(
-            'turniej' => $turniej,
+            'turniej' => $turniej[0],
             'gracze' => $gracze,
         );
 
