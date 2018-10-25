@@ -40,7 +40,7 @@ class TekkenController extends BaseController
     public function stworzTurniej() {
         // Request $request
         $user = 'upeer';
-        $password = 'pass';
+        $pass = 'pass';
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
 
