@@ -39,6 +39,29 @@ class TekkenController extends BaseController
 
 
 
+
+    public function logowanie(Request $request) {
+        $user = $request['user'];
+        $pass = $request['pass'];
+
+        $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
+        $user = json_decode($user, true);
+
+        if (empty($user[0])){
+            $return['status'] = 'error';
+            $return['message']['logowanie'] = 'Login lub haslo jest nieprawidlowe';
+        } else {
+            $return['status'] = 'success';
+            $return['user'] = $user[0];
+        }
+
+        return $return;
+
+
+    }
+
+
+
     public function stworzTurniej(Request $request) {
 
         // Request $request

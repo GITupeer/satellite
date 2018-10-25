@@ -59,3 +59,4 @@ Route::get('/upeerFinanse/getSaldo', 'UpeerFinanseController@getSaldo');
 Route::get('/tekken/registerAccount/{login}/{pass}', 'TekkenController@registerAccount');
 Route::post('/tekken/stworzTurniej/', 'TekkenController@stworzTurniej');
 Route::get('/tekken/turniejInfo/{UID}', 'TekkenController@turniejInfo');
+Route::post('/tekken/logowanie', 'TekkenController@logowanie');
