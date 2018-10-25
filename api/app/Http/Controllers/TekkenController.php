@@ -13,8 +13,8 @@ class TekkenController extends BaseController
 
     public function registerAccount($login, $pass) {
 
-        if (empty($user) || empty($pass)){
-            return array('status' => 'error', 'message' => 'Login lub Hasło nie może być puste!'); exit;
+        if (empty($login) || empty($pass)){
+            return array('status' => 'error', 'message' => 'Login lub Haslo nie moze byc puste!'); exit;
         }
 
         $user = DB::table('tekken_user')->where([['user','=',$login]])->get();
