@@ -15,6 +15,10 @@ class TekkenController extends BaseController
 
         $user = DB::table('tekken_user')->where([['user','=',$login]])->get();
         $user = json_decode($user, true);
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
+        
         if (empty($login) || empty($pass)){
             return array('status' => 'error', 'message' => 'Login lub Haslo nie moze byc puste!'); exit;
         } else if (!empty($user[1])){
