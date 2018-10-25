@@ -40,9 +40,9 @@ class TekkenController extends BaseController
     public function stworzTurniej() {
         // Request $request
         $user = 'upeer';
-        $pass = 'test1234';
-        $nazwa = '';
-        $ban = 'DUPA';
+        $pass = 'test123';
+        $nazwa = 'Turniej 1';
+        $ban = '20';
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
         $return['status'] = 'success';
@@ -61,7 +61,12 @@ class TekkenController extends BaseController
 
         if(!is_numeric($ban)){
             $return['status'] = 'error';
-            $return['message']['ban'] = 'Nieprawidłowy format danych';
+            $return['message']['ban'] = 'Nieprawidlowy format danych';
+        } else {
+            if ($ban > 10){
+                $return['status'] = 'error';
+                $return['message']['ban'] = 'Maksymalna ilość zbanoiwych postaci to 10';               
+            }
         }
 
         return $return;
