@@ -95,7 +95,19 @@ class TekkenController extends BaseController
 
 
     public function turniejInfo($UID) {
-        echo 'test';
+
+        $turniej = DB::table('tekken_turnieje')->where([['UID','=',$UID]])->get();
+        $turniej = json_decode($turniej, true);
+        $gracze = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->get();
+        $gracze = json_decode($gracze, true);
+
+        $return = array(
+            'turniej' => $turniej,
+            'gracze' => $gracze,
+        );
+
+        return $return;
+
     }
 
 
