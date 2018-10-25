@@ -80,7 +80,7 @@ class TekkenController extends BaseController
                 'admin' => $user[0]['id'],
                 'nazwa' => $nazwa,
                 'ban' => $ban,
-                'uid' => $UID;
+                'uid' => $UID
                 ]
             );          
             $return['UID'] = $UID;
