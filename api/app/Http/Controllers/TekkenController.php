@@ -74,13 +74,16 @@ class TekkenController extends BaseController
 
 
         if ($return['status'] == 'success'){
+            $UID = uniqid().'-'.uniqid().'-'.uniqid().'-'.uniqid().'-'.uniqid();
             $insertTurniej = DB::table('tekken_turnieje')->insert(
                 [
                 'admin' => $user[0]['id'],
                 'nazwa' => $nazwa,
                 'ban' => $ban,
+                'uid' => $UID;
                 ]
             );          
+            $return['UID'] = $UID;
         }
 
         sleep(1);
