@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         'tekken/dolaczUser',
         'tekken/stworzTurniej',
         'tekken/logowanie',
+        'tekken/dolaczDoTurnieju'
         
     ];
 }
