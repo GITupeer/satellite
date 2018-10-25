@@ -82,7 +82,17 @@ class TekkenController extends BaseController
                 'ban' => $ban,
                 'uid' => $UID
                 ]
-            );          
+            );    
+
+            $insertGracz = DB::table('tekken_gracze')->insert(
+                [
+                'id_gracza' => $user[0]['id'],
+                'nazwa_gracza' => $user[0]['user'],
+                'punkty' => 0,
+                'UID_rozgrywki' => $UID
+                ]
+            );         
+            
             
             $return['UID'] = $UID;
             $return['user'] = $user[0];
