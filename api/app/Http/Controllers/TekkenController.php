@@ -41,7 +41,7 @@ class TekkenController extends BaseController
         // Request $request
         $user = 'upeer';
         $password = 'pass';
-        $user = DB::table('tekken_user')->where([['user','=',$login], ['password','=',$pass]])->get();
+        $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
 
 
