@@ -63,7 +63,7 @@ class TekkenController extends BaseController
 
 
     public function getTurnieje() {
-        $tekken_turnieje = DB::table('tekken_turnieje')->sortBy('id', 'desc')->get();
+        $tekken_turnieje = DB::table('tekken_turnieje')->orderBy('id', 'desc')->get();
         $tekken_turnieje = json_decode($tekken_turnieje, true); 
         
         return $tekken_turnieje;
