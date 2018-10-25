@@ -63,8 +63,14 @@ class TekkenController extends BaseController
 
 
     public function dolaczDoTurnieju(Request $request) {
-        $user = $request['user'];
+ 
         $UID = $request['UID'];
+
+        $user = DB::table('tekken_user')->where([['id','=',$request['User']['id']]])->get();
+        $user = json_decode($user, true);
+
+        $user = $user[0];
+
         $insertGracz = DB::table('tekken_gracze')->insert(
             [
             'id_gracza' => $user['id'],
