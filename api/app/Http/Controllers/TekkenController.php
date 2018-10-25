@@ -12,8 +12,14 @@ class TekkenController extends BaseController
 {
 
     public function registerAccount($login, $pass) {
-        $user = DB::table('tekken_user')->where([['login','=',$login]])->get();
+        $user = DB::table('tekken_user')->where([['user','=',$login]])->get();
         $user = json_decode($user, true);
+
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
+
+
     }
 
 
