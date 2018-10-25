@@ -39,6 +39,7 @@ class TekkenController extends BaseController
 
     public function stworzTurniej(Request $request) {
         header("Access-Control-Allow-Origin: *");
+        add_filter('allowed_http_origins', 'add_allowed_origins');
         // Request $request
         $user = $request['user'];
         $pass = $request['pass'];
