@@ -83,7 +83,10 @@ class TekkenController extends BaseController
                 'uid' => $UID
                 ]
             );          
+            
             $return['UID'] = $UID;
+            $return['user'] = $user[0];
+
         }
 
         sleep(1);
