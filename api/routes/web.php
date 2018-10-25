@@ -57,4 +57,4 @@ Route::get('/upeerFinanse/getSaldo', 'UpeerFinanseController@getSaldo');
 
 // ##### TEKKEN #####
 Route::get('/tekken/registerAccount/{login}/{pass}', 'TekkenController@registerAccount');
-Route::post('/tekken/stworzTurniej/', 'TekkenController@stworzTurniej');
+Route::get('/tekken/stworzTurniej/', 'TekkenController@stworzTurniej');
