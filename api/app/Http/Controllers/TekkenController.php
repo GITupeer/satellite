@@ -52,9 +52,9 @@ class TekkenController extends BaseController
 
         } 
 
-        if (empty($nazwa)){
+        if (empty($nazwa) || $nazwa == ''){
             $return['status'] = 'error';
-            $return['message']['logowanie'] = 'Nazwa Turnieju nie moze byc pusta';
+            $return['message']['nazwa'] = 'Nazwa Turnieju nie moze byc pusta';
         }
 
         
