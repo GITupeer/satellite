@@ -37,12 +37,12 @@ class TekkenController extends BaseController
 
 
 
-    public function stworzTurniej() {
+    public function stworzTurniej(Request $request) {
         // Request $request
-        $user = 'upeer';
-        $pass = 'test123';
-        $nazwa = 'Turniej 1';
-        $ban = '-10';
+        $user = $request['user'];
+        $pass = $request['pass'];
+        $nazwa = $request['nazwa'];
+        $ban = $request['ban'];
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
         $return['status'] = 'success';
@@ -69,6 +69,16 @@ class TekkenController extends BaseController
             }
         }
 
+
+        if ($return['status'] == 'success'){
+            $insertTurniej = DB::table('tekken_turnieje')->insert(
+                [
+                'admin' => $user[0]['id'],
+                'nazwa' => $nazwa,
+                'ban' => $ban,
+                ]
+            );          
+        }
         return $return;
 
 
