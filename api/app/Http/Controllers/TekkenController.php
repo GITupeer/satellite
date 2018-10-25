@@ -25,7 +25,7 @@ class TekkenController extends BaseController
         } else {
             $insertUser = DB::table('tekken_user')->insert(
                 [
-                'login' => $login,
+                'user' => $login,
                 'password' => $pass,
                 ]
             );
