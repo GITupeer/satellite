@@ -54,7 +54,7 @@ class TekkenController extends BaseController
             $return['status'] = 'success';
             $return['user'] = $user[0];
         }
-
+        sleep(1);
         return $return;
 
 
