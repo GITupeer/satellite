@@ -13,15 +13,12 @@ class TekkenController extends BaseController
 
     public function registerAccount($login, $pass) {
 
-        if (empty($login) || empty($pass)){
-            return array('status' => 'error', 'message' => 'Login lub Haslo nie moze byc puste!'); exit;
-        }
-
         $user = DB::table('tekken_user')->where([['user','=',$login]])->get();
         $user = json_decode($user, true);
-
-        if (!empty($user[1])){
-            return array('status' => 'error', 'message' => 'Konto o takiej nazwie już istnieje!'); exit;
+        if (empty($login) || empty($pass)){
+            return array('status' => 'error', 'message' => 'Login lub Haslo nie moze byc puste!'); exit;
+        } else if (!empty($user[1])){
+            return array('status' => 'error', 'message' => 'Konto o takiej nazwie juz istnieje!'); exit;
         } else {
             $insertUser = DB::table('tekken_user')->insert(
                 [
@@ -30,7 +27,7 @@ class TekkenController extends BaseController
                 ]
             );
 
-            return array('status' => 'success', 'message' => 'Konto zostało stworzone!'); exit;    
+            return array('status' => 'success', 'message' => 'Konto zostalo stworzone!'); exit;    
         }
 
     }
