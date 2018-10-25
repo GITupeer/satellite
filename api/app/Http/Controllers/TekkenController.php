@@ -40,14 +40,26 @@ class TekkenController extends BaseController
     public function stworzTurniej() {
         // Request $request
         $user = 'upeer';
-        $pass = 'pass';
+        $pass = 'test123';
+        $nazwa = '';
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
 
 
         if (empty($user[0])){
-            return array('status' => 'error', 'message' => array( 'logowanie' => 'Login lub haslo jest nieprawidlowe')); exit;
+            $return['status'] = 'error';
+            $return['message']['logowanie'] = 'Login lub haslo jest nieprawidlowe';
+
+        } 
+
+        if (empty($nazwa)){
+            $return['status'] = 'error';
+            $return['message']['logowanie'] = 'Nazwa Turnieju nie moze byc pusta';
         }
+
+        
+
+        return $return;
 
 
     }
