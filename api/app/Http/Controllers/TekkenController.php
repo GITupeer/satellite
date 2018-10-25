@@ -41,10 +41,11 @@ class TekkenController extends BaseController
         // Request $request
         $user = 'upeer';
         $pass = 'test123';
-        $nazwa = '';
+        $nazwa = 'Turniej 1';
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
-
+        $return['status'] = 'success';
+        $return['message'] = array();
 
         if (empty($user[0])){
             $return['status'] = 'error';
