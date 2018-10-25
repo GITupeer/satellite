@@ -95,7 +95,7 @@ class TekkenController extends BaseController
 
 
     public function turniejInfo($UID) {
-
+        echo 'test';
     }
 
 
