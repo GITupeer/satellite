@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'tekken/stworzTurniej',
         'tekken/logowanie',
+        'tekken/dolaczUser',
     ];
 }
