@@ -40,8 +40,9 @@ class TekkenController extends BaseController
     public function stworzTurniej() {
         // Request $request
         $user = 'upeer';
-        $pass = 'test123';
-        $nazwa = 'Turniej 1';
+        $pass = 'test1234';
+        $nazwa = '';
+        $ban = 'DUPA';
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
         $return['status'] = 'success';
@@ -58,7 +59,10 @@ class TekkenController extends BaseController
             $return['message']['nazwa'] = 'Nazwa Turnieju nie moze byc pusta';
         }
 
-        
+        if(!is_numeric($ban)){
+            $return['status'] = 'error';
+            $return['message']['ban'] = 'Nieprawidłowy format danych';
+        }
 
         return $return;
 
