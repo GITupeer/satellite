@@ -62,7 +62,7 @@ class TekkenController extends BaseController
 
 
     public function checkIfExsist($UID, $id){
-        $user = DB::table('tekken_gracze')->where([['UID_regrywki','=',$UID], ['id_gracza','=',$id]])->get();
+        $user = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID], ['id_gracza','=',$id]])->get();
         $user = json_decode($user, true);
 
         if (empty($user[0])){
