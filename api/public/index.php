@@ -1,5 +1,10 @@
 <?php
-
+    header('Access-Control-Allow-Origin: *');  
+    header("Access-Control-Allow-Headers: Origin, Authorization, X-Requested-With, Content-Type, Accept"); 
+    header("Cache-Control: no-cache,no-store");
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){   
+    exit;
+}
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
