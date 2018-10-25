@@ -61,4 +61,4 @@ Route::post('/tekken/stworzTurniej/', 'TekkenController@stworzTurniej');
 Route::get('/tekken/turniejInfo/{UID}', 'TekkenController@turniejInfo');
 Route::post('/tekken/logowanie', 'TekkenController@logowanie');
 Route::get('/tekken/getTurnieje', 'TekkenController@getTurnieje');
-Route::post('/tekken/dolaczUser', 'TekkenController@dolaczUser');
+Route::post('/tekken/dolaczUser/', 'TekkenController@dolaczUser');
