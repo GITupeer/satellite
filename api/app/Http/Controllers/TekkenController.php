@@ -308,4 +308,15 @@ class TekkenController extends BaseController
     }
 
 
+
+    public function getInforRogrywka($UID) {
+
+        $rozgrywka = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID]])->orderBy('tura', 'ASC')->get();
+        $rozgrywka = json_decode($rozgrywka, true); 
+
+        return  $rozgrywka;
+
+    }
+
+
 }
