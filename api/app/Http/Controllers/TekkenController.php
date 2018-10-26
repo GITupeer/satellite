@@ -230,8 +230,17 @@ class TekkenController extends BaseController
         $lista[$i-1]['gracz_2'] = $gracze[0]['id'];
         $lista[$i-1]['gracz_2_name'] = $gracze[0]['nazwa_gracza'];
 
-        foreach($lista as $user){
-
+        foreach($lista as $userData){
+            $insertGracz = DB::table('tekken_rozgrywka')->insert(
+                [
+                'UID_rozgrywki' => $UID,
+                'gracz_1' => $userData['gracz_1'],
+                'gracz_2' => $userData['gracz_2'],
+                'tura' => 1,
+                'gracz_1_nazwa' => $userData['gracz_1_name'],
+                'gracz_2_nazwa' => $userData['gracz_2_name'],               
+                ]
+            );    
         }
 
 
