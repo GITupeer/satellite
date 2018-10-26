@@ -343,7 +343,7 @@ class TekkenController extends BaseController
             'aktualna' => $aktualna
         );
 
-        return  $rozgrywka;
+        return  $return;
 
     }
 
