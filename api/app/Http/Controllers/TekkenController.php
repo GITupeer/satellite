@@ -309,10 +309,39 @@ class TekkenController extends BaseController
 
 
 
+
     public function getInforRogrywka($UID) {
 
         $rozgrywka = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID]])->orderBy('tura', 'ASC')->get();
         $rozgrywka = json_decode($rozgrywka, true); 
+
+        $trwa = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','trwa']])->orderBy('tura', 'ASC')->limit(1)->get();
+        $trwa = json_decode($trwa, true); 
+
+        if (empty($trwa[0])){
+            $oczekiwanie = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie']])->orderBy('tura', 'ASC')->limit(1)->get();
+            $oczekiwanie = json_decode($oczekiwanie, true); 
+
+
+            if (empty($oczekiwanie[0])){ 
+                $Final = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->orderBy('tura', 'ASC')->limit(1)->get();
+                $Final = json_decode($Final, true); 
+
+                $aktualna = $Final[0];
+
+            } else {
+                $aktualna = $oczekiwanie[0];
+            }
+
+
+        } else {
+            $aktualna = $trwa[0];
+        }
+
+        $return = array(
+            'rozgrywka' => $rozgrywka,
+            'aktualna' => $aktualna
+        );
 
         return  $rozgrywka;
 
