@@ -216,6 +216,8 @@ class TekkenController extends BaseController
         $gracze = DB::table('tekken_gracze')->inRandomOrder()->where([['UID_rozgrywki','=',$UID]])->get();
         $gracze = json_decode($gracze, true);
 
+        
+
         $lista = array();
         $i=0;
         foreach($gracze as $user){
@@ -244,11 +246,35 @@ class TekkenController extends BaseController
         }
 
 
-    //    $tekken_turnieje = DB::table('tekken_turnieje')->orderBy('id', 'desc')->get();
-    //     $tekken_turnieje = json_decode($tekken_turnieje, true); 
-        
+        $tekken_turnieje = DB::table('tekken_turnieje')->where([['UID','=',$UID]])->get();
+        $tekken_turnieje = json_decode($tekken_turnieje, true); 
+        $turniej = $tekken_turnieje[0];
 
 
+        $odpada = $turniej['odpada'];
+        $graczeCount = count($gracze);
+        $tmpCounter = $graczeCount;
+        $tura = 1;
+        $flag = true;
+        while($flag == true) {
+            $tura++;
+            $tmpCounter = $graczeCount - $odpada;
+            if($tmpCounter > 0){
+             $insertGracz = DB::table('tekken_rozgrywka')->insert(
+                [
+                'UID_rozgrywki' => $UID,
+                'gracz_1' => '',
+                'gracz_2' => '',
+                'tura' => $tura,
+                'gracz_1_nazwa' => '',
+                'gracz_2_nazwa' => '',               
+                ]
+            );    
+           } else {
+                $flag = false;
+           }
+
+        }
 
         echo '<pre>';
         print_r($lista);
