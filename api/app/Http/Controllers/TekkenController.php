@@ -283,7 +283,7 @@ class TekkenController extends BaseController
                             'UID_rozgrywki' => $UID,
                             'gracz_1' => null,
                             'gracz_2' => null,
-                            'tura' => 10,
+                            'tura' => 'Final',
                             'gracz_1_nazwa' => null,
                             'gracz_2_nazwa' => null,               
                             ]
