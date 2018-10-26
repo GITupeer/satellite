@@ -260,7 +260,7 @@ class TekkenController extends BaseController
             $tura++;
             $tmpCounter = $tmpCounter - $odpada;
             if($tmpCounter > 1){
-                if ($tmpCounter == 1){
+                if ($tmpCounter == 2){
                     $tmpCounter = $tmpCounter -1;
                 }
                 for($j=0; $j<$tmpCounter; $j++){
