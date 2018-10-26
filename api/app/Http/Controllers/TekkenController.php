@@ -216,6 +216,18 @@ class TekkenController extends BaseController
         $gracze = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->get();
         $gracze = json_decode($gracze, true);
 
+        $lista = array();
+        $i=0;
+        foreach($gracze as $user){
+            
+            if ($i != 0){
+                $lista[$i-1]['gracz_2'] = $gracze[$i]['id'];
+            }
+            
+            $lista[$i]['gracz_1'] = $gracze[$i]['id'];
+
+            $i++;
+        }
 
         echo '<pre>';
         print_r($gracze);
