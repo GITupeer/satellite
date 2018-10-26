@@ -327,15 +327,15 @@ class TekkenController extends BaseController
                 $Final = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->orderBy('tura', 'ASC')->limit(1)->get();
                 $Final = json_decode($Final, true); 
 
-                $aktualna = $Final[0];
+                $aktualna = (array) $Final[0];
 
             } else {
-                $aktualna = $oczekiwanie[0];
+                $aktualna = (array) $oczekiwanie[0];
             }
 
 
         } else {
-            $aktualna = $trwa[0];
+            $aktualna = (array) $trwa[0];
         }
 
         $return = array(
