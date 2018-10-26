@@ -261,7 +261,7 @@ class TekkenController extends BaseController
             $tmpCounter = $tmpCounter - $odpada;
             if($tmpCounter > 1){
                 if ($tmpCounter == 2){
-                    $tmpCounter = $tmpCounter -1;
+                    $tmpCounter = $tmpCounter -2;
                 }
                 for($j=0; $j<$tmpCounter; $j++){
                     $insertGracz = DB::table('tekken_rozgrywka')->insert(
