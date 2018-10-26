@@ -264,25 +264,25 @@ class TekkenController extends BaseController
                     $insertGracz = DB::table('tekken_rozgrywka')->insert(
                         [
                         'UID_rozgrywki' => $UID,
-                        'gracz_1' => '',
-                        'gracz_2' => '',
+                        'gracz_1' => null,
+                        'gracz_2' => null,
                         'tura' => $tura,
-                        'gracz_1_nazwa' => '',
-                        'gracz_2_nazwa' => '',               
+                        'gracz_1_nazwa' => null,
+                        'gracz_2_nazwa' => null,               
                         ]
                     );    
                 }
 
            } else {
-               if ($tmpCounter >= 2){
+               if ($odpada != $graczeCount){
                     $insertGracz = DB::table('tekken_rozgrywka')->insert(
                         [
                         'UID_rozgrywki' => $UID,
-                        'gracz_1' => '',
-                        'gracz_2' => '',
+                        'gracz_1' => null,
+                        'gracz_2' => null,
                         'tura' => $tura,
-                        'gracz_1_nazwa' => '',
-                        'gracz_2_nazwa' => '',               
+                        'gracz_1_nazwa' => null,
+                        'gracz_2_nazwa' => null,               
                         ]
                     );                         
                }
