@@ -114,6 +114,7 @@ class TekkenController extends BaseController
         $pass = $request['pass'];
         $nazwa = $request['nazwa'];
         $ban = $request['ban'];
+        $odpada = $request['odpada'];
         $user = DB::table('tekken_user')->where([['user','=',$user], ['password','=',$pass]])->get();
         $user = json_decode($user, true);
         $return['status'] = 'success';
@@ -140,6 +141,16 @@ class TekkenController extends BaseController
             }
         }
 
+        if(!is_numeric($odpada)){
+            $return['status'] = 'error';
+            $return['message']['odpada'] = 'Nieprawidlowy format danych';
+        } else {
+            if ($odpada > 3 || $odpada < 1){
+                $return['status'] = 'error';
+                $return['message']['odpada'] = 'Zakres 1 - 3';               
+            }
+        }        
+
 
         if ($return['status'] == 'success'){
             $UID = uniqid().'-'.uniqid().'-'.uniqid().'-'.uniqid().'-'.uniqid();
@@ -148,7 +159,8 @@ class TekkenController extends BaseController
                 'admin' => $user[0]['id'],
                 'nazwa' => $nazwa,
                 'ban' => $ban,
-                'uid' => $UID
+                'uid' => $UID,
+                'odpada' => $odpada
                 ]
             );    
 
