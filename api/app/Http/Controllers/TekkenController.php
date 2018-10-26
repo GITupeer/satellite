@@ -222,14 +222,14 @@ class TekkenController extends BaseController
         $i=0;
         foreach($gracze as $user){
             if ($i != 0){
-                $lista[$i-1]['gracz_2'] = $gracze[$i]['id'];
+                $lista[$i-1]['gracz_2'] = $gracze[$i]['id_gracza'];
                 $lista[$i-1]['gracz_2_name'] = $gracze[$i]['nazwa_gracza'];
             }
-            $lista[$i]['gracz_1'] = $gracze[$i]['id'];
+            $lista[$i]['gracz_1'] = $gracze[$i]['id_gracza'];
             $lista[$i]['gracz_1_name'] = $gracze[$i]['nazwa_gracza'];
             $i++;
         }
-        $lista[$i-1]['gracz_2'] = $gracze[0]['id'];
+        $lista[$i-1]['gracz_2'] = $gracze[0]['id_gracza'];
         $lista[$i-1]['gracz_2_name'] = $gracze[0]['nazwa_gracza'];
 
         foreach($lista as $userData){
