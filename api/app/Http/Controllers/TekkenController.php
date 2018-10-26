@@ -357,7 +357,7 @@ class TekkenController extends BaseController
 
 
     public function stan_gry($id, $stan) {
-        $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => $stan])
+        $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => $stan]);
     }
 
 
