@@ -210,11 +210,20 @@ class TekkenController extends BaseController
 
 
     public function tworzenieRozgrywki($UID) {
-        $this->zaktualizujStatus($UID, 'rozpoczynanie');
-        sleep(3);
+        //$this->zaktualizujStatus($UID, 'rozpoczynanie');
+        //sleep(3);
 
-        $this->zaktualizujStatus($UID, 'tworzenie');
-        sleep(3);       
+        $gracze = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->get();
+        $gracze = json_decode($gracze, true);
+
+
+        echo '<pre>';
+        print_r($gracze);
+        echo '</pre>';
+
+
+        //$this->zaktualizujStatus($UID, 'tworzenie');
+        //sleep(3);       
 
         
     }
