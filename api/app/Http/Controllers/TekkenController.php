@@ -260,7 +260,7 @@ class TekkenController extends BaseController
             $tura++;
             $tmpCounter = $tmpCounter - $odpada;
             if($tmpCounter > 1){
-                for($j=0; $j>=$tmpCounter; $j++){
+                for($j=0; $j>$tmpCounter; $j++){
                     $insertGracz = DB::table('tekken_rozgrywka')->insert(
                         [
                         'UID_rozgrywki' => $UID,
