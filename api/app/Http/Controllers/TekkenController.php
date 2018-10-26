@@ -259,17 +259,20 @@ class TekkenController extends BaseController
         while($flag == true) {
             $tura++;
             $tmpCounter = $tmpCounter - $odpada;
-            if($tmpCounter > 0){
-             $insertGracz = DB::table('tekken_rozgrywka')->insert(
-                [
-                'UID_rozgrywki' => $UID,
-                'gracz_1' => '',
-                'gracz_2' => '',
-                'tura' => $tura,
-                'gracz_1_nazwa' => '',
-                'gracz_2_nazwa' => '',               
-                ]
-            );    
+            if($tmpCounter > 1){
+                for($j=0; $j>=$tmpCounter; $j++){
+                    $insertGracz = DB::table('tekken_rozgrywka')->insert(
+                        [
+                        'UID_rozgrywki' => $UID,
+                        'gracz_1' => '',
+                        'gracz_2' => '',
+                        'tura' => $tura,
+                        'gracz_1_nazwa' => '',
+                        'gracz_2_nazwa' => '',               
+                        ]
+                    );    
+                }
+
            } else {
                 $flag = false;
            }
