@@ -192,4 +192,20 @@ class TekkenController extends BaseController
     }
 
 
+    public function zaktualizujStatus($UID, $status){
+        $updateStatus = DB::table('tekken_turnieje')->where([['UID','=',$UID]])->update(['status' => $status]);
+    }
+
+
+    public function tworzenieRozgrywki($UID) {
+        $this->zaktualizujStatus($UID, 'rozpoczynanie');
+        sleep(1);
+
+        $this->zaktualizujStatus($UID, 'tworzenie');
+        sleep(1);       
+
+        
+    }
+
+
 }
