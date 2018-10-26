@@ -66,3 +66,4 @@ Route::post('/tekken/dolaczUser/', 'TekkenController@dolaczUser');
 Route::get('/tekken/tworzenieRozgrywki/{UID}', 'TekkenController@tworzenieRozgrywki');
 Route::get('/tekken/getInforRogrywka/{UID}', 'TekkenController@getInforRogrywka');
 Route::get('/tekken/postacie', 'TekkenController@postacie');
+Route::get('/tekken/stan_gry/{id}/{stan}', 'TekkenController@stan_gry');
