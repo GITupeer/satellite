@@ -213,7 +213,7 @@ class TekkenController extends BaseController
         //$this->zaktualizujStatus($UID, 'rozpoczynanie');
         //sleep(3);
 
-        $gracze = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->get();
+        $gracze = DB::table('tekken_gracze')->inRandomOrder()->where([['UID_rozgrywki','=',$UID]])->get();
         $gracze = json_decode($gracze, true);
 
         $lista = array();
