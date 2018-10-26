@@ -199,10 +199,10 @@ class TekkenController extends BaseController
 
     public function tworzenieRozgrywki($UID) {
         $this->zaktualizujStatus($UID, 'rozpoczynanie');
-        sleep(1);
+        sleep(3);
 
         $this->zaktualizujStatus($UID, 'tworzenie');
-        sleep(1);       
+        sleep(3);       
 
         
     }
