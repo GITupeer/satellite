@@ -274,7 +274,7 @@ class TekkenController extends BaseController
                 }
 
            } else {
-               if ($odpada != $graczeCount){
+               if ($tmpCounter >= 2){
                     $insertGracz = DB::table('tekken_rozgrywka')->insert(
                         [
                         'UID_rozgrywki' => $UID,
