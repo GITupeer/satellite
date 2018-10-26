@@ -230,7 +230,7 @@ class TekkenController extends BaseController
         }
 
         echo '<pre>';
-        print_r($gracze);
+        print_r($lista);
         echo '</pre>';
 
 
