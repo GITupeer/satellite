@@ -319,4 +319,12 @@ class TekkenController extends BaseController
     }
 
 
+    public function postacie() {
+        $postacie = DB::table('tekken_postacie')->get();
+        $postacie = json_decode($postacie, true); 
+
+        return  $rozgrywka;        
+    }
+
+
 }
