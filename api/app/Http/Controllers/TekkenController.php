@@ -422,7 +422,7 @@ class TekkenController extends BaseController
             $sprRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie']])->orderBy('id', 'ASC')->get();
             $sprRundy = json_decode($sprRundy, true);   
             
-            if ($sprRundy[0]['tura'] != 'Final'){
+            if ($sprRundy[0]['tura'] == 'Final'){
                 echo 'Final';
                 $j=0;
                 for($j=0; $j<2; $j++){
