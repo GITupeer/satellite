@@ -362,7 +362,7 @@ class TekkenController extends BaseController
         $tekken_rozgrywka = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->get();
         $tekken_rozgrywka = json_decode($tekken_rozgrywka, true);       
         
-        $turniej = DB::table('tekken_turnieje')->where([['UID','=',$tekken_rozgrywka[0]['UID_rozgrywki']])->get();
+        $turniej = DB::table('tekken_turnieje')->where([['UID','=',$tekken_rozgrywka[0]['UID_rozgrywki']]])->get();
         $turniej = json_decode($turniej, true);         
 
         return $turniej[0];
