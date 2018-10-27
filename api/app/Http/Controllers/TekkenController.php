@@ -423,13 +423,13 @@ class TekkenController extends BaseController
             $sprRundy = json_decode($sprRundy, true);   
             
             if ($sprRundy[0]['tura'] == 'Final'){
-                echo 'Final';
-                $j=0;
-                for($j=0; $j<2; $j++){
-                    echo '<pre>';
-                    print_r($punkty[$j]);
-                    echo '</pre>';
-                } 
+                // echo 'Final';
+                // $j=0;
+                // for($j=0; $j<2; $j++){
+                //     echo '<pre>';
+                //     print_r($punkty[$j]);
+                //     echo '</pre>';
+                // } 
             } else {
                 echo 'Rundy';
                 $runda = $sprRundy[0]['tura'] - 1;
@@ -460,10 +460,6 @@ class TekkenController extends BaseController
                     $graczeCount++;
                     
                 }
-                echo '<pre>';
-                print_r($noweRundy);
-                echo '</pre>';
-
             }
 
 
@@ -503,8 +499,10 @@ class TekkenController extends BaseController
             $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->update(['punkty' => $wynikCorrect1]);
             $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz2]])->update(['punkty' => $wynikCorrect2]);
 
-
+            $this->noweRozdanie($punktyGraczy[0]['UID_rozgrywki']);
         }
+
+        
 
   
 
