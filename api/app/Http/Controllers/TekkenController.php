@@ -363,7 +363,7 @@ class TekkenController extends BaseController
             $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['status' => 'trwa']);
             $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_1' => 0]);
             $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_2' => 0]);
-            sleep(2);
+            sleep(4);
         }
 
         $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => $stan]);
@@ -398,6 +398,20 @@ class TekkenController extends BaseController
         $updatePostac = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update([$graczTablePostacNazwa => $postacNazwa]);
 
 
+    }
+
+
+
+
+
+    public function updateWynikSrozgrywki($id, $gracz1, $gracz2) {
+        $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_1' => $gracz1]);
+        $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_2' => $gracz2]);
+    }
+
+    public function zakonczRozgrywke($id) {
+        $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['status' => 'zakonczony']);
+        $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => 'zakonczony']);
     }
 
 

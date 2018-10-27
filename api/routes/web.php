@@ -70,4 +70,5 @@ Route::get('/tekken/stan_gry/{id}/{stan}', 'TekkenController@stan_gry');
 Route::get('/tekken/getInfoRozgrywka/{id}', 'TekkenController@getInfoRozgrywka');
 Route::get('/tekken/updateBanPostaci/{id}/{json}/{gracz}', 'TekkenController@updateBanPostaci');
 Route::get('/tekken/updateWybranaPostac/{id}/{postacID}/{postacNazwa}/{gracz}', 'TekkenController@updateWybranaPostac');
-
+Route::get('/tekken/updateWynikSrozgrywki/{id}/{gracz1}/{gracz2}}', 'TekkenController@updateWynikSrozgrywki');
+Route::get('/tekken/zakonczRozgrywke/{id}', 'TekkenController@zakonczRozgrywke');
