@@ -379,6 +379,14 @@ class TekkenController extends BaseController
     public function updateBanPostaci($id, $json, $gracz) {
         $ban = 'gracz_'.$gracz.'_ban';
         $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update([$ban => $json]);
+    }
+
+    public function updateWybranaPostac($id, $postacID, $postacNazwa, $gracz) {
+        $graczTablePostacID = 'gracz_'.$gracz.'_postac';
+        $graczTablePostacNazwa = 'gracz_'.$gracz.'_postac_nazwa';
+
+        $updatePostac = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update([$graczTablePostacID => $postacID]);
+        $updatePostac = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update([$graczTablePostacNazwa => $postacNazwa]);
 
 
     }
