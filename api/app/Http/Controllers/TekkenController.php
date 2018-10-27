@@ -361,6 +361,8 @@ class TekkenController extends BaseController
 
         if ($stan == 'trwa'){
             $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['status' => 'trwa']);
+            $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_1' => 0]);
+            $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['wynik_gracz_2' => 0]);
         }
 
         $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => $stan]);
