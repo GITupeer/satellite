@@ -441,7 +441,16 @@ class TekkenController extends BaseController
                     echo '<pre>';
                     print_r($punkty[$j]);
                     echo '</pre>';
-                }                
+                }            
+                
+                
+                $noweRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=',$sprRundy[0]['tura']]])->get();
+                $noweRundy = json_decode($noweRundy, true);   
+
+                echo '<pre>';
+                print_r($noweRundy);
+                echo '</pre>';
+
             }
 
 
