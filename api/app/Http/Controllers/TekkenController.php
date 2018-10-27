@@ -412,19 +412,20 @@ class TekkenController extends BaseController
             $punkty = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->orderBy('punkty', 'DESC')->get();
             $punkty = json_decode($punkty, true);     
             $count = count($punkty);
+
+
+            $tekken_turnieje = DB::table('tekken_turnieje')->where([['UID','=',$UID]])->get();
+            $tekken_turnieje = json_decode($tekken_turnieje, true);   
+            $odpada = $tekken_turnieje[0]['odpada'];
+
             $j=0;
-            for($j=0; $j<$count; $j++){
+            for($j=0; $j<$count-$odpada; $j++){
                 echo '<pre>';
                 print_r($punkty[$j]);
                 echo '</pre>';
             }
 
   
-
-            echo '<pre>';
-            print_r($punkty);
-            echo '</pre>';
-
         } 
 
     }
