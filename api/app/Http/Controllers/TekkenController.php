@@ -419,8 +419,10 @@ class TekkenController extends BaseController
                 if (empty($arrPunkty[$gracz['gracz_2']])){
                     $arrPunkty[$gracz['gracz_2']] = 0;
                 }                
-                $arrPunkty[$gracz['gracz_1']] = $arrPunkty[$gracz['gracz_1']] + $gracz['wynik_gracz_1'];
-                $arrPunkty[$gracz['gracz_2']] = $arrPunkty[$gracz['gracz_2']] + $gracz['wynik_gracz_2'];
+                $arrPunkty[$gracz['gracz_1']]['punkty'] = $arrPunkty[$gracz['gracz_1']] + $gracz['wynik_gracz_1'];
+                $arrPunkty[$gracz['gracz_1']]['gracz'] = $gracz['gracz_1'];
+                $arrPunkty[$gracz['gracz_2']]['punkty'] = $arrPunkty[$gracz['gracz_2']] + $gracz['wynik_gracz_2'];
+                $arrPunkty[$gracz['gracz_2']]['gracz'] = $gracz['gracz_2'];
             }
             
             echo '<pre>';
