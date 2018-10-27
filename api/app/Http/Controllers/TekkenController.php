@@ -435,8 +435,8 @@ class TekkenController extends BaseController
 
                 $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_1' => $newGamer[0]['id_gracza']]);
                 $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_1_nazwa' => $newGamer[0]['nazwa_gracza']]);
-                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_2' => $newGamer[0]['id_gracza']]);
-                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_2_nazwa' => $newGamer[0]['nazwa_gracza']]);
+                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_2' => $newGamer[1]['id_gracza']]);
+                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_2_nazwa' => $newGamer[1]['nazwa_gracza']]);
             } else {
                 echo 'Rundy';
                 $runda = $sprRundy[0]['tura'] - 1;
