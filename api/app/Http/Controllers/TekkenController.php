@@ -401,7 +401,20 @@ class TekkenController extends BaseController
     }
 
 
+    public function noweRozdanie(){
+        // gracz_1 != '' ORDER BY `stan_gry` DESC
+        $UID = '5bd4aa0342f2f-5bd4aa0342f99-5bd4aa0342fe4-5bd4aa0343024-5bd4aa0343061';
 
+        $rozgrywki = DB::table('tekken_rozgrywka')->where([['UID_rogrywki','=',$UID], ['status','=','oczekiwanie'], ['gracz_1','!=','NULL']])->orderBy('id', 'ASC')->get();
+        $rozgrywki = json_decode($rozgrywki, true);             
+
+        if (empty($rozgrywki[0])){
+            echo ' Przydziel Graczy';
+        } else {
+            echo 'nic nie rob';
+        }
+
+    }
 
 
     public function updateWynikSrozgrywki($id, $gracz1, $gracz2) {

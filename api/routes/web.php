@@ -72,3 +72,4 @@ Route::get('/tekken/updateBanPostaci/{id}/{json}/{gracz}', 'TekkenController@upd
 Route::get('/tekken/updateWybranaPostac/{id}/{postacID}/{postacNazwa}/{gracz}', 'TekkenController@updateWybranaPostac');
 Route::get('/tekken/updateWynikRozgrywki/{id}/{gracz1}/{gracz2}', 'TekkenController@updateWynikSrozgrywki');
 Route::get('/tekken/zakonczRozgrywke/{id}', 'TekkenController@zakonczRozgrywke');
+Route::get('/tekken/noweRozdanie', 'TekkenController@noweRozdanie');
