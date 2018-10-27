@@ -436,17 +436,28 @@ class TekkenController extends BaseController
                 
                 $odejmij = $runda*$odpada;
 
+                $newGamer = array();
                 $j=0;
                 for($j=0; $j<$count-$odejmij; $j++){
-                    echo '<pre>';
-                    print_r($punkty[$j]);
-                    echo '</pre>';
+ 
+                    $newGamer[] = $punkty[$j];
                 }            
-                
+                shuffle($newGamer);
                 
                 $noweRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=',$sprRundy[0]['tura']]])->get();
-                $noweRundy = json_decode($noweRundy, true);   
-
+                $noweRundy = json_decode($noweRundy, true);  
+                
+                
+                $graczeCount = 0;
+                foreach($noweRundy as $noweRozgrywkiDlaTur) {
+                    $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur[['id']])->update(['gracz_1' => $newGamer[$graczeCount]]);
+                    if (empty($graczeCount+1)) {
+                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur[['id']])->update(['gracz_2' => $newGamer[0]]);
+                    } else {
+                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur[['id']])->update(['gracz_2' => $newGamer[$graczeCount+1]]);
+                    }
+                    
+                }
                 echo '<pre>';
                 print_r($noweRundy);
                 echo '</pre>';
