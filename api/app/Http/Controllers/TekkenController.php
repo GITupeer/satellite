@@ -406,7 +406,12 @@ class TekkenController extends BaseController
       
 
         $rozgrywki = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie'], ['gracz_1','!=','NULL']])->orderBy('id', 'ASC')->get();
-        $rozgrywki = json_decode($rozgrywki, true);             
+        $rozgrywki = json_decode($rozgrywki, true);           
+        
+        echo '<pre>';
+        print_r($rozgrywki);
+        echo '</pre>';
+        exit;
 
         if (empty($rozgrywki[0])){
             $punkty = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$UID]])->orderBy('punkty', 'DESC')->get();
@@ -423,13 +428,16 @@ class TekkenController extends BaseController
             $sprRundy = json_decode($sprRundy, true);   
             
             if ($sprRundy[0]['tura'] == 'Final'){
-                // echo 'Final';
-                // $j=0;
-                // for($j=0; $j<2; $j++){
-                //     echo '<pre>';
-                //     print_r($punkty[$j]);
-                //     echo '</pre>';
-                // } 
+
+                $newGamer = array();
+                $j=0;
+                for($j=0; $j<2; $j++){
+ 
+                    $newGamer[] = $punkty[$j];
+                }     
+
+                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_1' => $newGamer[0]['id_gracza']]);
+                $update = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=','Final']])->update(['gracz_2' => $newGamer[0]['id_gracza']]);
             } else {
                 echo 'Rundy';
                 $runda = $sprRundy[0]['tura'] - 1;
@@ -458,7 +466,6 @@ class TekkenController extends BaseController
                         $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[$graczeCount+1]['id_gracza']]);
                     }
                     $graczeCount++;
-                    
                 }
             }
 
