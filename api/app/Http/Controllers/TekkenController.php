@@ -461,8 +461,8 @@ class TekkenController extends BaseController
             $wynikCorrect1 = $wynik1 + $gracz1Dane[0]['punkty'];
             $wynikCorrect2 = $wynik2 + $gracz2Dane[0]['punkty'];
 
-            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->>update(['punkty' => $wynikCorrect1]);
-            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz2]])->>update(['punkty' => $wynikCorrect2]);
+            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->update(['punkty' => $wynikCorrect1]);
+            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz2]])->update(['punkty' => $wynikCorrect2]);
 
 
         }
