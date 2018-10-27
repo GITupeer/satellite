@@ -447,6 +447,10 @@ class TekkenController extends BaseController
                 $noweRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['tura','=',$sprRundy[0]['tura']]])->get();
                 $noweRundy = json_decode($noweRundy, true);  
                 
+                echo '<pre>';
+                print_r($newGamer);
+                echo '</pre>';
+                exit;
                 
                 $graczeCount = 0;
                 foreach($noweRundy as $noweRozgrywkiDlaTur) {
