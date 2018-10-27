@@ -422,7 +422,7 @@ class TekkenController extends BaseController
                 $arrPunkty[$gracz['gracz_1']] = $arrPunkty[$gracz['gracz_1']] + $gracz['wynik_gracz_1'];
                 $arrPunkty[$gracz['gracz_2']] = $arrPunkty[$gracz['gracz_2']] + $gracz['wynik_gracz_2'];
             }
-
+            rsort($arrPunkty);
             echo '<pre>';
             print_r($arrPunkty);
             echo '</pre>';
