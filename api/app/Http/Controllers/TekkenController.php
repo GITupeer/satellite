@@ -420,17 +420,30 @@ class TekkenController extends BaseController
 
 
             $sprRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie']])->orderBy('id', 'ASC')->get();
-            $sprRundy = json_decode($sprRundy, true);    
-            $runda = $sprRundy[0]['tura'] - 1;
+            $sprRundy = json_decode($sprRundy, true);   
             
-            $odejmij = $runda*$odpada;
+            if ($sprRundy[0]['tura'] != 'Final'){
+                echo 'Final';
+                $j=0;
+                for($j=0; $j<2; $j++){
+                    echo '<pre>';
+                    print_r($punkty[$j]);
+                    echo '</pre>';
+                } 
+            } else {
+                echo 'Rundy';
+                $runda = $sprRundy[0]['tura'] - 1;
+                
+                $odejmij = $runda*$odpada;
 
-            $j=0;
-            for($j=0; $j<$count-$odejmij; $j++){
-                echo '<pre>';
-                print_r($punkty[$j]);
-                echo '</pre>';
+                $j=0;
+                for($j=0; $j<$count-$odejmij; $j++){
+                    echo '<pre>';
+                    print_r($punkty[$j]);
+                    echo '</pre>';
+                }                
             }
+
 
   
         } 
