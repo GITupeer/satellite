@@ -409,10 +409,14 @@ class TekkenController extends BaseController
         $rozgrywki = json_decode($rozgrywki, true);             
 
         if (empty($rozgrywki[0])){
-            echo ' Przydziel Graczy';
-        } else {
-            echo 'nic nie rob';
-        }
+            $punktyGraczy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['gracz_1','!=','NULL']])->get();
+            $punktyGraczy = json_decode($punktyGraczy, true);            
+
+            echo '<pre>';
+            print_r($punktyGraczy);
+            echo '</pre>';
+
+        } 
 
     }
 
