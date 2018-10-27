@@ -442,6 +442,33 @@ class TekkenController extends BaseController
     public function zakonczRozgrywke($id) {
         $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['status' => 'zakonczony']);
         $updateBad = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => 'zakonczony']);
+
+        $punktyGraczy = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->get();
+        $punktyGraczy = json_decode($punktyGraczy, true);
+
+        if (!empty($punktyGraczy[0])){
+            $wynik1 = $punktyGraczy['wynik_gracz_1'];
+            $gracz1 = $punktyGraczy['gracz_1'];
+            $wynik2 = $punktyGraczy['wynik_gracz_1'];
+            $gracz2 = $punktyGraczy['gracz_2'];
+
+            $gracz1Dane = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->get();
+            $gracz1Dane = json_decode($gracz1Dane, true);
+
+            $gracz2Dane = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz2]])->get();
+            $gracz2Dane = json_decode($gracz2Dane, true);
+
+            $wynikCorrect1 = $wynik1 + $gracz1Dane[0]['punkty'];
+            $wynikCorrect2 = $wynik2 + $gracz2Dane[0]['punkty'];
+
+            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->>update(['punkty' => $wynikCorrect1]);
+            $updateBad = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz2]])->>update(['punkty' => $wynikCorrect2]);
+
+
+        }
+
+  
+
     }
 
 
