@@ -457,6 +457,7 @@ class TekkenController extends BaseController
                     } else {
                         $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[$graczeCount+1]['id_gracza']]);
                     }
+                    $graczeCount++;
                     
                 }
                 echo '<pre>';
