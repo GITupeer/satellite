@@ -449,7 +449,7 @@ class TekkenController extends BaseController
         if (!empty($punktyGraczy[0])){
             $wynik1 = $punktyGraczy[0]['wynik_gracz_1'];
             $gracz1 = $punktyGraczy[0]['gracz_1'];
-            $wynik2 = $punktyGraczy[0]['wynik_gracz_1'];
+            $wynik2 = $punktyGraczy[0]['wynik_gracz_2'];
             $gracz2 = $punktyGraczy[0]['gracz_2'];
 
             $gracz1Dane = DB::table('tekken_gracze')->where([['UID_rozgrywki','=',$punktyGraczy[0]['UID_rozgrywki']], ['id_gracza','=',$gracz1]])->get();
