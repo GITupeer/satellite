@@ -413,6 +413,12 @@ class TekkenController extends BaseController
             $punktyGraczy = json_decode($punktyGraczy, true);            
             $arrPunkty = array();
             foreach($punktyGraczy as $gracz){
+                if (empty($arrPunkty[$gracz['gracz_1']])){
+                    $arrPunkty[$gracz['gracz_1']] = 0;
+                }
+                if (empty($arrPunkty[$gracz['gracz_2']])){
+                    $arrPunkty[$gracz['gracz_2']] = 0;
+                }                
                 $arrPunkty[$gracz['gracz_1']] = $arrPunkty[$gracz['gracz_1']] + $gracz['wynik_gracz_1'];
                 $arrPunkty[$gracz['gracz_2']] = $arrPunkty[$gracz['gracz_2']] + $gracz['wynik_gracz_2'];
             }
