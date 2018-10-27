@@ -359,7 +359,7 @@ class TekkenController extends BaseController
     public function stan_gry($id, $stan) {
         $updateStatus = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->update(['stan_gry' => $stan]);
 
-        $tekken_rozgrywka = DB::table('tekken_rozgrywka')->where([['id','=',$id])->get();
+        $tekken_rozgrywka = DB::table('tekken_rozgrywka')->where([['id','=',$id]])->get();
         $tekken_rozgrywka = json_decode($tekken_rozgrywka, true);       
         
         $turniej = DB::table('tekken_turnieje')->where([['UID','=',$tekken_rozgrywka[0]['UID_rozgrywki']])->get();
