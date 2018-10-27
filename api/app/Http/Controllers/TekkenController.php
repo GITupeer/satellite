@@ -409,24 +409,11 @@ class TekkenController extends BaseController
         $rozgrywki = json_decode($rozgrywki, true);             
 
         if (empty($rozgrywki[0])){
-            $punktyGraczy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['gracz_1','!=','NULL']])->get();
-            $punktyGraczy = json_decode($punktyGraczy, true);            
-            $arrPunkty = array();
-            foreach($punktyGraczy as $gracz){
-                if (empty($arrPunkty[$gracz['gracz_1']])){
-                    $arrPunkty[$gracz['gracz_1']] = array();
-                }
-                if (empty($arrPunkty[$gracz['gracz_2']])){
-                    $arrPunkty[$gracz['gracz_2']] = array();
-                }                
-                $arrPunkty[$gracz['gracz_1']]['punkty'] = $arrPunkty[$gracz['gracz_1']] + $gracz['wynik_gracz_1'];
-                $arrPunkty[$gracz['gracz_1']]['gracz'] = $gracz['gracz_1'];
-                $arrPunkty[$gracz['gracz_2']]['punkty'] = $arrPunkty[$gracz['gracz_2']] + $gracz['wynik_gracz_2'];
-                $arrPunkty[$gracz['gracz_2']]['gracz'] = $gracz['gracz_2'];
-            }
+            $punkty = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID]])->orderBy('punkty', 'DESC')->get();
+            $punkty = json_decode($punkty, true);     
             
             echo '<pre>';
-            print_r($arrPunkty);
+            print_r($punkty);
             echo '</pre>';
 
         } 
