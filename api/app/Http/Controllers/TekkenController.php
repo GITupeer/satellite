@@ -419,7 +419,7 @@ class TekkenController extends BaseController
             $odpada = $tekken_turnieje[0]['odpada'];
 
 
-            $sprRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie'], ['gracz_1','=','NULL']])->orderBy('id', 'ASC')->get();
+            $sprRundy = DB::table('tekken_rozgrywka')->where([['UID_rozgrywki','=',$UID], ['status','=','oczekiwanie']])->orderBy('id', 'ASC')->get();
             $sprRundy = json_decode($sprRundy, true);    
             $runda = $sprRundy[0]['tura'] - 1;
             
