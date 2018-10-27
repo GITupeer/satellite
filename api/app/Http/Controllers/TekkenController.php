@@ -451,11 +451,11 @@ class TekkenController extends BaseController
                 
                 $graczeCount = 0;
                 foreach($noweRundy as $noweRozgrywkiDlaTur) {
-                    $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_1' => $newGamer[$graczeCount]]);
+                    $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_1' => $newGamer[$graczeCount]['id_gracza']]);
                     if (empty($newGamer[$graczeCount+1])) {
-                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[0]]);
+                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[0]['id_gracza']]);
                     } else {
-                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[$graczeCount+1]]);
+                        $update = DB::table('tekken_rozgrywka')->where([['id','=',$noweRozgrywkiDlaTur['id']]])->update(['gracz_2' => $newGamer[$graczeCount+1]['id_gracza']]);
                     }
                     
                 }
