@@ -21,9 +21,9 @@ class UpeerFinanseController extends BaseController
             $correctDate = str_replace(
                 array('Oct', 'Nov', 'Dec'),
                 array('10', '11', '12'),
-                $row['date']
+                $row->date
             );
-            DB::table('upeer-app-transaction')->where([['id','=',$row['id']]])->update(['correctDate' => $correctDate]);
+            DB::table('upeer-app-transaction')->where([['id','=',$row->id]])->update(['correctDate' => $correctDate]);
         }
 
 
