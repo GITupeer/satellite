@@ -19,7 +19,7 @@ class UpeerFinanseController extends BaseController
         );
 
         foreach($cards as $card){
-            $MCC = DB::select("select `upeer-app-MCC`.MCC, `upeer-app-MCC`.nazwa, TRUNCATE(SUM(`upeer-app-transaction`.obciazenie), 2) as suma, `upeer-app-transaction`.konto, `upeer-app-transaction`.card FROM `upeer-app-transaction` INNER JOIN `upeer-app-MCC` ON `upeer-app-transaction`.MCC = `upeer-app-MCC`.MCC WHERE `upeer-app-transaction`.MCC != 'null' AND correctDate > '2018-11-01 00:00:00' GROUP BY `upeer-app-transaction`.MCC, `upeer-app-transaction`.konto");
+            $MCC = DB::select("select `upeer-app-MCC`.MCC, `upeer-app-MCC`.nazwa, TRUNCATE(SUM(`upeer-app-transaction`.obciazenie), 2) as suma, `upeer-app-transaction`.konto, `upeer-app-transaction`.card FROM `upeer-app-transaction` INNER JOIN `upeer-app-MCC` ON `upeer-app-transaction`.MCC = `upeer-app-MCC`.MCC WHERE `upeer-app-transaction`.MCC != 'null' AND `upeer-app-transaction`.card = '".$card."' AND correctDate > '2018-11-01 00:00:00' GROUP BY `upeer-app-transaction`.MCC, `upeer-app-transaction`.konto");
             $return[$card] = $MCC;
         }
         return $return;
