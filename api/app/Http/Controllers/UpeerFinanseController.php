@@ -333,7 +333,7 @@ class UpeerFinanseController extends BaseController
             /* close the connection */
             imap_close($inbox);
 
-            $this=>generateCorrectDate();
+            $this->generateCorrectDate();
 
         }
 
