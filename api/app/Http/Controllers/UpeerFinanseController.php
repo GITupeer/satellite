@@ -26,7 +26,7 @@ class UpeerFinanseController extends BaseController
 
             $explodeHour = explode(' ', $correctDate);
             $explodeDate = explode('-', $explodeHour[0]);
-            if (strlen($explodeDate[2]) == 10){
+            if (strlen($explodeDate[2]) == 1){
                 $correctDate = $explodeDate[0].'-'.$explodeDate[1].'-0'.$explodeDate[2].' '.$explodeHour[1];  
             }
             DB::table('upeer-app-transaction')->where([['id','=',$row->id]])->update(['correctDate' => $correctDate]);
