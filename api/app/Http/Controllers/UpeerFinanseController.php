@@ -12,12 +12,28 @@ class UpeerFinanseController extends BaseController
 {
 
 
+    public function generateCorrectDate() {
+        header("Access-Control-Allow-Origin: *");
+        
+        $corectDateData = DB::table('upeer-app-transaction')->where([['correctDate','=',NULL]])->get();
+
+        foreach($corectDateData as $row){
+            $correctDate = str_replace(
+                array('Oct', 'Nov', 'Dec'),
+                array('10', '11', '12'),
+                $row['date']
+            );
+            DB::table('upeer-app-transaction')->where([['id','=',$row['id']]])->update(['correctDate' => $correctDate]);
+        }
+
+
+    }
+
 
     public function getSaldo() {
         header("Access-Control-Allow-Origin: *");
         $saldo = DB::table('upeer-app-data')->select('*')->get();
         $saldo = json_decode( $saldo, true);
-
 
         return $saldo;
     }
@@ -317,7 +333,7 @@ class UpeerFinanseController extends BaseController
             /* close the connection */
             imap_close($inbox);
 
-
+            $this=>generateCorrectDate();
 
         }
 
