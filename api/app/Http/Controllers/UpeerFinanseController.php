@@ -23,6 +23,12 @@ class UpeerFinanseController extends BaseController
                 array('10', '11', '12'),
                 $row->date
             );
+
+            $explodeHour = explode(' ', $correctDate);
+            $explodeDate = explode('', $explodeHour[0]);
+            if (strlen($explodeDate[2]) == 10){
+                $correctDate = $explodeDate[0].'-'.$explodeDate[1].'-0'.$explodeDate[2].' '.$explodeHour[1];  
+            }
             DB::table('upeer-app-transaction')->where([['id','=',$row->id]])->update(['correctDate' => $correctDate]);
         }
 
