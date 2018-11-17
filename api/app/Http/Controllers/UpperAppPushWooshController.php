@@ -22,6 +22,7 @@ class UpperAppPushWooshController
 
     }
 
+    
 
     public function registerDevice($token) {
         $insertUser = DB::table('upeer-app-users')->insert(
