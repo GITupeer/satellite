@@ -23,10 +23,8 @@ class PushWooshController
     }
 
 
-    public function registerDevice(Request $request) {
-        $rosterCode = $request['userID'];
-        $pushWoosh_token =  $request['pushWoosh_token'];
-        $pushwoosh_hardware_device_token = $request['pushwoosh_hardware_device_token'];
+    public function registerDevice($token) {
+        
 
 
     }
