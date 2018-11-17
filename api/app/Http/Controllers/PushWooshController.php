@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Response;
 use App\Libraries\Push;
 
-class UpperAppPushWooshController
+class PushWooshController
 {
 
     const APPLICATION = '0240C-F21F3';
