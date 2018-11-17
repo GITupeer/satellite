@@ -54,6 +54,7 @@ Route::get('/upeerFinanse/getMail', 'UpeerFinanseController@getMail');
 Route::get('/upeerFinanse/getSaldo', 'UpeerFinanseController@getSaldo');
 Route::get('/upeerFinanse/generateCorrectDate', 'UpeerFinanseController@generateCorrectDate');
 Route::get('/upeerFinanse/MCCStat', 'UpeerFinanseController@MCCStat');
+Route::get('/upeerFinanse/registerDevice/{token}', 'UpperAppPushWooshController@registerDevice');
 
 
 
