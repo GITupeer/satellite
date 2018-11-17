@@ -24,7 +24,11 @@ class PushWooshController
 
 
     public function registerDevice($token) {
-        
+        $insertUser = DB::table('upeer-app-users')->insert(
+            [
+            'push_token' => $token,
+            ]
+        );
 
 
     }
