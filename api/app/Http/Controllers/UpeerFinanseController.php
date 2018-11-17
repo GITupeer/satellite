@@ -199,7 +199,8 @@ class UpeerFinanseController extends BaseController
                         'MCC' => 'null',
                         'saldo' => 'null',
                         'obciazenie' => 'null',
-                        'uznanie' => 'null'
+                        'uznanie' => 'null',
+                        'trancActionDate' => 'null'
                     );
                     
                     
@@ -268,6 +269,11 @@ class UpeerFinanseController extends BaseController
                                         if ($obciazenieUznanieCount == 0){
                                             $findeText['messgaeType'] = 'Obciązenie Rachunku';
 
+                                            $explodeTransactionDate = explode('z dnia: ', $text);
+                                            if (!empty($explodeTransactionDate[1])) {
+                                                $TD = explode(' ', $explodeTransactionDate[1]);
+                                                $findeText['trancActionDate'] = $TD[0];
+                                            }
                                             
                                             $explodeCorrectPrice = explode(',',$explodeSpacja[2]);
                                             if (!empty($explodeCorrectPrice[1])){
@@ -343,6 +349,7 @@ class UpeerFinanseController extends BaseController
                             'konto' => $data['konto'],
                             'card' => $data['card'],
                             'messgaeType' => $data['messgaeType'],
+                            'trancactionDate' => $data['trancActionDate'],
                             ]
                         );
 
