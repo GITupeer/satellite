@@ -76,3 +76,9 @@ Route::get('/tekken/updateWybranaPostac/{id}/{postacID}/{postacNazwa}/{gracz}', 
 Route::get('/tekken/updateWynikRozgrywki/{id}/{gracz1}/{gracz2}', 'TekkenController@updateWynikSrozgrywki');
 Route::get('/tekken/zakonczRozgrywke/{id}', 'TekkenController@zakonczRozgrywke');
 Route::get('/tekken/noweRozdanie/{UID}', 'TekkenController@noweRozdanie');
+
+
+
+
+// ##### Google ASSISTANT #####
+Route::GET('/googleassitatns/googleActions', 'GoogleAssistantController@offsetRate');
