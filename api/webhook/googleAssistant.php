@@ -11,10 +11,13 @@
     }
 
     function sendMessage($parameters) {
+        $req_dump = print_r($parameters, true);
+        $fp = file_put_contents('reques4.log', $req_dump);
+
+        header('Content-Type: application/json');
         echo json_encode($parameters);
     }
 
-    header('Content-Type: application/json');
     $update_response = file_get_contents("php://input");
     $update = json_decode($update_response, true);
     //if (isset($update["result"]["action"])) {
