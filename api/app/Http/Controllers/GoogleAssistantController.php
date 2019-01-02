@@ -14,7 +14,7 @@ class GoogleAssistantController
 
     public $defaultText = "This is my text";
     
-
+/*
     public function processMessage($update) {
         if ($update['resaults']['action'] == ""){
 
@@ -29,8 +29,8 @@ class GoogleAssistantController
 
         }
     }
-
-
+*/
+/*
     public function sendMessage($parameters){
         $req_dump = print_r($parameters, true);
         $fp = file_put_contents('reques4.log', $req_dump);
@@ -38,16 +38,43 @@ class GoogleAssistantController
         header('Content-Type: application/json');
         echo json_encode($parameters);
     }
-
+*/
 
     public function googleActions() {
-        header('Content-Type: application/json');
-
         $update_response = file_get_contents("php://input");
         $update = json_decode($update_response, true);
-
-        if (isset($update['result']['actions'])){
+        if (isset($update["result"]["action"])) {
             $this->processMessage($update);
-        }  
+        }
     }
+
+
+
+
+    public function processMessage($update) {
+        if($update["result"]["action"] == "sayHello"){
+            $this->sendMessage(array(
+                "source" => $update["result"]["source"],
+                "speech" => "Hello from webhook",
+                "displayText" => "Hello from webhook",
+                "contextOut" => array()
+            ));
+        }
+    }
+     
+    function sendMessage($parameters) {
+        echo json_encode($parameters);
+    }
+     
+
+
+
+
+
+
+
+
+
+
+
 }
