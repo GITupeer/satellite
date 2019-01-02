@@ -6,8 +6,8 @@ function sendMessage($parameters) {
 
 
 
-function scenarios ($queryText) {
-    $webhookText = "I'm sorry I do not know what you mean.";
+function scenarios($queryText, $update) {
+    $webhookText = "I am sorry I do not know what you mean.";
 
     if ($queryText == 'Saldo konto firmowe') {
         $webhookText = 'The company account balance is PLN 23';   
@@ -35,6 +35,7 @@ function scenarios ($queryText) {
 $update_response = file_get_contents("php://input");
 $update = json_decode($update_response, true);
 
+scenarios($update["queryResult"]["queryText"], $update);
 
 
 ?>
