@@ -22,22 +22,16 @@ function scenarios($queryText, $update) {
         "source" => $update["responseId"],
         "fulfillmentText" => $webhookText,
         "payload" => array(
-            "items"=>[
-                array(
-                    "simpleResponse"=>
-                array(
-                    "textToSpeech"=>"Bad request"
-                     )
-                )
-            ],
-            "linkOutSuggestion" => [
-                array(
-                    "Product page" => 'Link',
-                    "openUrlAction" => array(
-                        "url" => 'http://google.com'
-                    )
-                )
-            ]
+           "google" => array(
+               "expectUserResponse" => true,
+               "richResponse" => array(
+                   "items" => [array(
+                       "simpleResponse" => array(
+                           "textToSpeech" => $speech
+                       )
+                   )]
+               )
+           )
         ),
        
     ));
