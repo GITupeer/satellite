@@ -32,16 +32,12 @@ function scenarios($queryText, $update) {
                             )
                         )
                     ],
-                   "linkOutSuggestion" => 
-                       array(
-                            "destinationName" => 'Link',
-                            "url" => 'http://google.com',
-                            'openUrlAction' => array(
-                                "url" => 'http://google.com',
-                                
-                            )  
-                       )
-                   
+                    "suggestions" => [
+                        array(
+                            array("title" => 'Yes'),
+                            array("title" => 'No'),
+                        )
+                    ]
                )
            )
         ),
