@@ -19,31 +19,25 @@ function scenarios($queryText, $update) {
 
     sendMessage(array(
         "source" => $update["responseId"],
-        "displayText" => $webhookText,
-        "speech" => $webhookText,
-        "data" => array(
-            "google" => array(
-                "richResponse" => array(
-                    "items"=>[
-                        array(
-                            "simpleResponse"=>
-                        array(
-                            "textToSpeech"=>"Bad request"
-                             )
-                        )
-                    ],
-                    "linkOutSuggestion" => [
-                        array(
-                            "Product page" => 'Link',
-                            "openUrlAction" => array(
-                                "url" => 'http://google.com'
-                            )
-                        )
-                    ]
+        "fulfillmentText" => $webhookText,
+        "payload" => array(
+            "items"=>[
+                array(
+                    "simpleResponse"=>
+                array(
+                    "textToSpeech"=>"Bad request"
+                     )
                 )
-            )
-        )
-
+            ],
+            "linkOutSuggestion" => [
+                array(
+                    "Product page" => 'Link',
+                    "openUrlAction" => array(
+                        "url" => 'http://google.com'
+                    )
+                )
+            ]
+        ),
        
     ));
 }
