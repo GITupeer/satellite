@@ -25,11 +25,23 @@ function scenarios($queryText, $update) {
            "google" => array(
                "expectUserResponse" => true,
                "richResponse" => array(
-                   "items" => [array(
-                       "simpleResponse" => array(
-                           "textToSpeech" => $speech
+                   "items" => [
+                       array(
+                            "simpleResponse" => array(
+                                "textToSpeech" => $speech
+                            )
+                        )
+                    ],
+                   "linkOutSuggestion" => [
+                       array(
+                            "destinationName" => 'Link',
+                            "openUrlAction" => [
+                                array(
+                                    'url' => 'https://www.example.com/product/888'
+                                )
+                            ]
                        )
-                   )]
+                   ]
                )
            )
         ),
