@@ -29,11 +29,15 @@ function scenarios($queryText, $update) {
                      )
                 )
             ],
-            ),
-        "linkOutSuggestion" => array(
-            "url" => 'http://google.com',
-            "destinationName" => 'Suggestet Link'
-        )
+            "linkOutSuggestion" => [
+                array(
+                    "Product page" => 'Link',
+                    "openUrlAction" => array(
+                        "url" => 'http://google.com'
+                    )
+                )
+            ]
+        ),
        
     ));
 }
