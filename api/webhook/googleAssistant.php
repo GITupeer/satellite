@@ -35,10 +35,7 @@ function scenarios($queryText, $update) {
                    "linkOutSuggestion" => [
                        array(
                             "destinationName" => 'Link',
-                            "openUrlAction" => 
-                            array(
-                                'url' => 'https://www.example.com/product/888'
-                            )
+                            "url" => 'http://google.com'
                             
                        )
                    ]
