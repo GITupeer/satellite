@@ -32,12 +32,12 @@ function scenarios($queryText, $update) {
                             )
                         )
                     ],
-                    "suggestions" => [
+                    "linkOutSuggestion" =>
                         array(
-                            array("title" => 'Yes'),
-                            array("title" => 'No'),
+                            "destinationName" => "Website",
+                            "url" => "https://assistant.google.com"
                         )
-                    ]
+                    
                )
            )
         ),
