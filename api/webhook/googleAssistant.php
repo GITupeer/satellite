@@ -32,13 +32,12 @@ function scenarios($queryText, $update) {
                             )
                         )
                     ],
-                   "linkOutSuggestion" => [
+                   "linkOutSuggestion" => 
                        array(
                             "destinationName" => 'Link',
-                            "url" => 'http://google.com'
-                            
+                            "url" => 'http://google.com'  
                        )
-                   ]
+                   
                )
            )
         ),
