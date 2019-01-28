@@ -14,7 +14,7 @@ function scenarios($queryText, $update) {
     // }
 
     if ($queryText == 'Show me EXIT properties') {
-        $webhookText = 'https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973';   
+        $webhookText = 'Here is EXIT properties! <a href="https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973">myexit.co</a>';   
     }   
 
     sendMessage(array(
