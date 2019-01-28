@@ -9,9 +9,13 @@ function sendMessage($parameters) {
 function scenarios($queryText, $update) {
     $webhookText = "I am sorry I do not know what you mean.";
 
-    if ($queryText == 'Saldo konto firmowe') {
-        $webhookText = 'The company account balance is PLN 23';   
-    }
+    // if ($queryText == 'Saldo konto firmowe') {
+    //     $webhookText = 'The company account balance is PLN 23';   
+    // }
+
+    if ($queryText == 'Show me EXIT properties') {
+        $webhookText = 'https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973';   
+    }   
 
     sendMessage(array(
         "source" => $update["responseId"],
