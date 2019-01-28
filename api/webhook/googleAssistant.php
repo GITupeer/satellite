@@ -18,31 +18,35 @@ function scenarios($queryText, $update) {
         $webhookText = 'Here is EXIT properties! <a href="https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973">myexit.co</a>';   
     }   
 
-    sendMessage(array(
-        "source" => $update["responseId"],
-        "fulfillmentText" => $webhookText,
-        "payload" => array(
-           "google" => array(
-               "expectUserResponse" => true,
-               "richResponse" => array(
-                   "items" => [
-                       array(
-                            "simpleResponse" => array(
-                                "textToSpeech" => $speech
-                            )
-                        )
-                    ],
-                    "linkOutSuggestion" =>
-                        array(
-                            "destinationName" => "Website",
-                            "url" => "https://assistant.google.com"
-                        )
+
+    echo '{ "payload": { "google": { "expectUserResponse": true, "richResponse": { "items": [ { "simpleResponse": { "textToSpeech": "This is a Basic Card:" } }, { "basicCard": { "title": "Card Title", "image": { "url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png", "accessibilityText": "Google Logo" }, "buttons": [ { "title": "Button Title", "openUrlAction": { "url": "https://www.google.com" } } ], "imageDisplayOptions": "WHITE" } } ] } } } }';
+
+
+    // sendMessage(array(
+    //     "source" => $update["responseId"],
+    //     "fulfillmentText" => $webhookText,
+    //     "payload" => array(
+    //        "google" => array(
+    //            "expectUserResponse" => true,
+    //            "richResponse" => array(
+    //                "items" => [
+    //                    array(
+    //                         "simpleResponse" => array(
+    //                             "textToSpeech" => $speech
+    //                         )
+    //                     )
+    //                 ],
+    //                 "linkOutSuggestion" =>
+    //                     array(
+    //                         "destinationName" => "Website",
+    //                         "url" => "https://assistant.google.com"
+    //                     )
                     
-               )
-           )
-        ),
+    //            )
+    //        )
+    //     ),
        
-    ));
+    // ));
 }
 
 
