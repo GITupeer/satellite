@@ -19,7 +19,46 @@ function scenarios($queryText, $update) {
     }   
 
 
-    echo '{ "payload": { "google": { "expectUserResponse": true, "richResponse": { "items": [ { "simpleResponse": { "textToSpeech": "This is a Basic Card:" } }, { "basicCard": { "title": "Card Title", "image": { "url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png", "accessibilityText": "Google Logo" }, "buttons": [ { "title": "Button Title", "openUrlAction": { "url": "https://www.google.com" } } ], "imageDisplayOptions": "WHITE" } } ] } } } }';
+    echo '{ 
+        "payload": 
+        { "google": 
+            { 
+                "expectUserResponse": true, 
+                "richResponse": 
+                { "items": 
+                    [ 
+                        { 
+                            "simpleResponse": 
+                            { 
+                                "textToSpeech": "Here is exit properties:" 
+                            } 
+                        }, 
+                        { 
+                            "basicCard": 
+                            { "title": "Card Title", 
+                                "image": 
+                                { 
+                                    "url": "http://exitrealty.com/img/logo-small.png", 
+                                    "accessibilityText": "EXIT Logo" 
+                                }, 
+                                "buttons": 
+                                [ 
+                                    { 
+                                        "title": "Open", 
+                                        "openUrlAction": 
+                                        { 
+                                            "url": "https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973" 
+                                        } 
+                                    } 
+                                ], 
+                                "imageDisplayOptions": "WHITE" 
+                            } 
+                        } 
+                        ] 
+                    } 
+                } 
+            } 
+        }';
 
 
     // sendMessage(array(
