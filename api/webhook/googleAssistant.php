@@ -30,6 +30,10 @@ function scenarios($queryText, $update) {
                 )
             ],
             ),
+        "linkOutSuggestion" => array(
+            "url" => 'http://google.com',
+            "destinationName": 'Suggestet Link'
+        )
        
     ));
 }
