@@ -35,7 +35,7 @@ function scenarios($queryText, $update) {
                         }, 
                         { 
                             "basicCard": 
-                            { "title": "Card Title", 
+                            { "title": "Real estate in your area!", 
                                 "image": 
                                 { 
                                     "url": "http://exitrealty.com/img/logo-small.png", 
@@ -44,7 +44,7 @@ function scenarios($queryText, $update) {
                                 "buttons": 
                                 [ 
                                     { 
-                                        "title": "Open", 
+                                        "title": "Check Properties", 
                                         "openUrlAction": 
                                         { 
                                             "url": "https://myexit.co/?&latitude=40.7257953&longitude=-74.1868973" 
