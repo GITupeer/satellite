@@ -23,7 +23,7 @@ function scenarios($queryText, $update) {
         "speech" => $webhookText,
         "data" => array(
             "google" => array(
-                "richResponse" = >array(
+                "richResponse" => array(
                     "items"=>[
                         array(
                             "simpleResponse"=>
